@@ -1,0 +1,48 @@
+{% extends "core/base.html" %}
+{% load static %}
+
+{% block title %}Inicio - Recetario{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="text-center mb-4">Recetario</h2>
+
+    <div class="row g-4">
+        {% for recipe in recipes %}
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm">
+                <!-- Imagen de la receta -->
+                {% if recipe.image %}
+                    <img src="{{ recipe.image.url }}" class="card-img-top" alt="{{ recipe.name }}">
+                {% else %}
+                    <img src="{% static 'yum_users/recipe_img/default.png' %}" class="card-img-top" alt="Receta">
+                {% endif %}
+
+                <!-- Info de la receta -->
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">{{ recipe.name }}</h5>
+                    <p class="card-text">
+                        <strong>Calorías:</strong> {{ recipe.calories }} kcal <br>
+                        <strong>Proteínas:</strong> {{ recipe.protein }} g <br>
+                        <strong>Carbohidratos:</strong> {{ recipe.carbs }} g <br>
+                        <strong>Grasas:</strong> {{ recipe.fat }} g
+                    </p>
+
+                    <!-- Calificación promedio -->
+                    <p class="mt-auto">
+                        ⭐ {{ recipe.avg_rating|default:"Sin calificar" }}
+                    </p>
+
+                    <!-- Botón ver más -->
+                    <a href="{% url 'recipe_detail' recipe.id %}" class="btn btn-brand w-100 mt-2">
+                        Ver receta
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <p class="text-center">No hay recetas disponibles aún.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

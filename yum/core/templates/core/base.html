@@ -26,7 +26,12 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="#">Inicio</a></li>
+                     <li class="nav-item">
+                        <form action="{% url 'logout' %}" method="post" style="display: inline;">
+                            {% csrf_token %}
+                            <button type="submit" class="nav-link">Cerrar sesión</button>
+                        </form>
+                    </li>
                     <li class="nav-item"><a class="nav-link" href="#">Sobre</a></li>
                     <li class="nav-item"><a class="nav-link" href="#">Servicios</a></li>
                     <li class="nav-item"><a class="nav-link" href="#">Contacto</a></li>
@@ -45,7 +50,7 @@
     <!-- Footer -->
     <footer>
         <div class="container">
-            <p>&copy; {{ year|default:"2025" }} Mi Proyecto - Todos los derechos reservados</p>
+            <p>&copy; {{ year|default:"2025" }} YUM - Todos los derechos reservados</p>
         </div>
     </footer>
 

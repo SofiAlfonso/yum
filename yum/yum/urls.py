@@ -20,6 +20,6 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('accounts.urls')),  # Rutas para registro e inicio de sesión
-    path('admin/', include('yum_admins.urls')),  # Rutas para yum_admins
-    path('user/', include('yum_users.urls')),    # Rutas para yum_users
+    path('admin_dash/', include('yum_admins.urls')),  # Rutas para yum_admins
+    path('user_dash/', include('yum_users.urls')),    # Rutas para yum_users
 ]
