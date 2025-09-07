@@ -1,0 +1,96 @@
+:root {
+    --brand-green: #23b387;
+    --brand-white: #ffffff;
+    --brand-black: #000000;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: var(--brand-white);
+    color: var(--brand-black);
+}
+
+/* Navbar */
+.navbar {
+    background-color: var(--brand-green);
+}
+
+.navbar-brand, 
+.navbar-nav .nav-link {
+    color: var(--brand-white) !important;
+}
+
+.navbar-nav .nav-link:hover {
+    color: var(--brand-black) !important;
+}
+
+/* Buttons */
+.btn-brand {
+    background-color: var(--brand-green) !important;
+    color: var(--brand-white) !important;
+    border: none !important;
+}
+
+.btn-brand:hover {
+    background-color: #1d9470 !important;
+    color: var(--brand-white) !important;
+}
+
+/* Forms */
+
+/* Authentication Card */
+.auth-card {
+  max-width: 400px;
+  margin: 40px auto;
+  padding: 30px;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.auth-title {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 1.6rem;
+  font-weight: bold;
+}
+
+.auth-form .form-group {
+  margin-bottom: 16px;
+}
+
+.auth-form label {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 6px;
+}
+
+.auth-form input, 
+.auth-form select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.form-text {
+  font-size: 0.8rem;
+  color: #666;
+}
+
+.auth-footer {
+  text-align: center;
+  margin-top: 15px;
+  font-size: 0.9rem;
+}
+
+
+/* Footer */
+footer {
+    background-color: var(--brand-green);
+    color: var(--brand-white);
+    padding: 1rem 0;
+    text-align: center;
+    margin-top: 2rem;
+}

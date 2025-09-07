@@ -3,7 +3,7 @@ from django.contrib.auth.models import AbstractUser
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes.fields import GenericForeignKey
-from.services import calculate_nutritional_value
+from .services.nutritional_value import calculate_nutritional_value
 
 
 # User model with roles and favorite recipes

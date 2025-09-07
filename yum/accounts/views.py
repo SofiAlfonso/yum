@@ -4,19 +4,19 @@ from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth import login
 from django.contrib import messages
 from core.models import User
-from .forms import RegisterForm, LoginForm
+from .forms import RegisterForm,CustomLoginForm
 
 
 class RegisterView(CreateView):
     model = User
     form_class = RegisterForm
-    template_name = "register.html"
+    template_name = "accounts/register.html"
 
     def get_success_url(self):
         # Redirigir según el rol del usuario
         if self.object.role == "admin":
-            return reverse_lazy("admin_dashboard")  # TODO: ruta para yum_admins
-        return reverse_lazy("user_dashboard")      # TODO: ruta para yum_users
+            return reverse_lazy("#")  # TODO: ruta para yum_admins
+        return reverse_lazy("#")      # TODO: ruta para yum_users
 
     def form_valid(self, form):
         user = form.save()
@@ -26,15 +26,15 @@ class RegisterView(CreateView):
 
 
 class CustomLoginView(LoginView):
-    template_name = "login.html"
-    authentication_form = LoginForm
+    template_name = "accounts/login.html"
+    authentication_form = CustomLoginForm 
     redirect_authenticated_user = True
 
     def get_success_url(self):
         user = self.request.user
         if user.role == "admin":
-            return reverse_lazy("admin_dashboard")  # TODO: vista para admins
-        return reverse_lazy("user_dashboard")      # TODO: vista para comunes
+            return reverse_lazy("#")  # TODO: vista para admins
+        return reverse_lazy("#")      # TODO: vista para comunes
 
 
 class CustomLogoutView(LogoutView):
