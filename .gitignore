@@ -1,0 +1,6 @@
+# Virtual environment
+venv/
+
+# Django migrations
+*/migrations/*
+!*/migrations/__init__.py
