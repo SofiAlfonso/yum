@@ -1,5 +1,5 @@
 from django import forms
-from core.models import IngredientType
+from core.models import IngredientType, Ingredient
 
 class CommaSeparatedListField(forms.CharField):
     def to_python(self, value):
@@ -48,3 +48,14 @@ class IngredientTypeForm(forms.ModelForm):
             raise forms.ValidationError("Ya existe un tipo de ingrediente con este nombre.")
 
         return nombre
+
+
+class IngredientForm(forms.ModelForm):
+    class Meta:
+        model = Ingredient
+        fields = ["ingredient_type", "quantity", "unit"]
+        widgets = {
+            "ingredient_type": forms.Select(attrs={"class": "form-control"}),
+            "quantity": forms.NumberInput(attrs={"class": "form-control", "step": "0.01"}),
+            "unit": forms.TextInput(attrs={"class": "form-control"}),
+        }
