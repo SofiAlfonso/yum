@@ -21,6 +21,11 @@
               <p class="card-text"><strong>Excesos:</strong> {{ ingredient.excesses|join:", " }}</p>
             {% endif %}
           </div>
+          <div class="card-footer d-flex justify-content-between">
+            {% if ingredient.user == request.user %}
+                <a href="{% url 'ingredienttype_edit' ingredient.pk %}" class="btn btn-brand">Editar</a>
+            {% endif %}
+          </div>
         </div>
       </div>
     {% empty %}

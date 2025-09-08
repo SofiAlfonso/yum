@@ -39,6 +39,12 @@ class IngredientTypeForm(forms.ModelForm):
     
     def clean_nombre(self):
         nombre = self.cleaned_data["nombre"].strip()
-        if IngredientType.objects.filter(nombre__iexact=nombre).exists():
-            raise forms.ValidationError("Este nombre ya está registrado. Debe ser único.")
+        qs = IngredientType.objects.filter(nombre__iexact=nombre)
+
+        if self.instance.pk:
+            qs = qs.exclude(pk=self.instance.pk)
+
+        if qs.exists():
+            raise forms.ValidationError("Ya existe un tipo de ingrediente con este nombre.")
+
         return nombre
