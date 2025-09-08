@@ -1,5 +1,7 @@
 from django import forms
-from core.models import IngredientType, Ingredient
+from django.forms import inlineformset_factory
+from core.models import IngredientType, Ingredient, Instruction, Recipe
+from datetime import timedelta
 
 class CommaSeparatedListField(forms.CharField):
     def to_python(self, value):
@@ -58,4 +60,24 @@ class IngredientForm(forms.ModelForm):
             "ingredient_type": forms.Select(attrs={"class": "form-control"}),
             "quantity": forms.NumberInput(attrs={"class": "form-control", "step": "0.01"}),
             "unit": forms.TextInput(attrs={"class": "form-control"}),
+        }
+
+class RecipeForm(forms.ModelForm):
+    class Meta:
+        model = Recipe
+        fields = ["title", "description", "category", "preparation_time", "portions"]
+        widgets = {
+            "description": forms.Textarea(attrs={"rows": 4,'class': 'form-control rounded' }),
+            "preparation_time": forms.TextInput(attrs={"placeholder": "Ejemplo: 1:30:00 para 1h 30min", 'class': 'form-control rounded'}),
+            "title": forms.TextInput(attrs={'class': 'form-control rounded'}),
+            "category": forms.Select(attrs={'class': 'form-control rounded'}),
+            "portions": forms.NumberInput(attrs={'class': 'form-control rounded'}),
+        }
+
+class InstructionForm(forms.ModelForm):
+    class Meta:
+        model = Instruction
+        fields = ["title", "details", "complexity", "n_step"]
+        widgets = {
+            "details": forms.Textarea(attrs={"rows": 3}),
         }

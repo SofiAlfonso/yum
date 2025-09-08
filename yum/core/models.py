@@ -79,10 +79,24 @@ class Ingredient(models.Model):
 
 # Recipe model 
 class Recipe(models.Model):
+    CATEGORY_CHOICES = [
+    ('plato fuerte', 'Plato fuerte'),
+    ('entrada', 'Entrada'),
+    ('pasabocas', 'Pasabocas'),
+    ('postre', 'Postre'),
+    ('acompañamiento', 'Acompañamiento'),
+    ('ensalada', 'Ensalada'),
+    ('bebida', 'Bebida'),
+    ]
+
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="recipes")
     title = models.CharField(max_length=200)
     description = models.TextField()
-    category = models.CharField(max_length=100)
+    category = models.CharField(
+        max_length=20,
+        choices=CATEGORY_CHOICES,
+        default='plato fuerte'
+    )
     creation_date = models.DateTimeField(auto_now_add=True)
     preparation_time = models.DurationField()
     portions = models.PositiveIntegerField()
