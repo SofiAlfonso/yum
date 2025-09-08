@@ -21,8 +21,9 @@
             {% if not view.object %}
                 <button type="submit" class="btn btn-brand">Añadir ingredientes e instrucciones</button>
             {% else %}
-            <div class="mt-3">
-                <a href="{% url 'user_home' %}" class="btn btn-brand">Guardar y salir</a>
+            <div class="mt-3 row-justify-content-between">
+                <button type="submit" class="btn btn-brand">Guardar </button>
+                <a href="{% url 'user_home' %}" class="btn btn-secondary">Salir</a>
             </div>
             {% endif %}
         </form>
@@ -44,7 +45,28 @@
         {% empty %}
             <p>No hay ingredientes agregados.</p>
         {% endfor %}
+
+         <!-- Lista de instrucciones -->
+        <hr>
+        <h3>Instrucciones</h3>
+        <div class="mb-3">
+            <a href="{% url 'instruction_add' view.object.id %}" class="btn btn-brand">Añadir instrucción</a>
+        </div>
+        {% for instruction in view.object.instructions.all %}
+            <div class="card mb-2 p-2">
+                <strong>{{ instruction }}</strong> 
+                <div class="mt-1">
+                    <a href="{% url 'instruction_edit' instruction.id %}" class="btn btn-sm btn-brand">Editar</a>
+                    <a href="{% url 'instruction_delete' instruction.id %}" class="btn btn-sm btn-secondary">Eliminar</a>
+                </div>
+            </div>
+        {% empty %}
+            <p>No hay ingredientes agregados.</p>
+        {% endfor %}
+      
         {% endif %}
+
+       
     </div>
 </div>
 {% endblock %}

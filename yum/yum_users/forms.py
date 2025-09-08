@@ -79,5 +79,8 @@ class InstructionForm(forms.ModelForm):
         model = Instruction
         fields = ["title", "details", "complexity", "n_step"]
         widgets = {
-            "details": forms.Textarea(attrs={"rows": 3}),
+            "details": forms.Textarea(attrs={"rows": 3, 'class': 'form-control rounded'}),
+            "title": forms.TextInput(attrs={'class': 'form-control rounded'}),
+            "complexity": forms.NumberInput(attrs={'class': 'form-control rounded', 'placeholder': '1-5'}),
+            "n_step": forms.NumberInput(attrs={'class': 'form-control rounded'}),
         }

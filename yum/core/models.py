@@ -140,7 +140,7 @@ class Instruction(models.Model):
     n_step = models.PositiveIntegerField()  # número de paso
 
     def __str__(self):
-        return f"{self.recipe.title} - Paso {self.n_step}: {self.title}"
+        return f"Paso {self.n_step}: {self.title}"
     
 
 # Multimedia model for recipe and review images

@@ -5,7 +5,7 @@
 {% block content %}
 <div class="row">
     <div class="col-md-6 offset-md-3">
-        <h2 class="mb-4">{% if object %}Editar ingrediente{% else %}Añadir ingrediente{% endif %}</h2>
+        <h2 class="mb-4">{% if object %}Editar instrucción{% else %}Añadir instrucción{% endif %}</h2>
 
         <form method="post">
             {% csrf_token %}
@@ -23,7 +23,7 @@
 
             <div class="d-flex justify-content-between mt-3">
                 <button type="submit" class="btn btn-brand">
-                    {% if object %}Guardar cambios{% else %}Añadir ingrediente{% endif %}
+                    {% if object %}Guardar cambios{% else %}Añadir instrucción {% endif %}
                 </button>
                 <a href="{% url 'recipe_edit' recipe.id %}" class="btn btn-secondary">Cancelar</a>
             </div>

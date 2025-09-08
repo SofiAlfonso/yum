@@ -19,8 +19,8 @@
                 <div class="card-body d-flex flex-column">
                     <h5 class="card-title text-primary fw-bold">{{ recipe.name }}</h5>
                     
-                    <p class="text-muted small mb-2">{{ recipe.title }}</p>
-                    <p class="card-text mb-3">{{ recipe.description }}</p>
+                    <p class="card-text mb-3">{{ recipe.title }}</p>
+                    <p class="text-muted small mb-2">{{ recipe.description }}</p>
 
                     <!-- Detalles de receta -->
                     <ul class="list-unstyled mb-3">
@@ -30,11 +30,14 @@
                         <li>
                             <strong>Porciones:</strong> {{ recipe.portions }}
                         </li>
+                        <li>
+                            <strong>Valor nutricional:</strong> {{ recipe.nutritional_value }}
+                        </li>
                     </ul>
 
                     <!-- Calificación promedio -->
                     <p class="mt-auto text-warning">
-                        ⭐ {{ recipe.avg_rating|default:"Sin calificar" }}
+                        ⭐ {{ recipe.media_score|default:"Sin calificar" }}
                     </p>
 
                     <!-- Botón editar -->
