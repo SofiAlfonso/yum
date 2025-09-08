@@ -35,11 +35,15 @@ class IngredientTypeCreateView(LoginRequiredMixin, CreateView):
             return redirect(self.login_url) 
         return super().dispatch(request, *args, **kwargs)
 
-class IngredientTypeListView(ListView):
+class IngredientTypeListView(LoginRequiredMixin, ListView):
     model = IngredientType
     template_name = "yum_users/ingredient_type/list.html"
     context_object_name = "ingredient_types"
     login_url = "login"
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user 
+        return super().form_valid(form)
 
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_authenticated:

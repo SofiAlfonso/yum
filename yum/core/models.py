@@ -5,6 +5,7 @@ from django.contrib.auth.models import AbstractUser
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes.fields import GenericForeignKey
+from django.conf import settings
 from .services.nutritional_value import calculate_nutritional_value
 
 
@@ -49,12 +50,21 @@ class IngredientType(models.Model):
     vitamins = models.JSONField(blank=True, null=True)  # lista de strings en formato json
     excesses = models.JSONField(blank=True, null=True)  # lista de strings en formato json
 
+    user = models.ForeignKey( 
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="ingredient_types",
+        null=True, blank=True
+    )
+
+
     def save(self, *args, **kwargs):
         self.nombre = self.nombre.lower()
         super().save(*args, **kwargs)
 
     def __str__(self):
         return self.nombre
+    
     
 # Ingredient model linked to IngredientType
 class Ingredient(models.Model):
