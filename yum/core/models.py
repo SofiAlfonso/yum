@@ -1,4 +1,6 @@
 from django.db import models
+from django.db.models import UniqueConstraint
+from django.db.models.functions import Lower
 from django.contrib.auth.models import AbstractUser
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.contrib.contenttypes.models import ContentType
@@ -34,10 +36,22 @@ class User(AbstractUser):
     
 # IngeredientType model with nutritional information
 class IngredientType(models.Model):
+    CATEGORY_CHOICES = [
+        ('vegetal', 'Vegetal'),
+        ('animal', 'Animal'),
+        ('mineral', 'Mineral'),
+        ('procesado', 'Procesado'),
+        ('ultraprocesado', 'Ultraprocesado'),
+    ]
+
     nombre = models.CharField(max_length=100, unique=True)
-    category = models.CharField(max_length=100)
+    category = models.CharField(max_length=20, choices=CATEGORY_CHOICES)
     vitamins = models.JSONField(blank=True, null=True)  # lista de strings en formato json
     excesses = models.JSONField(blank=True, null=True)  # lista de strings en formato json
+
+    def save(self, *args, **kwargs):
+        self.nombre = self.nombre.lower()
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.nombre

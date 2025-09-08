@@ -44,6 +44,8 @@ body {
     background-color: var(--brand-green) !important;
     color: var(--brand-white) !important;
     border: none !important;
+    border-radius: 12px !important;
+
 }
 
 .btn-brand:hover {

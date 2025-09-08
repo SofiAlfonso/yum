@@ -1,0 +1,31 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="mb-0">Catálogo de Tipos de Ingrediente</h1>
+     <a href="{% url 'ingredienttype_add' %}" class="btn btn-brand">Nuevo Tipo de Ingrediente</a>
+  </div>
+
+  <div class="row">
+    {% for ingredient in ingredient_types %}
+      <div class="col-md-3 mb-4">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title">{{ ingredient.nombre }}</h5>
+            <p class="card-text">Categoría: {{ ingredient.category }}</p>
+            {% if ingredient.vitamins %}
+              <p class="card-text"><strong>Vitaminas:</strong> {{ ingredient.vitamins|join:", " }}</p>
+            {% endif %}
+            {% if ingredient.excesses %}
+              <p class="card-text"><strong>Excesos:</strong> {{ ingredient.excesses|join:", " }}</p>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    {% empty %}
+      <p class="text-center">No hay tipos de ingredientes registrados.</p>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}
