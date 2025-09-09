@@ -1,12 +1,11 @@
 from django.shortcuts import redirect, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView, DetailView
-from core.models import Recipe, IngredientType, Ingredient, Instruction
+from core.models import Recipe, IngredientType, Ingredient, Instruction, Review
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
-from .forms import IngredientTypeForm, IngredientForm, RecipeForm, InstructionForm
+from .forms import IngredientTypeForm, IngredientForm, RecipeForm, InstructionForm, ReviewForm
 from django.core.exceptions import PermissionDenied
-from django.shortcuts import render
 
 class HomeView(LoginRequiredMixin, ListView):
     model = Recipe
@@ -350,3 +349,35 @@ class InstructionDeleteView(LoginRequiredMixin, DeleteView):
 
     def get_success_url(self):
         return reverse_lazy("recipe_edit", kwargs={"pk": self.ingredient.recipe.id})
+
+# Review View 
+
+class ReviewCreateView(LoginRequiredMixin, CreateView):
+    model = Review
+    form_class = ReviewForm
+    template_name = "yum_users/review/add.html"
+    login_url = "login"
+
+    def form_valid(self, form):
+        recipe = get_object_or_404(Recipe, pk=self.kwargs["pk"])
+        form.instance.user = self.request.user
+        form.instance.recipe = recipe
+        recipe.update_media_score()
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy("recipe_detail", kwargs={"pk": self.kwargs["pk"]})
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        recipe = get_object_or_404(Recipe, pk=self.kwargs["pk"])
+        context["recipe"] = recipe
+        return context
+    
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return redirect(self.login_url)
+         
+        if request.user.role != "common":
+            return redirect(self.login_url) 
+        return super().dispatch(request, *args, **kwargs)

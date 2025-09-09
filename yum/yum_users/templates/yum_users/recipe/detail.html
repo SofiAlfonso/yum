@@ -65,10 +65,13 @@
         {% endfor %}
       </ul>
 
+      <a href="{% url 'review_add' recipe.pk %}" class="btn btn-brand">Escribir una reseña</a>
+
       <!-- Botón volver -->
       <div class="mt-4">
         <a href="{% url 'user_home' %}" class="btn btn-secondary">Volver</a>
       </div>
+
     </div>
   </div>
 </div>

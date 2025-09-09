@@ -2,7 +2,8 @@ from django.urls import path
 from .views import (HomeView, IngredientTypeCreateView, IngredientTypeListView, IngredientDetailView, 
                     IngredientTypeUpdateView, IngredientTypeDeleteView, IngredientCreateView,
                     IngredientUpdateView, IngredientDeleteView, RecipeCreateView, RecipeUpdateView,
-                    RecipeDetailView, InstructionCreateView, InstructionUpdateView, InstructionDeleteView)
+                    RecipeDetailView, InstructionCreateView, InstructionUpdateView, InstructionDeleteView,
+                    ReviewCreateView)
 
 
 urlpatterns = [
@@ -29,5 +30,8 @@ urlpatterns = [
   path("recipes/<int:recipe_id>/instructions/add/", InstructionCreateView.as_view(), name="instruction_add"),
   path("instructions/<int:pk>/edit/", InstructionUpdateView.as_view(), name="instruction_edit"),
   path("instructions/<int:pk>/delete/", InstructionDeleteView.as_view(), name="instruction_delete"),
+
+  # Review URLs
+  path("recipes/<int:pk>/reviews/add/", ReviewCreateView.as_view(), name="review_add"),
 
 ]
