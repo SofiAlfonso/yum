@@ -2,11 +2,12 @@ from django.shortcuts import redirect, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView, DetailView
 from django.views import View
-from core.models import Recipe, IngredientType, Ingredient, Instruction, Review
+from core.models import Recipe, IngredientType, Ingredient, Instruction, Review, Multimedia
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
-from .forms import IngredientTypeForm, IngredientForm, RecipeForm, InstructionForm, ReviewForm, RecipeFilterForm
+from .forms import IngredientTypeForm, IngredientForm, RecipeForm, InstructionForm, ReviewForm, RecipeFilterForm, MultimediaForm
 from django.core.exceptions import PermissionDenied
+from django.contrib.contenttypes.models import ContentType
 
 class HomeView(LoginRequiredMixin, ListView):
     model = Recipe
@@ -246,8 +247,23 @@ class RecipeCreateView(LoginRequiredMixin, CreateView):
     template_name = "yum_users/recipe/add.html"
     login_url = "login"
 
+    def get_context_data(self, **kwargs):
+        ctx = super().get_context_data(**kwargs)
+        if self.request.POST:
+            ctx["media_form"] = MultimediaForm(self.request.POST, self.request.FILES)
+        else:
+            ctx["media_form"] = MultimediaForm()
+        return ctx
+
     def form_valid(self, form):
         form.instance.user = self.request.user
+        media_form = MultimediaForm(self.request.POST, self.request.FILES)
+        if media_form.is_valid():
+            file = media_form.cleaned_data["file"]
+            Multimedia.objects.create(
+                file=file,
+                content_object=self.object 
+            )
         return super().form_valid(form)
 
     def get_success_url(self):
@@ -266,6 +282,48 @@ class RecipeUpdateView(LoginRequiredMixin, UpdateView):
     form_class = RecipeForm
     template_name = "yum_users/recipe/add.html"
     login_url = "login"
+
+    def get_context_data(self, **kwargs):
+        ctx = super().get_context_data(**kwargs)
+        recipe = self.get_object()
+        existing_media = Multimedia.objects.filter(
+            content_type=ContentType.objects.get_for_model(Recipe),
+            object_id=recipe.id
+        ).first()
+
+        if self.request.POST:
+            ctx["media_form"] = MultimediaForm(
+                self.request.POST,
+                self.request.FILES,
+                instance=existing_media
+            )
+        else:
+            ctx["media_form"] = MultimediaForm(instance=existing_media)
+
+        return ctx
+
+    def form_valid(self, form):
+        recipe = form.save(commit=False)
+        recipe.user = self.request.user
+        recipe.save()
+
+        existing_media = Multimedia.objects.filter(
+            content_type=ContentType.objects.get_for_model(Recipe),
+            object_id=recipe.id
+        ).first()
+
+        media_form = MultimediaForm(
+            self.request.POST,
+            self.request.FILES,
+            instance=existing_media
+        )
+
+        if media_form.is_valid():
+            media = media_form.save(commit=False)
+            media.content_object = recipe
+            media.save()
+
+        return redirect(self.get_success_url())
 
     def get_object(self, queryset=None):
         obj = super().get_object(queryset)

@@ -1,5 +1,4 @@
 from django.db import models
-from django.db.models import UniqueConstraint
 from django.db.models.functions import Lower
 from django.contrib.auth.models import AbstractUser
 from django.core.validators import MinValueValidator, MaxValueValidator
@@ -101,9 +100,19 @@ class Recipe(models.Model):
     preparation_time = models.DurationField()
     portions = models.PositiveIntegerField()
 
+
     # Campos calculados
     nutritional_value = models.IntegerField(default=0, editable=False)  # IA
     media_score = models.FloatField(default=0, editable=False)  # promedio reseñas
+
+    @property
+    def image(self):
+        content_type = ContentType.objects.get_for_model(self)
+        media = Multimedia.objects.filter(
+            content_type=content_type,
+            object_id=self.id
+        ).first()
+        return media.file.url if media and media.file else None
 
     def __str__(self):
         return self.title

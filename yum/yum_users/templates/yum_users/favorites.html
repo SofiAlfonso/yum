@@ -25,8 +25,14 @@
                     {% endif %}
                 </form>
                 <!-- Imagen de la receta -->
-    
-                    <img src="{% static 'yum_users/recipe_img/default.png' %}" class="card-img-top" alt="Receta">
+                {% if recipe.image %}
+                    <img src="{{ recipe.image }}" alt="{{ recipe.title }}" class="card-img-top">
+                
+                {% else %}
+
+                    <img src="{% static 'yum_users/recipe_img/default.png' %}" class="card-img-top recipe-img" alt="Receta">
+                    
+                {% endif %}
 
                 <!-- Info de la receta -->
                 <div class="card-body d-flex flex-column">

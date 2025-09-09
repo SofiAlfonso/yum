@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import inlineformset_factory
-from core.models import IngredientType, Ingredient, Instruction, Recipe, Review
+from core.models import IngredientType, Ingredient, Instruction, Recipe, Review, Multimedia
 
 class CommaSeparatedListField(forms.CharField):
     def to_python(self, value):
@@ -119,3 +119,11 @@ class RecipeFilterForm(forms.Form):
         label="Valor nutricional máximo",
         widget=forms.NumberInput(attrs={"class": "form-control"})
     )
+
+class MultimediaForm(forms.ModelForm):
+    class Meta:
+        model = Multimedia
+        fields = ["file"]
+        widgets = {
+            "file": forms.ClearableFileInput(attrs={"multiple": False, "class": "form-control"}),  
+        }

@@ -13,9 +13,16 @@
         Porciones: <strong>{{ recipe.portions }}</strong>
       </p>
 
-      <img src="{% static 'yum_users/recipe_img/default.png' %}" class="card-img-top recipe-img" alt="Receta">
+    {% if recipe.image %}
+        <img src="{{ recipe.image }}" alt="{{ recipe.title }}" class="card-img-top">
+    
+    {% else %}
 
+        <img src="{% static 'yum_users/recipe_img/default.png' %}" class="card-img-top recipe-img" alt="Receta">
 
+    {% endif %}
+
+    
       <!-- Descripción -->
       <p class="card-text">{{ recipe.description }}</p>
 
