@@ -115,7 +115,8 @@ class Recipe(models.Model):
     def update_media_score(self):
         scores = self.reviews.all().values_list("score", flat=True)
         if scores:
-            self.media_score = sum(scores) / len(scores)
+            avg = sum(scores) / len(scores)
+            self.media_score = round(avg, 1)
             self.save(update_fields=["media_score"])
 
 

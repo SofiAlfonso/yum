@@ -362,7 +362,6 @@ class ReviewCreateView(LoginRequiredMixin, CreateView):
         recipe = get_object_or_404(Recipe, pk=self.kwargs["pk"])
         form.instance.user = self.request.user
         form.instance.recipe = recipe
-        recipe.update_media_score()
         return super().form_valid(form)
 
     def get_success_url(self):
