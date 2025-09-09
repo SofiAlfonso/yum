@@ -3,7 +3,7 @@ from .views import (HomeView, IngredientTypeCreateView, IngredientTypeListView, 
                     IngredientTypeUpdateView, IngredientTypeDeleteView, IngredientCreateView,
                     IngredientUpdateView, IngredientDeleteView, RecipeCreateView, RecipeUpdateView,
                     RecipeDetailView, InstructionCreateView, InstructionUpdateView, InstructionDeleteView,
-                    ReviewCreateView)
+                    ReviewCreateView, FavoriteListView, ToggleFavoriteView)
 
 
 urlpatterns = [
@@ -33,5 +33,9 @@ urlpatterns = [
 
   # Review URLs
   path("recipes/<int:pk>/reviews/add/", ReviewCreateView.as_view(), name="review_add"),
+
+  # Favorites
+  path("favorites/", FavoriteListView.as_view(), name="favorites"),
+  path("favorite/<int:recipe_id>/toggle/", ToggleFavoriteView.as_view(), name="toggle_favorite"),
 
 ]

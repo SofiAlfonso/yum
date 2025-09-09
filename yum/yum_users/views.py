@@ -1,6 +1,7 @@
 from django.shortcuts import redirect, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView, DetailView
+from django.views import View
 from core.models import Recipe, IngredientType, Ingredient, Instruction, Review
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
@@ -401,6 +402,46 @@ class ReviewCreateView(LoginRequiredMixin, CreateView):
         recipe = get_object_or_404(Recipe, pk=self.kwargs["pk"])
         context["recipe"] = recipe
         return context
+    
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return redirect(self.login_url)
+         
+        if request.user.role != "common":
+            return redirect(self.login_url) 
+        return super().dispatch(request, *args, **kwargs)
+
+# Favorites
+
+class ToggleFavoriteView(LoginRequiredMixin, View):
+    login_url = "login"
+
+    def post(self, request, recipe_id, *args, **kwargs):
+        recipe = get_object_or_404(Recipe, id=recipe_id)
+
+        if recipe in request.user.favorite_recipes.all():
+            request.user.favorite_recipes.remove(recipe)  
+        else:
+            request.user.favorite_recipes.add(recipe)  
+
+        return redirect("user_home")  
+    
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return redirect(self.login_url)
+         
+        if request.user.role != "common":
+            return redirect(self.login_url) 
+        return super().dispatch(request, *args, **kwargs)
+
+class FavoriteListView(LoginRequiredMixin, ListView):
+    model = Recipe
+    template_name = "yum_users/favorites.html"
+    context_object_name = "recipes"
+    login_url = "login"
+
+    def get_queryset(self):
+        return self.request.user.favorite_recipes.all()
     
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_authenticated:

@@ -1,33 +1,11 @@
 {% extends "core/base.html" %}
 {% load static %}
 
-{% block title %}Inicio - Recetario{% endblock %}
+{% block title %}Favoritas{% endblock %}
 
 {% block content %}
 <div class="container mt-4">
-    <!-- Barra de filtros -->
-    <form method="get" class="row g-2 mb-4">
-        <div class="col-md-3">
-            {{ filter_form.name.label_tag }}
-            {{ filter_form.name }}
-        </div>
-        <div class="col-md-3">
-            {{ filter_form.ingredient_type.label_tag }}
-            {{ filter_form.ingredient_type }}
-        </div>
-        <div class="col-md-2">
-            {{ filter_form.min_value.label_tag }}
-            {{ filter_form.min_value }}
-        </div>
-        <div class="col-md-2">
-            {{ filter_form.max_value.label_tag }}
-            {{ filter_form.max_value }}
-        </div>
-        <div class="col-md-2 d-flex align-items-end">
-            <button type="submit" class="btn btn-brand w-100">Filtrar</button>
-        </div>
-    </form>
-    <h2 class="text-center mb-4">Recetario</h2>
+    <h2 class="text-center mb-4">Favoritas</h2>
 
     <div class="row g-4">
         {% for recipe in recipes %}
@@ -38,11 +16,11 @@
                     {% csrf_token %}
                     {% if recipe in user.favorite_recipes.all %}
                     <button type="submit" class="btn btn-danger btn-sm w-100">
-                        ❤️ 
+                        ❤️
                     </button>
                     {% else %}
                     <button type="submit" class="btn btn-outline-danger btn-sm w-100">
-                        🤍 
+                        🤍
                     </button>
                     {% endif %}
                 </form>
