@@ -118,8 +118,11 @@ class Recipe(models.Model):
         return self.title
 
     def save(self, *args, **kwargs):
-        self.nutritional_value = calculate_nutritional_value(self)
+        is_new = self.pk is None
         super().save(*args, **kwargs)
+        if is_new:
+            self.nutritional_value = calculate_nutritional_value(self)
+            super().save(update_fields=["nutritional_value"])
 
     def update_media_score(self):
         scores = self.reviews.all().values_list("score", flat=True)

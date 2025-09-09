@@ -247,23 +247,8 @@ class RecipeCreateView(LoginRequiredMixin, CreateView):
     template_name = "yum_users/recipe/add.html"
     login_url = "login"
 
-    def get_context_data(self, **kwargs):
-        ctx = super().get_context_data(**kwargs)
-        if self.request.POST:
-            ctx["media_form"] = MultimediaForm(self.request.POST, self.request.FILES)
-        else:
-            ctx["media_form"] = MultimediaForm()
-        return ctx
-
     def form_valid(self, form):
         form.instance.user = self.request.user
-        media_form = MultimediaForm(self.request.POST, self.request.FILES)
-        if media_form.is_valid():
-            file = media_form.cleaned_data["file"]
-            Multimedia.objects.create(
-                file=file,
-                content_object=self.object 
-            )
         return super().form_valid(form)
 
     def get_success_url(self):

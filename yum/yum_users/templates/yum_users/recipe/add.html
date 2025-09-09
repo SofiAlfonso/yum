@@ -8,7 +8,9 @@
         <h2 class="mb-4">{% if view.object %}Editar receta{% else %}Nueva receta{% endif %}</h2>
         <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
-            {{ media_form.as_p }}
+            {% if view.object %}
+                {{ media_form.as_p }}
+            {% endif %}
             {{ form.non_field_errors }}
             {% for field in form %}
                 <div class="mb-4">
@@ -29,7 +31,6 @@
             {% endif %}
         </form>
         {% if view.object %}
-        <!-- Lista de ingredientes -->
         <hr>
         <h3>Ingredientes</h3>
         <div class="mb-3">

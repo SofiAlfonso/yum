@@ -125,5 +125,5 @@ class MultimediaForm(forms.ModelForm):
         model = Multimedia
         fields = ["file"]
         widgets = {
-            "file": forms.ClearableFileInput(attrs={"multiple": False, "class": "form-control"}),  
+            "file": forms.ClearableFileInput(attrs={"multiple": False, "class": "form-control", "null": True, "blank": True}),  
         }
