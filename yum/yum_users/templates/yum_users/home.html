@@ -87,11 +87,11 @@
                         <a href="{% url 'recipe_edit' recipe.pk %}" class="btn btn-secondary mb-2">
                             ✏️ Editar receta
                         </a>
-                        <a href="{% url 'recipe_detail' recipe.pk %}" class="btn btn-sm btn-brand">
-                            Ver receta
-                        </a>
                     </div>
                     {% endif %}
+                     <a href="{% url 'recipe_detail' recipe.pk %}" class="btn btn-sm btn-brand">
+                            Ver receta
+                        </a>
                 </div>
             </div>
         </div>

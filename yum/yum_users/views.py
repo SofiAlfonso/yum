@@ -231,7 +231,7 @@ class RecipeDetailView(LoginRequiredMixin, DetailView):
     context_object_name = "recipe"
 
     def get_queryset(self):
-        return Recipe.objects.filter(user=self.request.user)
+        return Recipe.objects.all()
     
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
