@@ -92,3 +92,30 @@ class ReviewForm(forms.ModelForm):
             "score": forms.NumberInput(attrs={"min": 0, "max": 5, "class": "form-control"}),
             "comment": forms.Textarea(attrs={"class": "form-control", "rows": 3}),
         }
+
+class RecipeFilterForm(forms.Form):
+    name = forms.CharField(
+        required=False, 
+        label="Nombre de la receta",
+        widget=forms.TextInput(attrs={"class": "form-control"})
+    )
+    ingredient_type = forms.ModelChoiceField(
+        queryset=IngredientType.objects.all(),
+        required=False,
+        label="Tipo de ingrediente",
+        widget = forms.Select(attrs={"class": "form-control"})
+    )
+    min_value = forms.IntegerField(
+        required=False,
+        min_value=0,
+        max_value=100,
+        label="Valor nutricional mínimo",
+        widget=forms.NumberInput(attrs={"class": "form-control"})
+    )
+    max_value = forms.IntegerField(
+        required=False,
+        min_value=0,
+        max_value=100,
+        label="Valor nutricional máximo",
+        widget=forms.NumberInput(attrs={"class": "form-control"})
+    )

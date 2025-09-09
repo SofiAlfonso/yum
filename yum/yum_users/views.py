@@ -4,7 +4,7 @@ from django.views.generic import ListView, DetailView
 from core.models import Recipe, IngredientType, Ingredient, Instruction, Review
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
-from .forms import IngredientTypeForm, IngredientForm, RecipeForm, InstructionForm, ReviewForm
+from .forms import IngredientTypeForm, IngredientForm, RecipeForm, InstructionForm, ReviewForm, RecipeFilterForm
 from django.core.exceptions import PermissionDenied
 
 class HomeView(LoginRequiredMixin, ListView):
@@ -12,6 +12,35 @@ class HomeView(LoginRequiredMixin, ListView):
     template_name = "yum_users/home.html"
     context_object_name = "recipes"
     login_url = "login"
+
+    def get_queryset(self):
+        queryset = Recipe.objects.all().select_related("user").prefetch_related("ingredients")
+
+        form = RecipeFilterForm(self.request.GET)
+        if form.is_valid():
+            name = form.cleaned_data.get("name")
+            ingredient_type = form.cleaned_data.get("ingredient_type")
+            min_value = form.cleaned_data.get("min_value")
+            max_value = form.cleaned_data.get("max_value")
+
+            if name:
+                queryset = queryset.filter(title__icontains=name)
+
+            if ingredient_type:
+                queryset = queryset.filter(ingredients__ingredient_type=ingredient_type)
+
+            if min_value is not None:
+                queryset = queryset.filter(nutritional_value__gte=min_value)
+
+            if max_value is not None:
+                queryset = queryset.filter(nutritional_value__lte=max_value)
+
+        return queryset.distinct()
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["filter_form"] = getattr(self, "filter_form", RecipeFilterForm())
+        return context
 
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
