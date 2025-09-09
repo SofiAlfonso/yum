@@ -179,6 +179,19 @@ class IngredientDeleteView(LoginRequiredMixin, DeleteView):
     def get_success_url(self):
         return reverse_lazy("recipe_edit", kwargs={"pk": self.ingredient.recipe.id})
     
+class IngredientDetailView(DetailView):
+    model = Ingredient
+    template_name = "yum_users/ingredient/detail.html"
+    context_object_name = "ingredient"
+    login_url = "login"
+
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return redirect(self.login_url)
+        if request.user.role != "common":
+            return redirect(self.login_url)
+        return super().dispatch(request, *args, **kwargs)
+    
 
 # Recipe Views
 

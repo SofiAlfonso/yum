@@ -1,0 +1,75 @@
+{% extends "core/base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-4">
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <!-- Título -->
+      <h2 class="card-title">{{ recipe.title }}</h2>
+      <p class="text-muted">
+        Categoría: <strong>{{ recipe.category }}</strong> |
+        Tiempo de preparación: <strong>{{ recipe.preparation_time }}</strong> |
+        Porciones: <strong>{{ recipe.portions }}</strong>
+      </p>
+
+      <img src="{% static 'yum_users/recipe_img/default.png' %}" class="card-img-top recipe-img" alt="Receta">
+
+
+      <!-- Descripción -->
+      <p class="card-text">{{ recipe.description }}</p>
+
+      <!-- Valores calculados -->
+      <p><strong>Valor nutricional (IA):</strong> {{ recipe.nutritional_value }}/100</p>
+      <p><strong>Calificación promedio:</strong> {{ recipe.media_score|floatformat:1 }}/5 ⭐</p>
+
+      <!-- Ingredientes -->
+     <h4 class="mt-4">Ingredientes</h4>
+        <ul>
+        {% for ing in recipe.ingredients.all %}
+            <li>
+            <a href="{% url 'ingredient_detail' ing.id %}">
+                {{ ing.quantity }} {{ ing.unit }} de {{ ing.ingredient_type.nombre }}
+            </a>
+            </li>
+        {% empty %}
+            <li>No se han agregado ingredientes.</li>
+        {% endfor %}
+        </ul>
+
+      <!-- Instrucciones -->
+      <h4 class="mt-4">Instrucciones</h4>
+      <ol>
+        {% for step in recipe.instructions.all %}
+          <li>
+            <strong>Paso {{ step.n_step }}:</strong> {{ step.title }}  
+            <p>{{ step.details }}</p>
+            <small>Complejidad: {{ step.complexity }}/5</small>
+          </li>
+        {% empty %}
+          <p>No se han agregado instrucciones.</p>
+        {% endfor %}
+      </ol>
+
+      <!-- Reseñas -->
+      <h4 class="mt-4">Reseñas</h4>
+      <ul class="list-group">
+        {% for review in recipe.reviews.all %}
+          <li class="list-group-item">
+            <strong>{{ review.user.username }}</strong> calificó:
+            {{ review.score }}/5 ⭐  
+            <p>{{ review.comment }}</p>
+          </li>
+        {% empty %}
+          <li class="list-group-item">Aún no hay reseñas.</li>
+        {% endfor %}
+      </ul>
+
+      <!-- Botón volver -->
+      <div class="mt-4">
+        <a href="{% url 'user_home' %}" class="btn btn-secondary">Volver</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
