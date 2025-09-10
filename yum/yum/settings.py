@@ -136,3 +136,7 @@ AUTH_USER_MODEL = "core.User"
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+
+LOCALE_PATHS = [
+    os.path.join(BASE_DIR, 'resources', 'lang'),
+]

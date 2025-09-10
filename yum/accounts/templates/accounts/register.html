@@ -1,8 +1,10 @@
 {% extends 'core/base_auth.html' %}
+{% load i18n %}
+{% load static %}
 
 {% block content %}
 <div class="auth-card">
-  <h2 class="auth-title">Crear cuenta</h2>
+  <h2 class="auth-title">{% trans "Crear cuenta" %}</h2>
 
   <form method="post" class="auth-form">
     {% csrf_token %}
@@ -41,11 +43,11 @@
       {{ form.role.errors }}
     </div>
 
-    <button type="submit" class="btn-brand w-100">Registrarme</button>
+    <button type="submit" class="btn-brand w-100">{% trans "Registrarme" %}</button>
   </form>
 
   <p class="auth-footer">
-    ¿Ya tienes cuenta? <a href="{% url 'login' %}">Inicia sesión</a>
+    {% trans "¿Ya tienes cuenta?" %} <a href="{% url 'login' %}">{% trans "Inicia sesión" %}</a>
   </p>
 </div>
 {% endblock %}

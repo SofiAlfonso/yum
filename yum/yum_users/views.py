@@ -1,5 +1,4 @@
 from django.shortcuts import redirect, get_object_or_404
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView, DetailView
 from django.views import View
 from core.models import Recipe, IngredientType, Ingredient, Instruction, Review, Multimedia
@@ -8,12 +7,12 @@ from django.urls import reverse_lazy
 from .forms import IngredientTypeForm, IngredientForm, RecipeForm, InstructionForm, ReviewForm, RecipeFilterForm, MultimediaForm
 from django.core.exceptions import PermissionDenied
 from django.contrib.contenttypes.models import ContentType
+from core.mixins import CommonUserRequiredMixin
 
-class HomeView(LoginRequiredMixin, ListView):
+class HomeView(CommonUserRequiredMixin, ListView):
     model = Recipe
     template_name = "yum_users/home.html"
     context_object_name = "recipes"
-    login_url = "login"
 
     def get_queryset(self):
         queryset = Recipe.objects.all().select_related("user").prefetch_related("ingredients")
@@ -44,76 +43,44 @@ class HomeView(LoginRequiredMixin, ListView):
         context["filter_form"] = getattr(self, "filter_form", RecipeFilterForm())
         return context
 
-    def dispatch(self, request, *args, **kwargs):
-        if not request.user.is_authenticated:
-            return redirect(self.login_url)
-         
-        if request.user.role != "common":
-            return redirect(self.login_url) 
-        return super().dispatch(request, *args, **kwargs)
-
 # IngredientType Views
 
-class IngredientTypeCreateView(LoginRequiredMixin, CreateView):
+class IngredientTypeCreateView(CommonUserRequiredMixin, CreateView):
     model = IngredientType
     form_class = IngredientTypeForm
     template_name = "yum_users/ingredient_type/add.html"
     success_url = reverse_lazy("ingredienttype_list") 
-    login_url = "login"
-
-    def dispatch(self, request, *args, **kwargs):
-        if not request.user.is_authenticated:
-            return redirect(self.login_url)
-         
-        if request.user.role != "common":
-            return redirect(self.login_url) 
-        return super().dispatch(request, *args, **kwargs)
+    
     
     def form_valid(self, form):
         form.instance.user = self.request.user  
         return super().form_valid(form)
 
-class IngredientTypeListView(LoginRequiredMixin, ListView):
+class IngredientTypeListView(CommonUserRequiredMixin, ListView):
     model = IngredientType
     template_name = "yum_users/ingredient_type/list.html"
     context_object_name = "ingredient_types"
-    login_url = "login"
+    
 
     def form_valid(self, form):
         form.instance.user = self.request.user 
         return super().form_valid(form)
 
-    def dispatch(self, request, *args, **kwargs):
-        if not request.user.is_authenticated:
-            return redirect(self.login_url)
-         
-        if request.user.role != "common":
-            return redirect(self.login_url) 
-        return super().dispatch(request, *args, **kwargs)
-
-class IngredientTypeUpdateView(LoginRequiredMixin, UpdateView):
+class IngredientTypeUpdateView(CommonUserRequiredMixin, UpdateView):
     model = IngredientType
     form_class = IngredientTypeForm
     template_name = "yum_users/ingredient_type/add.html"
     success_url = reverse_lazy("ingredienttype_list")
-    login_url = "login"
+    
 
     def get_object(self, queryset=None):
         obj = super().get_object(queryset)
         if obj.user != self.request.user:
             raise PermissionDenied("No tienes permiso para editar este ingrediente.")
         return obj
-    
-    def dispatch(self, request, *args, **kwargs):
-        if not request.user.is_authenticated:
-            return redirect(self.login_url)
-         
-        if request.user.role != "common":
-            return redirect(self.login_url) 
-        return super().dispatch(request, *args, **kwargs)
 
 
-class IngredientTypeDeleteView(LoginRequiredMixin, DeleteView):
+class IngredientTypeDeleteView(CommonUserRequiredMixin, DeleteView):
     model = IngredientType
     template_name = "yum_users/ingredient_type/confirm_delete.html"
     success_url = reverse_lazy("ingredienttype_list")
@@ -123,29 +90,16 @@ class IngredientTypeDeleteView(LoginRequiredMixin, DeleteView):
         if obj.user != self.request.user:
             raise PermissionDenied("No tienes permiso para eliminar este ingrediente.")
         return obj
-     
-    def dispatch(self, request, *args, **kwargs):
-        if not request.user.is_authenticated:
-            return redirect(self.login_url)
-         
-        if request.user.role != "common":
-            return redirect(self.login_url) 
-        return super().dispatch(request, *args, **kwargs)
 
 # Ingredient Views
 
-class IngredientCreateView(LoginRequiredMixin, CreateView):
+class IngredientCreateView(CommonUserRequiredMixin, CreateView):
     model = Ingredient
     form_class = IngredientForm
     template_name = "yum_users/ingredient/add.html"
-    login_url = "login"
+    
 
     def dispatch(self, request, *args, **kwargs):
-        if not request.user.is_authenticated:
-            return redirect(self.login_url)
-        if request.user.role != "common":
-            return redirect(self.login_url)
-
         self.recipe = get_object_or_404(Recipe, pk=kwargs["recipe_id"])
         if self.recipe.user != request.user:
             raise PermissionDenied("No tienes permiso para añadir ingredientes a esta receta.")
@@ -164,18 +118,13 @@ class IngredientCreateView(LoginRequiredMixin, CreateView):
         return ctx
 
 
-class IngredientUpdateView(LoginRequiredMixin, UpdateView):
+class IngredientUpdateView(CommonUserRequiredMixin, UpdateView):
     model = Ingredient
     form_class = IngredientForm
     template_name = "yum_users/ingredient/add.html"
-    login_url = "login"
+    
 
     def dispatch(self, request, *args, **kwargs):
-        if not request.user.is_authenticated:
-            return redirect(self.login_url)
-        if request.user.role != "common":
-            return redirect(self.login_url)
-
         self.ingredient = self.get_object()
         if self.ingredient.recipe.user != request.user:
             raise PermissionDenied("No tienes permiso para editar este ingrediente.")
@@ -190,17 +139,12 @@ class IngredientUpdateView(LoginRequiredMixin, UpdateView):
         return ctx
 
 
-class IngredientDeleteView(LoginRequiredMixin, DeleteView):
+class IngredientDeleteView(CommonUserRequiredMixin, DeleteView):
     model = Ingredient
     template_name = "yum_users/ingredient/confirm_delete.html"
-    login_url = "login"
+    
 
     def dispatch(self, request, *args, **kwargs):
-        if not request.user.is_authenticated:
-            return redirect(self.login_url)
-        if request.user.role != "common":
-            return redirect(self.login_url)
-
         self.ingredient = self.get_object()
         if self.ingredient.recipe.user != request.user:
             raise PermissionDenied("No tienes permiso para eliminar este ingrediente.")
@@ -209,43 +153,27 @@ class IngredientDeleteView(LoginRequiredMixin, DeleteView):
     def get_success_url(self):
         return reverse_lazy("recipe_edit", kwargs={"pk": self.ingredient.recipe.id})
     
-class IngredientDetailView(DetailView):
+class IngredientDetailView(CommonUserRequiredMixin, DetailView):
     model = Ingredient
     template_name = "yum_users/ingredient/detail.html"
     context_object_name = "ingredient"
-    login_url = "login"
-
-    def dispatch(self, request, *args, **kwargs):
-        if not request.user.is_authenticated:
-            return redirect(self.login_url)
-        if request.user.role != "common":
-            return redirect(self.login_url)
-        return super().dispatch(request, *args, **kwargs)
     
 
 # Recipe Views
 
-class RecipeDetailView(LoginRequiredMixin, DetailView):
+class RecipeDetailView(CommonUserRequiredMixin, DetailView):
     model = Recipe
     template_name = "yum_users/recipe/detail.html"
     context_object_name = "recipe"
 
     def get_queryset(self):
         return Recipe.objects.all()
-    
-    def dispatch(self, request, *args, **kwargs):
-        if not request.user.is_authenticated:
-            return redirect(self.login_url)
-         
-        if request.user.role != "common":
-            return redirect(self.login_url) 
-        return super().dispatch(request, *args, **kwargs)
 
-class RecipeCreateView(LoginRequiredMixin, CreateView):
+class RecipeCreateView(CommonUserRequiredMixin, CreateView):
     model = Recipe
     form_class = RecipeForm
     template_name = "yum_users/recipe/add.html"
-    login_url = "login"
+    
 
     def form_valid(self, form):
         form.instance.user = self.request.user
@@ -254,19 +182,12 @@ class RecipeCreateView(LoginRequiredMixin, CreateView):
     def get_success_url(self):
         return reverse_lazy("recipe_edit", kwargs={"pk": self.object.pk})
     
-    def dispatch(self, request, *args, **kwargs):
-        if not request.user.is_authenticated:
-            return redirect(self.login_url)
-         
-        if request.user.role != "common":
-            return redirect(self.login_url) 
-        return super().dispatch(request, *args, **kwargs)
 
-class RecipeUpdateView(LoginRequiredMixin, UpdateView):
+class RecipeUpdateView(CommonUserRequiredMixin, UpdateView):
     model = Recipe
     form_class = RecipeForm
     template_name = "yum_users/recipe/add.html"
-    login_url = "login"
+    
 
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
@@ -318,19 +239,11 @@ class RecipeUpdateView(LoginRequiredMixin, UpdateView):
 
     def get_success_url(self):
         return reverse_lazy("recipe_edit", kwargs={"pk": self.object.pk})
-    
-    def dispatch(self, request, *args, **kwargs):
-        if not request.user.is_authenticated:
-            return redirect(self.login_url)
-         
-        if request.user.role != "common":
-            return redirect(self.login_url) 
-        return super().dispatch(request, *args, **kwargs)
 
-class RecipeDeleteView(LoginRequiredMixin, DeleteView):
+class RecipeDeleteView(CommonUserRequiredMixin, DeleteView):
     model = Recipe
     template_name = "yum_users/recipe/confirm_delete.html"
-    success_url = reverse_lazy("recipe_list")
+    success_url = reverse_lazy("user_home")
 
     def get_object(self, queryset=None):
         obj = super().get_object(queryset)
@@ -338,29 +251,16 @@ class RecipeDeleteView(LoginRequiredMixin, DeleteView):
             raise PermissionDenied("No puedes eliminar esta receta.")
         return obj
     
-    def dispatch(self, request, *args, **kwargs):
-        if not request.user.is_authenticated:
-            return redirect(self.login_url)
-         
-        if request.user.role != "common":
-            return redirect(self.login_url) 
-        return super().dispatch(request, *args, **kwargs)
-    
 
 # Instruction views
 
-class InstructionCreateView(LoginRequiredMixin, CreateView):
+class InstructionCreateView(CommonUserRequiredMixin, CreateView):
     model = Instruction
     form_class = InstructionForm
     template_name = "yum_users/instruction/add.html"
-    login_url = "login"
+    
 
     def dispatch(self, request, *args, **kwargs):
-        if not request.user.is_authenticated:
-            return redirect(self.login_url)
-        if request.user.role != "common":
-            return redirect(self.login_url)
-
         self.recipe = get_object_or_404(Recipe, pk=kwargs["recipe_id"])
         if self.recipe.user != request.user:
             raise PermissionDenied("No tienes permiso para añadir ingredientes a esta receta.")
@@ -378,18 +278,13 @@ class InstructionCreateView(LoginRequiredMixin, CreateView):
         ctx["recipe"] = self.recipe
         return ctx
 
-class InstructionUpdateView(LoginRequiredMixin, UpdateView):
+class InstructionUpdateView(CommonUserRequiredMixin, UpdateView):
     model = Instruction
     form_class = InstructionForm
     template_name = "yum_users/instruction/add.html"
-    login_url = "login"
+    
 
     def dispatch(self, request, *args, **kwargs):
-        if not request.user.is_authenticated:
-            return redirect(self.login_url)
-        if request.user.role != "common":
-            return redirect(self.login_url)
-
         self.instruction = self.get_object()
         if self.instruction.recipe.user != request.user:
             raise PermissionDenied("No tienes permiso para editar este ingrediente.")
@@ -404,17 +299,12 @@ class InstructionUpdateView(LoginRequiredMixin, UpdateView):
         return ctx
 
 
-class InstructionDeleteView(LoginRequiredMixin, DeleteView):
+class InstructionDeleteView(CommonUserRequiredMixin, DeleteView):
     model = Instruction
     template_name = "yum_users/instruction/confirm_delete.html"
-    login_url = "login"
+    
 
     def dispatch(self, request, *args, **kwargs):
-        if not request.user.is_authenticated:
-            return redirect(self.login_url)
-        if request.user.role != "common":
-            return redirect(self.login_url)
-
         self.ingredient = self.get_object()
         if self.ingredient.recipe.user != request.user:
             raise PermissionDenied("No tienes permiso para eliminar este ingrediente.")
@@ -425,11 +315,11 @@ class InstructionDeleteView(LoginRequiredMixin, DeleteView):
 
 # Review View 
 
-class ReviewCreateView(LoginRequiredMixin, CreateView):
+class ReviewCreateView(CommonUserRequiredMixin, CreateView):
     model = Review
     form_class = ReviewForm
     template_name = "yum_users/review/add.html"
-    login_url = "login"
+    
 
     def form_valid(self, form):
         recipe = get_object_or_404(Recipe, pk=self.kwargs["pk"])
@@ -445,20 +335,10 @@ class ReviewCreateView(LoginRequiredMixin, CreateView):
         recipe = get_object_or_404(Recipe, pk=self.kwargs["pk"])
         context["recipe"] = recipe
         return context
-    
-    def dispatch(self, request, *args, **kwargs):
-        if not request.user.is_authenticated:
-            return redirect(self.login_url)
-         
-        if request.user.role != "common":
-            return redirect(self.login_url) 
-        return super().dispatch(request, *args, **kwargs)
 
 # Favorites
 
-class ToggleFavoriteView(LoginRequiredMixin, View):
-    login_url = "login"
-
+class ToggleFavoriteView(CommonUserRequiredMixin, View):
     def post(self, request, recipe_id, *args, **kwargs):
         recipe = get_object_or_404(Recipe, id=recipe_id)
 
@@ -468,28 +348,12 @@ class ToggleFavoriteView(LoginRequiredMixin, View):
             request.user.favorite_recipes.add(recipe)  
 
         return redirect("user_home")  
-    
-    def dispatch(self, request, *args, **kwargs):
-        if not request.user.is_authenticated:
-            return redirect(self.login_url)
-         
-        if request.user.role != "common":
-            return redirect(self.login_url) 
-        return super().dispatch(request, *args, **kwargs)
 
-class FavoriteListView(LoginRequiredMixin, ListView):
+class FavoriteListView(CommonUserRequiredMixin, ListView):
     model = Recipe
     template_name = "yum_users/favorites.html"
     context_object_name = "recipes"
-    login_url = "login"
+    
 
     def get_queryset(self):
         return self.request.user.favorite_recipes.all()
-    
-    def dispatch(self, request, *args, **kwargs):
-        if not request.user.is_authenticated:
-            return redirect(self.login_url)
-         
-        if request.user.role != "common":
-            return redirect(self.login_url) 
-        return super().dispatch(request, *args, **kwargs)

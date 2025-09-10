@@ -1,18 +1,19 @@
 {% extends "core/base.html" %}
 {% load static %}
+{% load i18n %}
 
-{% block title %}Eliminar Ingrediente{% endblock %}
+{% block title %}{% trans "Eliminar Instrucción" %}{% endblock %}
 
 {% block content %}
 
 <div class="container mt-4">
-  <h2>Eliminar Instrucción</h2>
-  <p>¿Seguro que quieres eliminar <strong>{{ object }}</strong>?</p>
+  <h2>{% trans "Eliminar Instrucción" %}</h2>
+  <p>{% trans "¿Seguro que quieres eliminar" %} <strong>{{ object }}</strong>?</p>
 
   <form method="post">
     {% csrf_token %}
-    <button type="submit" class="btn btn-secondary">Eliminar</button>
-    <a href="{% url 'recipe_edit' object.recipe.id %}" class="btn btn-brand">Cancelar</a>
+    <button type="submit" class="btn btn-secondary">{% trans "Eliminar" %}</button>
+    <a href="{% url 'recipe_edit' object.recipe.id %}" class="btn btn-brand">{% trans "Cancelar" %}</a>
   </form>
 </div>
 {% endblock %}

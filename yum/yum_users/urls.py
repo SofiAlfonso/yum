@@ -3,7 +3,7 @@ from .views import (HomeView, IngredientTypeCreateView, IngredientTypeListView, 
                     IngredientTypeUpdateView, IngredientTypeDeleteView, IngredientCreateView,
                     IngredientUpdateView, IngredientDeleteView, RecipeCreateView, RecipeUpdateView,
                     RecipeDetailView, InstructionCreateView, InstructionUpdateView, InstructionDeleteView,
-                    ReviewCreateView, FavoriteListView, ToggleFavoriteView)
+                    ReviewCreateView, FavoriteListView, ToggleFavoriteView, RecipeDeleteView)
 
 
 urlpatterns = [
@@ -25,6 +25,7 @@ urlpatterns = [
   path('recipes/add/', RecipeCreateView.as_view(), name='recipe_add'),
   path('recipes/<int:pk>/edit/', RecipeUpdateView.as_view(), name='recipe_edit'),
   path('recipes/<int:pk>/', RecipeDetailView.as_view(), name='recipe_detail'),
+  path('recipes/<int:pk>/delete/', RecipeDeleteView.as_view(), name='recipe_delete'),
 
   # Instruction URLs
   path("recipes/<int:recipe_id>/instructions/add/", InstructionCreateView.as_view(), name="instruction_add"),

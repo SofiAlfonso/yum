@@ -1,9 +1,11 @@
 {% extends 'core/base.html' %}
+{% load static %}
+{% load i18n %}
 
 {% block content %}
 <div class="container mt-4">
   <div class="d-flex justify-content-between align-items-center mb-4">
-    <h1 class="mb-0">Catálogo de Tipos de Ingrediente</h1>
+    <h1 class="mb-0">{% trans "Catálogo de Tipos de Ingrediente" %}</h1>
      <a href="{% url 'ingredienttype_add' %}" class="btn btn-brand">Nuevo Tipo de Ingrediente</a>
   </div>
 
@@ -15,22 +17,22 @@
             <h5 class="card-title">{{ ingredient.nombre }}</h5>
             <p class="card-text">Categoría: {{ ingredient.category }}</p>
             {% if ingredient.vitamins %}
-              <p class="card-text"><strong>Vitaminas:</strong> {{ ingredient.vitamins|join:", " }}</p>
+              <p class="card-text"><strong>{% trans "Vitaminas:" %}</strong> {{ ingredient.vitamins|join:", " }}</p>
             {% endif %}
             {% if ingredient.excesses %}
-              <p class="card-text"><strong>Excesos:</strong> {{ ingredient.excesses|join:", " }}</p>
+              <p class="card-text"><strong>{% trans "Excesos:" %}</strong> {{ ingredient.excesses|join:", " }}</p>
             {% endif %}
           </div>
           <div class="card-footer d-flex justify-content-between">
             {% if ingredient.user == request.user %}
-                <a href="{% url 'ingredienttype_edit' ingredient.pk %}" class="btn btn-brand">Editar</a>
-                <a href="{% url 'ingredienttype_delete' ingredient.pk %}" class="btn btn-brand">Eliminar</a>
+                <a href="{% url 'ingredienttype_edit' ingredient.pk %}" class="btn btn-brand">{% trans "Editar" %}</a>
+                <a href="{% url 'ingredienttype_delete' ingredient.pk %}" class="btn btn-brand">{% trans "Eliminar" %}</a>
             {% endif %}
           </div>
         </div>
       </div>
     {% empty %}
-      <p class="text-center">No hay tipos de ingredientes registrados.</p>
+      <p class="text-center">{% trans "No hay tipos de ingredientes registrados." %}</p>
     {% endfor %}
   </div>
 </div>

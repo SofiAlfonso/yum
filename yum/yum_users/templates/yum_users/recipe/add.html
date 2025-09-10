@@ -1,11 +1,14 @@
 {% extends "core/base.html" %}
-{% block title %}{% if view.object %}Editar receta{% else %}Nueva receta{% endif %}{% endblock %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}{% if view.object %}{% trans "Editar receta" %}{% else %}{% trans "Nueva receta" %}{% endif %}{% endblock %}
 
 {% block content %}
 
 <div class="row">
     <div class="col-md-8 offset-md-2">
-        <h2 class="mb-4">{% if view.object %}Editar receta{% else %}Nueva receta{% endif %}</h2>
+        <h2 class="mb-4">{% if view.object %}{% trans "Editar receta" %}{% else %}{% trans "Nueva receta" %}{% endif %}</h2>
         <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
             {% if view.object %}
@@ -22,10 +25,10 @@
                 </div>
             {% endfor %}
             {% if not view.object %}
-                <button type="submit" class="btn btn-brand">Añadir ingredientes e instrucciones</button>
+                <button type="submit" class="btn btn-brand">{% trans "Añadir ingredientes e instrucciones" %}</button>
             {% else %}
             <div class="mt-3 row-justify-content-between">
-                <button type="submit" class="btn btn-brand">Guardar </button>
+                <button type="submit" class="btn btn-brand">{% trans "Guardar " %}</button>
                 <a href="{% url 'user_home' %}" class="btn btn-secondary">Salir</a>
             </div>
             {% endif %}
@@ -34,36 +37,36 @@
         <hr>
         <h3>Ingredientes</h3>
         <div class="mb-3">
-            <a href="{% url 'ingredient_add' view.object.id %}" class="btn btn-brand">Añadir ingrediente</a>
+            <a href="{% url 'ingredient_add' view.object.id %}" class="btn btn-brand">{% trans "Añadir ingrediente" %}</a>
         </div>
         {% for ingredient in view.object.ingredients.all %}
             <div class="card mb-2 p-2">
-                <strong>{{ ingredient.quantity }} {{ ingredient.unit }}</strong> de {{ ingredient.ingredient_type.nombre }}
+                <strong>{{ ingredient.quantity }} {{ ingredient.unit }}</strong>{% trans "de" %} {{ ingredient.ingredient_type.nombre }}
                 <div class="mt-1">
-                    <a href="{% url 'ingredient_edit' ingredient.id %}" class="btn btn-sm btn-brand">Editar</a>
-                    <a href="{% url 'ingredient_delete' ingredient.id %}" class="btn btn-sm btn-secondary">Eliminar</a>
+                    <a href="{% url 'ingredient_edit' ingredient.id %}" class="btn btn-sm btn-brand">{% trans "Editar" %}</a>
+                    <a href="{% url 'ingredient_delete' ingredient.id %}" class="btn btn-sm btn-secondary">{% trans "Eliminar" %}</a>
                 </div>
             </div>
         {% empty %}
-            <p>No hay ingredientes agregados.</p>
+            <p>{% trans "No hay ingredientes agregados." %}</p>
         {% endfor %}
 
          <!-- Lista de instrucciones -->
         <hr>
-        <h3>Instrucciones</h3>
+        <h3>{% trans "Instrucciones" %}</h3>
         <div class="mb-3">
-            <a href="{% url 'instruction_add' view.object.id %}" class="btn btn-brand">Añadir instrucción</a>
+            <a href="{% url 'instruction_add' view.object.id %}" class="btn btn-brand">{% trans "Añadir instrucción" %}</a>
         </div>
         {% for instruction in view.object.instructions.all %}
             <div class="card mb-2 p-2">
                 <strong>{{ instruction }}</strong> 
                 <div class="mt-1">
-                    <a href="{% url 'instruction_edit' instruction.id %}" class="btn btn-sm btn-brand">Editar</a>
-                    <a href="{% url 'instruction_delete' instruction.id %}" class="btn btn-sm btn-secondary">Eliminar</a>
+                    <a href="{% url 'instruction_edit' instruction.id %}" class="btn btn-sm btn-brand">{% trans "Editar" %}</a>
+                    <a href="{% url 'instruction_delete' instruction.id %}" class="btn btn-sm btn-secondary">{% trans "Eliminar" %}</a>
                 </div>
             </div>
         {% empty %}
-            <p>No hay ingredientes agregados.</p>
+            <p>{% trans "No hay ingredientes agregados." %}</p>
         {% endfor %}
       
         {% endif %}
