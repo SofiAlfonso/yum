@@ -4,7 +4,7 @@ from django.views import View
 from core.models import Recipe, IngredientType, Ingredient, Instruction, Review, Multimedia
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
-from .forms import IngredientTypeForm, IngredientForm, RecipeForm, InstructionForm, ReviewForm, RecipeFilterForm, MultimediaForm
+from core.forms import IngredientTypeForm, IngredientForm, RecipeForm, InstructionForm, ReviewForm, RecipeFilterForm, MultimediaForm
 from django.core.exceptions import PermissionDenied
 from django.contrib.contenttypes.models import ContentType
 from core.mixins import CommonUserRequiredMixin
