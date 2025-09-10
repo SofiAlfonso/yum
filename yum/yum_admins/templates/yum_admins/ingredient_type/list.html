@@ -1,0 +1,95 @@
+{% extends "core/base_admin.html" %}
+
+{% block content %}
+<div class="container mt-4">
+  <h2>Gestión de Tipos de Ingredientes</h2>
+
+  <!-- Filtros -->
+  <form method="get" class="row mb-3">
+    <div class="col-md-3">
+      <label for="name">Nombre</label>
+      <input type="text" name="name" class="form-control" value="{{ request.GET.name }}">
+    </div>
+    <div class="col-md-3">
+      <label for="category">Categoría</label>
+      <select name="category" class="form-control">
+        <option value="">-- Todas --</option>
+        {% for key, value in categories.items %}
+          <option value="{{ key }}" {% if request.GET.category == key %}selected{% endif %}>
+            {{ value }}
+          </option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="col-md-3">
+      <label for="user">Usuario</label>
+      <input type="text" name="user" class="form-control" value="{{ request.GET.user }}">
+    </div>
+    <div class="col-12 mt-2">
+      <button type="submit" class="btn btn-brand">Filtrar</button>
+      <a href="{% url 'admin_ingredienttype_list' %}" class="btn btn-secondary">Limpiar</a>
+    </div>
+  </form>
+
+  <!-- Tabla -->
+  <table class="table table-bordered table-hover">
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Categoría</th>
+        <th>Usuario</th>
+        <th>Vitaminas</th>
+        <th>Excesos</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for ingredient_type in ingredient_types %}
+      <tr>
+        <td>{{ ingredient_type.nombre }}</td>
+        <td>{{ ingredient_type.get_category_display }}</td>
+        <td>{{ ingredient_type.user.username }}</td>
+        <td>
+          {% if ingredient_type.vitamins %}
+            {{ ingredient_type.vitamins|join:", " }}
+          {% else %}
+            -
+          {% endif %}
+        </td>
+        <td>
+          {% if ingredient_type.excesses %}
+            {{ ingredient_type.excesses|join:", " }}
+          {% else %}
+            -
+          {% endif %}
+        </td>
+        <td>
+          <a href="{% url 'admin_ingredienttype_detail' ingredient_type.pk %}" class="btn btn-sm btn-info">👁 Ver</a>
+          <a href="{% url 'admin_ingredienttype_edit' ingredient_type.pk %}" class="btn btn-sm btn-warning">✏️ Editar</a>
+          <a href="{% url 'admin_ingredienttype_delete' ingredient_type.pk %}" class="btn btn-sm btn-danger">🗑 Eliminar</a>
+        </td>
+      </tr>
+      {% empty %}
+      <tr>
+        <td colspan="6">No hay tipos de ingredientes registrados.</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <!-- Paginación -->
+  <div class="pagination">
+    {% if is_paginated %}
+      {% if page_obj.has_previous %}
+        <a href="?page={{ page_obj.previous_page_number }}" class="btn btn-sm btn-secondary">Anterior</a>
+      {% endif %}
+
+      <span>Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</span>
+
+      {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}" class="btn btn-sm btn-secondary">Siguiente</a>
+      {% endif %}
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

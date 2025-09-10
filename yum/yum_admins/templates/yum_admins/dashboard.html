@@ -1,0 +1,97 @@
+{% extends "core/base_admin.html" %}
+{% load static %}
+
+{% block title %}Dashboard Admin{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="text-center mb-4">📊 Panel de Administración</h2>
+
+    <!-- Métricas principales -->
+    <div class="row g-4 mb-4">
+        <div class="col-md-3">
+            <div class="card shadow-sm text-center">
+                <div class="card-body">
+                    <h5 class="card-title">Usuarios</h5>
+                    <p class="display-6">{{ total_users }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card shadow-sm text-center">
+                <div class="card-body">
+                    <h5 class="card-title">Recetas</h5>
+                    <p class="display-6">{{ total_recipes }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card shadow-sm text-center">
+                <div class="card-body">
+                    <h5 class="card-title">Tipos de Ingrediente</h5>
+                    <p class="display-6">{{ total_ingredient_types }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card shadow-sm text-center">
+                <div class="card-body">
+                    <h5 class="card-title">Reseñas</h5>
+                    <p class="display-6">{{ total_reviews }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Top Usuarios -->
+    <h4 class="mb-3">👨‍🍳 Usuarios más activos</h4>
+    <ul class="list-group mb-4">
+        {% for user in top_users %}
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            {{ user.username }}
+            <span class="badge bg-primary rounded-pill">{{ user.recipe_count }} recetas</span>
+        </li>
+        {% empty %}
+        <li class="list-group-item">No hay usuarios activos.</li>
+        {% endfor %}
+    </ul>
+
+    <!-- Top Recetas -->
+    <h4 class="mb-3">⭐ Recetas destacadas</h4>
+    <ul class="list-group mb-4">
+        {% for recipe in top_recipes %}
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            {{ recipe.title }}
+            <span>
+                <strong>{{ recipe.avg_rating|default:"0" }}</strong> ★ ({{ recipe.review_count }} reseñas)
+            </span>
+        </li>
+        {% empty %}
+        <li class="list-group-item">No hay recetas destacadas.</li>
+        {% endfor %}
+    </ul>
+
+    <!-- Recetas recientes -->
+    <h4 class="mb-3">📅 Recetas recientes</h4>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Título</th>
+                <th>Autor</th>
+                <th>Fecha</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for recipe in recent_recipes %}
+            <tr>
+                <td>{{ recipe.title }}</td>
+                <td>{{ recipe.user.username }}</td>
+                <td>{{ recipe.creation_date|date:"d/m/Y H:i" }}</td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="3">No hay recetas recientes.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

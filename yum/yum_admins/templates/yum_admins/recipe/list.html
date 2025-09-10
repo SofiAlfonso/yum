@@ -1,0 +1,80 @@
+{% extends "core/base_admin.html" %}
+
+{% block content %}
+<div class="container mt-4">
+  <h2>Gestión de Recetas</h2>
+
+  <!-- Filtros -->
+  <form method="get" class="row mb-3">
+    <div class="col-md-3">
+      {{ filter_form.name.label_tag }} {{ filter_form.name }}
+    </div>
+    <div class="col-md-3">
+      {{ filter_form.ingredient_type.label_tag }} {{ filter_form.ingredient_type }}
+    </div>
+    <div class="col-md-2">
+      {{ filter_form.min_value.label_tag }} {{ filter_form.min_value }}
+    </div>
+    <div class="col-md-2">
+      {{ filter_form.max_value.label_tag }} {{ filter_form.max_value }}
+    </div>
+    <div class="col-md-2">
+      <label for="user">Usuario</label>
+      <input type="text" name="user" class="form-control" value="{{ request.GET.user }}">
+    </div>
+    <div class="col-12 mt-2">
+      <button type="submit" class="btn btn-brand">Filtrar</button>
+      <a href="{% url 'admin_recipe_list' %}" class="btn btn-secondary">Limpiar</a>
+    </div>
+  </form>
+
+  <!-- Tabla de recetas -->
+  <table class="table table-bordered table-hover">
+    <thead>
+      <tr>
+        <th>Título</th>
+        <th>Usuario</th>
+        <th>Valor Nutricional</th>
+        <th>Reseñas</th>
+        <th>Rating Promedio</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for recipe in recipes %}
+      <tr>
+        <td>{{ recipe.title }}</td>
+        <td>{{ recipe.user.username }}</td>
+        <td>{{ recipe.nutritional_value }}</td>
+        <td>{{ recipe.review_count }}</td>
+        <td>{{ recipe.avg_rating|floatformat:1 }}</td>
+        <td>
+          <a href="{% url 'admin_recipe_detail' recipe.pk %}" class="btn btn-sm btn-info">👁 Ver</a>
+          <a href="{% url 'admin_recipe_edit' recipe.pk %}" class="btn btn-sm btn-warning">✏️ Editar</a>
+          <a href="{% url 'admin_recipe_delete' recipe.pk %}" class="btn btn-sm btn-danger">🗑 Eliminar</a>
+        </td>
+      </tr>
+      {% empty %}
+      <tr>
+        <td colspan="6">No hay recetas registradas.</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <!-- Paginación -->
+  <div class="pagination">
+    {% if is_paginated %}
+      {% if page_obj.has_previous %}
+        <a href="?page={{ page_obj.previous_page_number }}" class="btn btn-sm btn-secondary">Anterior</a>
+      {% endif %}
+
+      <span>Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</span>
+
+      {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}" class="btn btn-sm btn-secondary">Siguiente</a>
+      {% endif %}
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

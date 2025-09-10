@@ -1,0 +1,36 @@
+{% extends "core/base_admin.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <h2 class="mb-4">
+                {% if object %}Editar instrucción{% else %}Añadir instrucción{% endif %}
+            </h2>
+
+            <form method="post">
+                {% csrf_token %}
+                {{ form.non_field_errors }}
+
+                {% for field in form %}
+                    <div class="mb-3">
+                        {{ field.label_tag }}
+                        {{ field }}
+                        {% if field.errors %}
+                            <div class="text-danger small">{{ field.errors }}</div>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+
+                <div class="d-flex justify-content-between mt-3">
+                    <button type="submit" class="btn btn-brand">
+                        {% if object %}Guardar cambios{% else %}Añadir instrucción{% endif %}
+                    </button>
+                    <a href="{% url 'admin_recipe_detail' recipe.id %}" class="btn btn-secondary">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends "core/base_admin.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Eliminar instrucción</h2>
+    <p>¿Estás seguro de que deseas eliminar esta instrucción?</p>
+
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">🗑 Eliminar</button>
+        <a href="{% url 'admin_recipe_detail' object.recipe.id %}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+{% endblock %}

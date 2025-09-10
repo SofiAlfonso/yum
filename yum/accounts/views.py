@@ -16,7 +16,7 @@ class RegisterView(CreateView):
     def get_success_url(self):
         # Redirigir según el rol del usuario
         if self.object.role == "admin":
-            return reverse_lazy("#")  # TODO: ruta para yum_admins
+            return reverse_lazy("admin_dashboard")  # TODO: ruta para yum_admins
         return reverse_lazy("user_home")      # TODO: ruta para yum_users
 
     def form_valid(self, form):
@@ -34,7 +34,7 @@ class CustomLoginView(LoginView):
     def get_success_url(self):
         user = self.request.user
         if user.role == "admin":
-            return reverse_lazy("#")  # TODO: vista para admins
+            return reverse_lazy("admin_dashboard")  # TODO: vista para admins
         return reverse_lazy("user_home")      # TODO: vista para comunes
 
 

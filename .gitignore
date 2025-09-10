@@ -1,5 +1,5 @@
 # Virtual environment
-venv/
+.venv/
 
 # Django migrations
 */migrations/*
@@ -7,3 +7,4 @@ venv/
 
 # Variables de entorno
 .env
+

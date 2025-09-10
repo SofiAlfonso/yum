@@ -1,0 +1,15 @@
+{% extends "core/base_admin.html" %}
+
+{% block content %}
+<div class="container mt-4">
+  <h2>Editar Tipo de Ingrediente</h2>
+
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+
+    <button type="submit" class="btn btn-brand">Guardar cambios</button>
+    <a href="{% url 'admin_ingredienttype_detail' object.pk %}" class="btn btn-secondary">Cancelar</a>
+  </form>
+</div>
+{% endblock %}
