@@ -19,15 +19,15 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ms-auto">
         <!-- Opciones -->
-        <li class="nav-item"><a class="nav-link" href="{% url 'ingredienttype_list' %}">Tipos de ingrediente</a></li>
-        <li class="nav-item"><a class="nav-link" href="{% url 'recipe_add' %}">Crear receta</a></li>
-        <li class="nav-item"><a class="nav-link" href="{% url 'favorites' %}">Favoritas</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'ingredienttype_list' %}">{% trans "Tipos de ingrediente" %}</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'recipe_add' %}">{% trans "Crear receta" %}</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'favorites' %}">{% trans "Favoritas" %}</a></li>
         
         <!-- Logout -->
         <li class="nav-item">
           <form action="{% url 'logout' %}" method="post" class="d-inline">
             {% csrf_token %}
-            <button type="submit" class="btn btn-outline-light btn-sm ms-3">Cerrar sesión</button>
+            <button type="submit" class="btn btn-outline-light btn-sm ms-3">{% trans "Cerrar sesión" %}</button>
           </form>
         </li>
       </ul>

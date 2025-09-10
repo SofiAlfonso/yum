@@ -1,14 +1,15 @@
 {% extends "core/base_admin.html" %}
+{% load i18n %}
 
 {% block content %}
 <div class="container mt-4">
-  <h2>Eliminar Receta</h2>
-  <p>¿Estás seguro que deseas eliminar la receta <strong>{{ object.title }}</strong>?</p>
+  <h2>{% trans "Eliminar Receta" %}</h2>
+  <p>{% trans "¿Estás seguro que deseas eliminar la receta" %} <strong>{{ object.title }}</strong>?</p>
 
   <form method="post">
     {% csrf_token %}
-    <button type="submit" class="btn btn-danger">Eliminar</button>
-    <a href="{% url 'admin_recipe_list' %}" class="btn btn-secondary">Cancelar</a>
+    <button type="submit" class="btn btn-danger">{% trans "Eliminar" %}</button>
+    <a href="{% url 'admin_recipe_list' %}" class="btn btn-secondary">{% trans "Cancelar" %}</a>
   </form>
 </div>
 {% endblock %}

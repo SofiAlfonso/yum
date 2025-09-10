@@ -1,20 +1,21 @@
 {% extends "core/base_admin.html" %}
+{% load i18n %}
 
 {% block content %}
 <div class="container mt-4">
-  <h2>Detalle del Tipo de Ingrediente</h2>
+  <h2>{% trans "Detalle del Tipo de Ingrediente" %}</h2>
 
   <dl class="row">
-    <dt class="col-sm-3">Nombre</dt>
+    <dt class="col-sm-3">{% trans "Nombre" %}</dt>
     <dd class="col-sm-9">{{ ingredient_type.nombre }}</dd>
 
-    <dt class="col-sm-3">Categoría</dt>
+    <dt class="col-sm-3">{% trans "Categoría" %}</dt>
     <dd class="col-sm-9">{{ ingredient_type.get_category_display }}</dd>
 
-    <dt class="col-sm-3">Usuario</dt>
+    <dt class="col-sm-3">{% trans "Usuario" %}</dt>
     <dd class="col-sm-9">{{ ingredient_type.user.username }}</dd>
 
-    <dt class="col-sm-3">Vitaminas</dt>
+    <dt class="col-sm-3">{% trans "Vitaminas" %}</dt>
     <dd class="col-sm-9">
       {% if ingredient_type.vitamins %}
         {{ ingredient_type.vitamins|join:", " }}
@@ -33,8 +34,8 @@
     </dd>
   </dl>
 
-  <a href="{% url 'admin_ingredienttype_edit' ingredient_type.pk %}" class="btn btn-warning">✏️ Editar</a>
-  <a href="{% url 'admin_ingredienttype_delete' ingredient_type.pk %}" class="btn btn-danger">🗑 Eliminar</a>
-  <a href="{% url 'admin_ingredienttype_list' %}" class="btn btn-secondary">⬅ Volver</a>
+  <a href="{% url 'admin_ingredienttype_edit' ingredient_type.pk %}" class="btn btn-warning">✏️ {% trans "Editar" %}</a>
+  <a href="{% url 'admin_ingredienttype_delete' ingredient_type.pk %}" class="btn btn-danger">🗑 {% trans "Eliminar" %}</a>
+  <a href="{% url 'admin_ingredienttype_list' %}" class="btn btn-secondary">⬅ {% trans "Volver" %}</a>
 </div>
 {% endblock %}

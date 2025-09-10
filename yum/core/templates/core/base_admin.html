@@ -1,10 +1,12 @@
 {% load static %}
+{% load i18n %}
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Panel Admin - YUM{% endblock %}</title>
+    <title>{% block title %}{% trans "Panel Admin - YUM" %}{% endblock %}</title>
 
     <!-- Bootstrap CSS -->
     <link 
@@ -18,7 +20,7 @@
     <!-- Navbar para Admin -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-            <a class="navbar-brand" href="{% url 'admin_dashboard' %}">YUM Admin</a>
+            <a class="navbar-brand" href="{% url 'admin_dashboard' %}">{% trans "YUM Admin" %}</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" 
                     data-bs-target="#navbarAdmin" aria-controls="navbarAdmin" 
                     aria-expanded="false" aria-label="Toggle navigation">
@@ -27,21 +29,21 @@
             <div class="collapse navbar-collapse" id="navbarAdmin">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'admin_dashboard' %}">Dashboard</a>
+                        <a class="nav-link" href="{% url 'admin_dashboard' %}">{% trans "Dashboard" %}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'admin_user_list' %}">Usuarios</a>
+                        <a class="nav-link" href="{% url 'admin_user_list' %}">{% trans "Usuarios" %}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'admin_recipe_list' %}">Recetas</a>
+                        <a class="nav-link" href="{% url 'admin_recipe_list' %}">{% trans "Recetas" %}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'admin_ingredienttype_list' %}">Ingredientes</a>
+                        <a class="nav-link" href="{% url 'admin_ingredienttype_list' %}">{% trans "Ingredientes" %}</a>
                     </li>
                     <li class="nav-item">
                         <form action="{% url 'logout' %}" method="post" style="display:inline;">
                             {% csrf_token %}
-                            <button type="submit" class="nav-link btn btn-link">Cerrar sesión</button>
+                            <button type="submit" class="nav-link btn btn-link">{% trans "Cerrar sesión" %}</button>
                         </form>
                     </li>
                 </ul>
@@ -70,7 +72,7 @@
     <!-- Footer -->
     <footer class="bg-dark text-light py-3 mt-5">
         <div class="container text-center">
-            <p>&copy; {{ year|default:"2025" }} YUM Admin - Panel de Control</p>
+            <p>&copy; {{ year|default:"2025" }} {% trans "YUM Admin - Panel de Control" %} </p>
         </div>
     </footer>
 

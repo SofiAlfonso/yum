@@ -1,4 +1,5 @@
 {% extends "core/base_admin.html" %}
+{% load i18n %}
 
 {% block content %}
 <div class="container mt-4">
@@ -7,42 +8,42 @@
   <div class="card mb-3">
     <div class="card-body">
       <h4>{{ user_detail.username }}</h4>
-      <p><strong>Email:</strong> {{ user_detail.email }}</p>
-      <p><strong>Rol:</strong> {{ user_detail.role }}</p>
-      <p><strong>Fecha de registro:</strong> {{ user_detail.date_joined|date:"d/m/Y H:i" }}</p>
-      <p><strong>Total Recetas:</strong> {{ recipe_count }}</p>
-      <p><strong>Total Reseñas:</strong> {{ review_count }}</p>
+      <p><strong>{% trans "Email:" %}</strong> {{ user_detail.email }}</p>
+      <p><strong>{% trans "Rol:" %}</strong> {{ user_detail.role }}</p>
+      <p><strong>{% trans "Fecha de registro:" %}</strong> {{ user_detail.date_joined|date:"d/m/Y H:i" }}</p>
+      <p><strong>{% trans "Total Recetas:" %}</strong> {{ recipe_count }}</p>
+      <p><strong>{% trans "Total Reseñas:" %}</strong> {{ review_count }}</p>
     </div>
   </div>
 
-  <h5>Recetas de {{ user_detail.username }}</h5>
+  <h5>{% trans "Recetas de" %} {{ user_detail.username }}</h5>
   <ul class="list-group mb-3">
     {% for recipe in user_recipes %}
       <li class="list-group-item">
         {{ recipe.title }} ({{ recipe.creation_date|date:"d/m/Y" }})
       </li>
     {% empty %}
-      <li class="list-group-item">No tiene recetas.</li>
+      <li class="list-group-item">{% trans "No tiene recetas" %}.</li>
     {% endfor %}
   </ul>
 
-  <h5>Reseñas de {{ user_detail.username }}</h5>
+  <h5>{% trans "Reseñas de" %} {{ user_detail.username }}</h5>
   <ul class="list-group">
     {% for review in user_reviews %}
       <li class="list-group-item">
         {{ review.recipe.title }} → {{ review.comment }}
       </li>
     {% empty %}
-      <li class="list-group-item">No tiene reseñas.</li>
+      <li class="list-group-item">{% trans "No tiene reseñas." %}</li>
     {% endfor %}
   </ul>
 
-  <a href="{% url 'admin_user_list' %}" class="btn btn-brand mt-3">Volver</a>
+  <a href="{% url 'admin_user_list' %}" class="btn btn-brand mt-3">{% trans "Volver" %}</a>
   <form action="{% url 'admin_user_delete' user_detail.pk %}" method="post" class="d-inline">
   {% csrf_token %}
   <button type="submit" class="btn btn-danger mt-3"
           onclick="return confirm('¿Seguro que quieres eliminar este usuario?')">
-    Eliminar
+    {% trans "Eliminar" %}
   </button>
 </form>
 </div>

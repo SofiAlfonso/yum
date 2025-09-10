@@ -1,19 +1,20 @@
 {% extends "core/base_admin.html" %}
+{% load i18n %}
 
 {% block content %}
 <div class="container mt-4">
-  <h2>Gestión de Tipos de Ingredientes</h2>
+  <h2>{% trans "Gestión de Tipos de Ingredientes" %}</h2>
 
   <!-- Filtros -->
   <form method="get" class="row mb-3">
     <div class="col-md-3">
-      <label for="name">Nombre</label>
+      <label for="name">{% trans "Nombre" %}</label>
       <input type="text" name="name" class="form-control" value="{{ request.GET.name }}">
     </div>
     <div class="col-md-3">
-      <label for="category">Categoría</label>
+      <label for="category">{% trans "Categoría" %}</label>
       <select name="category" class="form-control">
-        <option value="">-- Todas --</option>
+        <option value="">{% trans "-- Todas --" %}</option>
         {% for key, value in categories.items %}
           <option value="{{ key }}" {% if request.GET.category == key %}selected{% endif %}>
             {{ value }}
@@ -22,12 +23,12 @@
       </select>
     </div>
     <div class="col-md-3">
-      <label for="user">Usuario</label>
+      <label for="user">{% trans "Usuario" %}</label>
       <input type="text" name="user" class="form-control" value="{{ request.GET.user }}">
     </div>
     <div class="col-12 mt-2">
       <button type="submit" class="btn btn-brand">Filtrar</button>
-      <a href="{% url 'admin_ingredienttype_list' %}" class="btn btn-secondary">Limpiar</a>
+      <a href="{% url 'admin_ingredienttype_list' %}" class="btn btn-secondary">{% trans "Limpiar" %}</a>
     </div>
   </form>
 
@@ -35,12 +36,12 @@
   <table class="table table-bordered table-hover">
     <thead>
       <tr>
-        <th>Nombre</th>
-        <th>Categoría</th>
-        <th>Usuario</th>
-        <th>Vitaminas</th>
-        <th>Excesos</th>
-        <th>Acciones</th>
+        <th>{% trans "Nombre" %}</th>
+        <th>{% trans "Categoría" %}</th>
+        <th>{% trans "Usuario" %}</th>
+        <th>{% trans "Vitaminas" %}</th>
+        <th>{% trans "Excesos" %}</th>
+        <th>{% trans "Acciones" %}</th>
       </tr>
     </thead>
     <tbody>
@@ -71,7 +72,7 @@
       </tr>
       {% empty %}
       <tr>
-        <td colspan="6">No hay tipos de ingredientes registrados.</td>
+        <td colspan="6">{% trans "No hay tipos de ingredientes registrados." %}</td>
       </tr>
       {% endfor %}
     </tbody>
@@ -81,13 +82,13 @@
   <div class="pagination">
     {% if is_paginated %}
       {% if page_obj.has_previous %}
-        <a href="?page={{ page_obj.previous_page_number }}" class="btn btn-sm btn-secondary">Anterior</a>
+        <a href="?page={{ page_obj.previous_page_number }}" class="btn btn-sm btn-secondary">{% trans "Anterior" %}</a>
       {% endif %}
 
-      <span>Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</span>
+      <span>Página {{ page_obj.number }}{% trans "de" %}{{ page_obj.paginator.num_pages }}</span>
 
       {% if page_obj.has_next %}
-        <a href="?page={{ page_obj.next_page_number }}" class="btn btn-sm btn-secondary">Siguiente</a>
+        <a href="?page={{ page_obj.next_page_number }}" class="btn btn-sm btn-secondary">{% trans "Siguiente" %}</a>
       {% endif %}
     {% endif %}
   </div>

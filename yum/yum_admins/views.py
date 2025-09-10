@@ -10,8 +10,7 @@ from django.db.models import Count, Avg
 from django.views.generic import TemplateView
 from django.contrib import messages
 from django.urls import reverse_lazy
-from yum_users.forms import RecipeForm, MultimediaForm, IngredientTypeForm, InstructionForm, ReviewForm
-from django.contrib.contenttypes.models import ContentType
+from yum_users.forms import RecipeForm, MultimediaForm, IngredientTypeForm, InstructionForm
 from core.models import Multimedia
 from core.mixins import AdminRequiredMixin
 
