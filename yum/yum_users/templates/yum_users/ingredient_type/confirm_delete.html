@@ -1,0 +1,16 @@
+{% extends "core/base.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block content %}
+<div class="container mt-4">
+  <h2>{% trans "Eliminar Tipo de Ingrediente" %}</h2>
+  <p>{% trans "¿Estás seguro que deseas eliminar" %} <strong>{{ object.nombre }}</strong>?</p>
+
+  <form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-brand">{% trans "Eliminar" %}</button>
+    <a href="{% url 'ingredienttype_list' %}" class="btn btn-brand">{% trans "Cancelar" %}</a>
+  </form>
+</div>
+{% endblock %}

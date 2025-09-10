@@ -1,10 +1,11 @@
 {% load static %}
+{% load i18n %}
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}YUM{% endblock %}</title>
+    <title>{% block title %}{% trans "YUM" %}{% endblock %}</title>
 
     <!-- Bootstrap CSS -->
     <link 
@@ -18,7 +19,7 @@
     <!-- Barra de navegación -->
     <nav class="navbar navbar-expand-lg">
         <div class="container">
-            <a class="navbar-brand" href="{% url 'user_home' %}">YUM</a>
+            <a class="navbar-brand" href="{% url 'user_home' %}">{% trans "YUM" %}</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" 
                     data-bs-target="#navbarNav" aria-controls="navbarNav" 
                     aria-expanded="false" aria-label="Toggle navigation">
@@ -29,12 +30,12 @@
                      <li class="nav-item">
                         <form action="{% url 'logout' %}" method="post" style="display: inline;">
                             {% csrf_token %}
-                            <button type="submit" class="nav-link">Cerrar sesión</button>
+                            <button type="submit" class="nav-link">{% trans "Cerrar sesión" %}</button>
                         </form>
                     </li>
-                    <li class="nav-item"><a class="nav-link" href="{% url 'ingredienttype_list' %}">tipos de ingrediente</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Servicios</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Contacto</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'ingredienttype_list' %}">{% trans "Tipos de ingrediente" %}</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'recipe_add' %}">{% trans "Crear receta" %}</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'favorites' %}">{% trans "Favoritas" %}</a></li>
                 </ul>
             </div>
         </div>
@@ -50,7 +51,7 @@
     <!-- Footer -->
     <footer>
         <div class="container">
-            <p>&copy; {{ year|default:"2025" }} YUM - Todos los derechos reservados</p>
+            <p>&copy; {{ year|default:"2025" }}{% trans "YUM - Todos los derechos reservados" %} </p>
         </div>
     </footer>
 

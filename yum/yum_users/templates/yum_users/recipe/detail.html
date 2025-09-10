@@ -1,0 +1,86 @@
+{% extends "core/base.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block content %}
+<div class="container mt-4">
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <!-- Título -->
+      <h2 class="card-title">{{ recipe.title }}</h2>
+      <p class="text-muted">
+        {% trans "Categoría:" %} <strong>{{ recipe.category }}</strong> |
+        {% trans "Tiempo de preparación:" %} <strong>{{ recipe.preparation_time }}</strong> |
+        {% trans "Porciones:" %} <strong>{{ recipe.portions }}</strong>
+      </p>
+
+    {% if recipe.image %}
+        <img src="{{ recipe.image }}" alt="{{ recipe.title }}" class="card-img-top">
+    
+    {% else %}
+
+        <img src="{% static 'yum_users/recipe_img/default.png' %}" class="card-img-top recipe-img" alt="Receta">
+
+    {% endif %}
+
+    
+      <!-- Descripción -->
+      <p class="card-text">{{ recipe.description }}</p>
+
+      <!-- Valores calculados -->
+      <p><strong>{% trans "Valor nutricional (IA):" %}</strong> {{ recipe.nutritional_value }}/100</p>
+      <p><strong>{% trans "Calificación promedio:" %}</strong> {{ recipe.media_score|floatformat:1 }}/5 ⭐</p>
+
+      <!-- Ingredientes -->
+     <h4 class="mt-4">{% trans "Ingredientes" %}</h4>
+        <ul>
+        {% for ing in recipe.ingredients.all %}
+            <li>
+            <a href="{% url 'ingredient_detail' ing.id %}">
+                {{ ing.quantity }} {{ ing.unit }} de {{ ing.ingredient_type.nombre }}
+            </a>
+            </li>
+        {% empty %}
+            <li>{% trans "No se han agregado ingredientes." %}</li>
+        {% endfor %}
+        </ul>
+
+      <!-- Instrucciones -->
+      <h4 class="mt-4">{% trans "Instrucciones" %}</h4>
+      <ol>
+        {% for step in recipe.instructions.all %}
+          <li>
+            <strong>{% trans "Paso " %}{{ step.n_step }}:</strong> {{ step.title }}  
+            <p>{{ step.details }}</p>
+            <small>Complejidad: {{ step.complexity }}/5</small>
+          </li>
+        {% empty %}
+          <p>{% trans "No se han agregado instrucciones." %}</p>
+        {% endfor %}
+      </ol>
+
+      <!-- Reseñas -->
+      <h4 class="mt-4">{% trans "Reseñas" %}</h4>
+      <ul class="list-group">
+        {% for review in recipe.reviews.all %}
+          <li class="list-group-item">
+            <strong>{{ review.user.username }}</strong> {% trans "calificó:" %}
+            {{ review.score }}/5 ⭐  
+            <p>{{ review.comment }}</p>
+          </li>
+        {% empty %}
+          <li class="list-group-item">{% trans "Aún no hay reseñas." %}</li>
+        {% endfor %}
+      </ul>
+
+      <a href="{% url 'review_add' recipe.pk %}" class="btn btn-brand">{% trans "Escribir una reseña" %}</a>
+
+      <!-- Botón volver -->
+      <div class="mt-4">
+        <a href="{% url 'user_home' %}" class="btn btn-secondary">{% trans "Volver" %}</a>
+      </div>
+
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,47 +1,106 @@
 {% extends "core/base.html" %}
 {% load static %}
+{% load i18n %}
 
-{% block title %}Inicio - Recetario{% endblock %}
+{% block title %}{% trans "Inicio - Recetario" %}{% endblock %}
 
 {% block content %}
 <div class="container mt-4">
-    <h2 class="text-center mb-4">Recetario</h2>
+    <!-- Barra de filtros -->
+    <form method="get" class="row g-2 mb-4">
+        <div class="col-md-3">
+            {{ filter_form.name.label_tag }}
+            {{ filter_form.name }}
+        </div>
+        <div class="col-md-3">
+            {{ filter_form.ingredient_type.label_tag }}
+            {{ filter_form.ingredient_type }}
+        </div>
+        <div class="col-md-2">
+            {{ filter_form.min_value.label_tag }}
+            {{ filter_form.min_value }}
+        </div>
+        <div class="col-md-2">
+            {{ filter_form.max_value.label_tag }}
+            {{ filter_form.max_value }}
+        </div>
+        <div class="col-md-2 d-flex align-items-end">
+            <button type="submit" class="btn btn-brand w-100">{% trans "Filtra" %}r</button>
+        </div>
+    </form>
+    <h2 class="text-center mb-4">{% trans "Recetario" %}</h2>
 
     <div class="row g-4">
         {% for recipe in recipes %}
         <div class="col-md-4">
             <div class="card h-100 shadow-sm">
+
+                 <form method="post" action="{% url 'toggle_favorite' recipe.id %}" class="mt-auto">
+                    {% csrf_token %}
+                    {% if recipe in user.favorite_recipes.all %}
+                    <button type="submit" class="btn btn-danger btn-sm w-100">
+                        ❤️ 
+                    </button>
+                    {% else %}
+                    <button type="submit" class="btn btn-outline-danger btn-sm w-100">
+                        🤍 
+                    </button>
+                    {% endif %}
+                </form>
                 <!-- Imagen de la receta -->
                 {% if recipe.image %}
-                    <img src="{{ recipe.image.url }}" class="card-img-top" alt="{{ recipe.name }}">
+                    <img src="{{ recipe.image }}" alt="{{ recipe.title }}" class="card-img-top">
+                
                 {% else %}
-                    <img src="{% static 'yum_users/recipe_img/default.png' %}" class="card-img-top" alt="Receta">
+
+                    <img src="{% static 'yum_users/recipe_img/default.png' %}" class="card-img-top recipe-img" alt="Receta">
+                    
                 {% endif %}
 
                 <!-- Info de la receta -->
                 <div class="card-body d-flex flex-column">
-                    <h5 class="card-title">{{ recipe.name }}</h5>
-                    <p class="card-text">
-                        <strong>Calorías:</strong> {{ recipe.calories }} kcal <br>
-                        <strong>Proteínas:</strong> {{ recipe.protein }} g <br>
-                        <strong>Carbohidratos:</strong> {{ recipe.carbs }} g <br>
-                        <strong>Grasas:</strong> {{ recipe.fat }} g
-                    </p>
+                    <h5 class="card-title text-primary fw-bold">{{ recipe.name }}</h5>
+                    
+                    <p class="card-text mb-3">{{ recipe.title }}</p>
+                    <p class="text-muted small mb-2">{{ recipe.description }}</p>
+
+                    <!-- Detalles de receta -->
+                    <ul class="list-unstyled mb-3">
+                        <li>
+                            <strong>{% trans "Duración:" %}</strong> {{ recipe.preparation_time }}
+                        </li>
+                        <li>
+                            <strong>{% trans "Porciones:" %}</strong> {{ recipe.portions }}
+                        </li>
+                        <li>
+                            <strong>{% trans "Valor nutricional:" %}</strong> {{ recipe.nutritional_value }}
+                        </li>
+                    </ul>
 
                     <!-- Calificación promedio -->
-                    <p class="mt-auto">
-                        ⭐ {{ recipe.avg_rating|default:"Sin calificar" }}
+                    <p class="mt-auto text-warning">
+                        ⭐ {{recipe.media_score|default:"Sin calificar" }}
                     </p>
 
-                    <!-- Botón ver más -->
-                    <a href="{% url 'recipe_detail' recipe.id %}" class="btn btn-brand w-100 mt-2">
-                        Ver receta
-                    </a>
+                    <!-- Botón editar -->
+                    {% if recipe.user == request.user %}
+                    <div class="card-body d-flex flex-column mt-auto mb-4">
+                        <a href="{% url 'recipe_edit' recipe.pk %}" class="btn btn-secondary mb-2">
+                            ✏️ {% trans "Editar receta" %}
+                        </a>
+                        <a href="{% url 'recipe_delete' recipe.pk %}" class="btn btn-secondary mb-2">
+                            🗑️ {% trans "Eliminar receta" %}
+                        </a>
+                    </div>
+                    {% endif %}
+                     <a href="{% url 'recipe_detail' recipe.pk %}" class="btn btn-sm btn-brand">
+                            {% trans "Ver receta" %}
+                        </a>
                 </div>
             </div>
         </div>
         {% empty %}
-        <p class="text-center">No hay recetas disponibles aún.</p>
+        <p class="text-center">{% trans "No hay recetas disponibles aún." %}</p>
         {% endfor %}
     </div>
 </div>

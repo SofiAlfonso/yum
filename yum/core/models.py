@@ -1,5 +1,4 @@
 from django.db import models
-from django.db.models import UniqueConstraint
 from django.db.models.functions import Lower
 from django.contrib.auth.models import AbstractUser
 from django.core.validators import MinValueValidator, MaxValueValidator
@@ -79,29 +78,55 @@ class Ingredient(models.Model):
 
 # Recipe model 
 class Recipe(models.Model):
+    CATEGORY_CHOICES = [
+    ('plato fuerte', 'Plato fuerte'),
+    ('entrada', 'Entrada'),
+    ('pasabocas', 'Pasabocas'),
+    ('postre', 'Postre'),
+    ('acompañamiento', 'Acompañamiento'),
+    ('ensalada', 'Ensalada'),
+    ('bebida', 'Bebida'),
+    ]
+
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="recipes")
     title = models.CharField(max_length=200)
     description = models.TextField()
-    category = models.CharField(max_length=100)
+    category = models.CharField(
+        max_length=20,
+        choices=CATEGORY_CHOICES,
+        default='plato fuerte'
+    )
     creation_date = models.DateTimeField(auto_now_add=True)
     preparation_time = models.DurationField()
     portions = models.PositiveIntegerField()
+
 
     # Campos calculados
     nutritional_value = models.IntegerField(default=0, editable=False)  # IA
     media_score = models.FloatField(default=0, editable=False)  # promedio reseñas
 
+    @property
+    def image(self):
+        content_type = ContentType.objects.get_for_model(self)
+        media = Multimedia.objects.filter(
+            content_type=content_type,
+            object_id=self.id
+        ).first()
+        return media.file.url if media and media.file else None
+
     def __str__(self):
         return self.title
 
     def save(self, *args, **kwargs):
-        self.nutritional_value = calculate_nutritional_value(self)
         super().save(*args, **kwargs)
+        self.nutritional_value = calculate_nutritional_value(self)
+        super().save(update_fields=["nutritional_value"])
 
     def update_media_score(self):
         scores = self.reviews.all().values_list("score", flat=True)
         if scores:
-            self.media_score = sum(scores) / len(scores)
+            avg = sum(scores) / len(scores)
+            self.media_score = round(avg, 1)
             self.save(update_fields=["media_score"])
 
 
@@ -126,7 +151,7 @@ class Instruction(models.Model):
     n_step = models.PositiveIntegerField()  # número de paso
 
     def __str__(self):
-        return f"{self.recipe.title} - Paso {self.n_step}: {self.title}"
+        return f"Paso {self.n_step}: {self.title}"
     
 
 # Multimedia model for recipe and review images

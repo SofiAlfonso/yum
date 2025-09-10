@@ -1,0 +1,33 @@
+{% extends "core/base.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-6 offset-md-3">
+        <h2 class="mb-4">{% if object %}{% trans "Editar instrucción" %}{% else %}{% trans "Añadir instrucción" %}{% endif %}</h2>
+
+        <form method="post">
+            {% csrf_token %}
+            {{ form.non_field_errors }}
+
+            {% for field in form %}
+                <div class="mb-3">
+                    {{ field.label_tag }}
+                    {{ field }}
+                    {% if field.errors %}
+                        <div class="text-danger small">{{ field.errors }}</div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+
+            <div class="d-flex justify-content-between mt-3">
+                <button type="submit" class="btn btn-brand">
+                    {% if object %}Guardar cambios{% else %}{% trans "Añadir instrucción" %} {% endif %}
+                </button>
+                <a href="{% url 'recipe_edit' recipe.id %}" class="btn btn-secondary">{% trans "Cancelar" %}</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
