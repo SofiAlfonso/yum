@@ -7,30 +7,16 @@ from django.shortcuts import get_object_or_404
 from django.contrib.auth import get_user_model
 from yum_users.forms import RecipeFilterForm
 from django.db.models import Count, Avg
-from django.core.exceptions import PermissionDenied
 from django.views.generic import TemplateView
 from django.contrib import messages
 from django.urls import reverse_lazy
 from yum_users.forms import RecipeForm, MultimediaForm, IngredientTypeForm, InstructionForm, ReviewForm
 from django.contrib.contenttypes.models import ContentType
 from core.models import Multimedia
+from core.mixins import AdminRequiredMixin
 
 
 User = get_user_model()
-
-
-class AdminRequiredMixin(LoginRequiredMixin):
-    """Mixin para restringir acceso solo a administradores"""
-    login_url = "login"
-
-    def dispatch(self, request, *args, **kwargs):
-        if not request.user.is_authenticated:
-            return redirect(self.login_url)
-
-        if request.user.role != "admin":
-            return redirect("user_home")
-
-        return super().dispatch(request, *args, **kwargs)
 
 
 # Dashboard Principal del Admin
