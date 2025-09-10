@@ -13,6 +13,7 @@ from django.urls import reverse_lazy
 from core.forms import RecipeForm, MultimediaForm, IngredientTypeForm, InstructionForm, RecipeFilterForm
 from core.models import Multimedia
 from core.mixins import AdminRequiredMixin
+from django.contrib.contenttypes.models import ContentType
 
 
 User = get_user_model()
