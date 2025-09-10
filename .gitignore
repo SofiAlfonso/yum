@@ -1,5 +1,7 @@
 # Virtual environment
 .venv/
+venv/
+.env/
 
 # Django migrations
 */migrations/*
@@ -8,3 +10,7 @@
 # Variables de entorno
 .env
 
+# caches
+__pycache__/
+*.pyc
+*.pyo
