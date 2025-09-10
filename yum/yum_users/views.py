@@ -330,7 +330,7 @@ class RecipeUpdateView(LoginRequiredMixin, UpdateView):
 class RecipeDeleteView(LoginRequiredMixin, DeleteView):
     model = Recipe
     template_name = "yum_users/recipe/confirm_delete.html"
-    success_url = reverse_lazy("recipe_list")
+    success_url = reverse_lazy("user_home")
 
     def get_object(self, queryset=None):
         obj = super().get_object(queryset)

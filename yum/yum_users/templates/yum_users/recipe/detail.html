@@ -1,5 +1,6 @@
 {% extends "core/base.html" %}
 {% load static %}
+{% load i18n %}
 
 {% block content %}
 <div class="container mt-4">
@@ -8,9 +9,9 @@
       <!-- Título -->
       <h2 class="card-title">{{ recipe.title }}</h2>
       <p class="text-muted">
-        Categoría: <strong>{{ recipe.category }}</strong> |
-        Tiempo de preparación: <strong>{{ recipe.preparation_time }}</strong> |
-        Porciones: <strong>{{ recipe.portions }}</strong>
+        {% trans "Categoría:" %} <strong>{{ recipe.category }}</strong> |
+        {% trans "Tiempo de preparación:" %} <strong>{{ recipe.preparation_time }}</strong> |
+        {% trans "Porciones:" %} <strong>{{ recipe.portions }}</strong>
       </p>
 
     {% if recipe.image %}
@@ -27,11 +28,11 @@
       <p class="card-text">{{ recipe.description }}</p>
 
       <!-- Valores calculados -->
-      <p><strong>Valor nutricional (IA):</strong> {{ recipe.nutritional_value }}/100</p>
-      <p><strong>Calificación promedio:</strong> {{ recipe.media_score|floatformat:1 }}/5 ⭐</p>
+      <p><strong>{% trans "Valor nutricional (IA):" %}</strong> {{ recipe.nutritional_value }}/100</p>
+      <p><strong>{% trans "Calificación promedio:" %}</strong> {{ recipe.media_score|floatformat:1 }}/5 ⭐</p>
 
       <!-- Ingredientes -->
-     <h4 class="mt-4">Ingredientes</h4>
+     <h4 class="mt-4">{% trans "Ingredientes" %}</h4>
         <ul>
         {% for ing in recipe.ingredients.all %}
             <li>
@@ -40,43 +41,43 @@
             </a>
             </li>
         {% empty %}
-            <li>No se han agregado ingredientes.</li>
+            <li>{% trans "No se han agregado ingredientes." %}</li>
         {% endfor %}
         </ul>
 
       <!-- Instrucciones -->
-      <h4 class="mt-4">Instrucciones</h4>
+      <h4 class="mt-4">{% trans "Instrucciones" %}</h4>
       <ol>
         {% for step in recipe.instructions.all %}
           <li>
-            <strong>Paso {{ step.n_step }}:</strong> {{ step.title }}  
+            <strong>{% trans "Paso " %}{{ step.n_step }}:</strong> {{ step.title }}  
             <p>{{ step.details }}</p>
             <small>Complejidad: {{ step.complexity }}/5</small>
           </li>
         {% empty %}
-          <p>No se han agregado instrucciones.</p>
+          <p>{% trans "No se han agregado instrucciones." %}</p>
         {% endfor %}
       </ol>
 
       <!-- Reseñas -->
-      <h4 class="mt-4">Reseñas</h4>
+      <h4 class="mt-4">{% trans "Reseñas" %}</h4>
       <ul class="list-group">
         {% for review in recipe.reviews.all %}
           <li class="list-group-item">
-            <strong>{{ review.user.username }}</strong> calificó:
+            <strong>{{ review.user.username }}</strong> {% trans "calificó:" %}
             {{ review.score }}/5 ⭐  
             <p>{{ review.comment }}</p>
           </li>
         {% empty %}
-          <li class="list-group-item">Aún no hay reseñas.</li>
+          <li class="list-group-item">{% trans "Aún no hay reseñas." %}</li>
         {% endfor %}
       </ul>
 
-      <a href="{% url 'review_add' recipe.pk %}" class="btn btn-brand">Escribir una reseña</a>
+      <a href="{% url 'review_add' recipe.pk %}" class="btn btn-brand">{% trans "Escribir una reseña" %}</a>
 
       <!-- Botón volver -->
       <div class="mt-4">
-        <a href="{% url 'user_home' %}" class="btn btn-secondary">Volver</a>
+        <a href="{% url 'user_home' %}" class="btn btn-secondary">{% trans "Volver" %}</a>
       </div>
 
     </div>

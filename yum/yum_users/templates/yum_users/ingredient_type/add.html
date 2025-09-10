@@ -1,8 +1,10 @@
 {% extends 'core/base.html' %}
+{% load static %}
+{% load i18n %}
 
 {% block content %}
 <div class="container mt-4">
-  <h2>Crear tipo de ingrediente</h2>
+  <h2>{% trans "Crear tipo de ingrediente" %}</h2>
   <form method="post">
     {% csrf_token %}
      {% for field in form %}
@@ -28,18 +30,18 @@
     <div class="mb-3">
       {{ form.vitamins.label_tag }}
       {{ form.vitamins }}
-      <small class="form-text text-muted">Formato, ejemplo: "Vitamina A", "Vitamina C"</small>
+      <small class="form-text text-muted">{% trans 'Formato, ejemplo: "Vitamina A", "Vitamina C"' %}</small>
       {{ form.vitamins.errors }}
     </div>
 
     <div class="mb-3">
       {{ form.excesses.label_tag }}
       {{ form.excesses }}
-      <small class="form-text text-muted">Formato, ejemplo: "Sodio", "Azúcar"</small>
+      <small class="form-text text-muted">{% trans 'Formato, ejemplo: "Sodio", "Azúcar"' %}</small>
       {{ form.excesses.errors }}
     </div>
 
-    <button type="submit" class="btn-brand">Guardar tipo de ingrediente</button>
+    <button type="submit" class="btn-brand">{% trans "Guardar tipo de ingrediente" %}</button>
   </form>
 </div>
 {% endblock %}
