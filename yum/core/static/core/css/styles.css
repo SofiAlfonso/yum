@@ -5,9 +5,10 @@
 }
 
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Poppins', sans-serif;
     background-color: var(--brand-white);
     color: var(--brand-black);
+    line-height: 1.6; /* mejor legibilidad */
 }
 
 /* Navbar */
@@ -122,4 +123,17 @@ footer {
     padding: 1rem 0;
     text-align: center;
     margin-top: 2rem;
+}
+
+h1, h2, h3, .auth-title {
+    font-weight: 700; /* negrita */
+    letter-spacing: 0.5px; /* un poco de espacio entre letras */
+    color: var(--brand-green); /* resalta con tu color principal */
+}
+
+/* Navbar brand (logo y nombre) */
+.navbar-brand {
+    font-weight: 700;
+    font-size: 1.4rem;
+    letter-spacing: 1px;
 }
