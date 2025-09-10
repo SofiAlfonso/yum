@@ -1,3 +1,4 @@
+# Autor: Ana Sofía Alfonso
 from django import forms
 from core.models import IngredientType, Ingredient, Instruction, Recipe, Review, Multimedia
 from django.utils.translation import gettext_lazy as _

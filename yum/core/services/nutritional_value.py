@@ -1,3 +1,4 @@
+# Autor: Ana Sofía Alfonso 
 import google.generativeai as genai
 from django.conf import settings
 

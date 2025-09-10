@@ -1,3 +1,5 @@
+#Autor: Jhon Freddy Alzate
+
 from django.contrib import admin
 from django.urls import path, include
 

@@ -1,3 +1,4 @@
+# Autor: Ana Sofía Alfonso
 from django.urls import path
 from .views import (HomeView, IngredientTypeCreateView, IngredientTypeListView, IngredientDetailView, 
                     IngredientTypeUpdateView, IngredientTypeDeleteView, IngredientCreateView,
