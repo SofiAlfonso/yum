@@ -49,7 +49,7 @@
                 </form>
                 <!-- Imagen de la receta -->
                 {% if recipe.image %}
-                    <img src="{{ recipe.image }}" alt="{{ recipe.title }}" class="card-img-top">
+                    <img src="{{ recipe.image }}" alt="{{ recipe.title }}" class="card-img-top recipe-img">
                 
                 {% else %}
 
@@ -84,14 +84,12 @@
 
                     <!-- Botón editar -->
                     {% if recipe.user == request.user %}
-                    <div class="card-body d-flex flex-column mt-auto mb-4">
                         <a href="{% url 'recipe_edit' recipe.pk %}" class="btn btn-secondary mb-2">
                             ✏️ {% trans "Editar receta" %}
                         </a>
                         <a href="{% url 'recipe_delete' recipe.pk %}" class="btn btn-secondary mb-2">
                             🗑️ {% trans "Eliminar receta" %}
                         </a>
-                    </div>
                     {% endif %}
                      <a href="{% url 'recipe_detail' recipe.pk %}" class="btn btn-sm btn-brand">
                             {% trans "Ver receta" %}

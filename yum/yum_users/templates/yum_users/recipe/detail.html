@@ -15,11 +15,11 @@
       </p>
 
     {% if recipe.image %}
-        <img src="{{ recipe.image }}" alt="{{ recipe.title }}" class="card-img-top">
+        <img src="{{ recipe.image }}" alt="{{ recipe.title }}" class="card-img-top recipe-img-detail">
     
     {% else %}
 
-        <img src="{% static 'yum_users/recipe_img/default.png' %}" class="card-img-top recipe-img" alt="Receta">
+        <img src="{% static 'yum_users/recipe_img/default.png' %}" class="card-img-top recipe-img-detail" alt="Receta">
 
     {% endif %}
 
