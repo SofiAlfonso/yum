@@ -137,7 +137,7 @@ AUTH_USER_MODEL = "core.User"
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
-LANGUAGE_CODE = 'es'  # Idioma por defecto
+LANGUAGE_CODE = 'en'  # Idioma por defecto
 
 LANGUAGES = [
     ('es', 'Spanish'),

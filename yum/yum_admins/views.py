@@ -16,6 +16,7 @@ from core.mixins import AdminRequiredMixin
 from django.contrib.contenttypes.models import ContentType
 from django.views import View
 from .services.reports import ReportFactory
+from django.utils.translation import gettext as _
 
 
 User = get_user_model()
@@ -424,8 +425,8 @@ class AdminRecipeReportView(AdminRequiredMixin, View):
         if not generator:
             messages.error(
                 request, 
-                f"Formato de reporte '{report_format}' no válido. "
-                f"Formatos disponibles: {', '.join(ReportFactory.get_available_formats())}"
+                _("Formato de reporte '%(format)s' no válido. ") % {'format': report_format} +
+                _("Formatos disponibles:") + f" {', '.join(ReportFactory.get_available_formats())}"
             )
             return redirect('admin_recipe_list')
         

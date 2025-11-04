@@ -7,6 +7,7 @@ from reportlab.lib.units import inch
 from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph, Spacer, PageBreak
 from reportlab.lib.enums import TA_CENTER, TA_LEFT
 from datetime import datetime
+from django.utils.translation import gettext as _
 
 from .report_interface import IReportGenerator
 
@@ -57,10 +58,10 @@ class PDFReportGenerator(IReportGenerator):
         
         # Resumen
         summary_data = [
-            ['📊 Resumen del Reporte', ''],
-            ['Total de Recetas:', str(len(recipes))],
-            ['Recetas con Reseñas:', str(sum(1 for r in recipes if r.review_count > 0))],
-            ['Promedio de Rating:', f"{sum(r.avg_rating or 0 for r in recipes) / len(recipes):.1f} ⭐" if recipes else "N/A"]
+            [_("📊 Resumen del Reporte"), ''],
+            [_("Total de Recetas:"), str(len(recipes))],
+            [_("Recetas con Reseñas:"), str(sum(1 for r in recipes if r.review_count > 0))],
+            [_("Promedio de Rating:"), f"{sum(r.avg_rating or 0 for r in recipes) / len(recipes):.1f} ⭐" if recipes else "N/A"]
         ]
         
         summary_table = Table(summary_data, colWidths=[3*inch, 2*inch])
@@ -82,7 +83,7 @@ class PDFReportGenerator(IReportGenerator):
         elements.append(Spacer(1, 0.5 * inch))
         
         # Tabla de recetas
-        data = [['#', 'Título', 'Usuario', 'Valor Nutr.', 'Reseñas', 'Rating']]
+        data = [[_("#"), _("Título"), _("Usuario"), _("Valor Nutr."), _("Reseñas"), "Rating"]]
         
         for idx, recipe in enumerate(recipes, 1):
             data.append([
@@ -128,7 +129,7 @@ class PDFReportGenerator(IReportGenerator):
             alignment=TA_CENTER
         )
         elements.append(Paragraph(
-            "Generado por YUM - Sistema de Gestión de Recetas",
+            _("Generado por YUM - Sistema de Gestión de Recetas"),
             footer_style
         ))
         

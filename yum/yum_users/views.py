@@ -10,6 +10,7 @@ from core.forms import IngredientTypeForm, IngredientForm, RecipeForm, Instructi
 from django.core.exceptions import PermissionDenied
 from django.contrib.contenttypes.models import ContentType
 from core.mixins import CommonUserRequiredMixin
+from django.utils.translation import gettext as _
 
 
 class HomeView(CommonUserRequiredMixin, ListView):
@@ -105,7 +106,7 @@ class IngredientCreateView(CommonUserRequiredMixin, CreateView):
     def dispatch(self, request, *args, **kwargs):
         self.recipe = get_object_or_404(Recipe, pk=kwargs["recipe_id"])
         if self.recipe.user != request.user:
-            raise PermissionDenied("No tienes permiso para añadir ingredientes a esta receta.")
+            raise PermissionDenied(_("No tienes permiso para añadir ingredientes a esta receta."))
         return super().dispatch(request, *args, **kwargs)
 
     def form_valid(self, form):
@@ -266,7 +267,7 @@ class InstructionCreateView(CommonUserRequiredMixin, CreateView):
     def dispatch(self, request, *args, **kwargs):
         self.recipe = get_object_or_404(Recipe, pk=kwargs["recipe_id"])
         if self.recipe.user != request.user:
-            raise PermissionDenied("No tienes permiso para añadir ingredientes a esta receta.")
+            raise PermissionDenied(_("No tienes permiso para añadir ingredientes a esta receta."))
         return super().dispatch(request, *args, **kwargs)
 
     def form_valid(self, form):

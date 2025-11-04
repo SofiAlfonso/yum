@@ -8,7 +8,7 @@ from openpyxl.styles import Font, Alignment, PatternFill, Border, Side
 from openpyxl.utils import get_column_letter
 from datetime import datetime
 from io import BytesIO
-
+from django.utils.translation import gettext as _
 
 from .report_interface import IReportGenerator
 
@@ -57,14 +57,14 @@ class ExcelReportGenerator(IReportGenerator):
         ws['A2'].font = Font(name='Arial', size=10, color='666666')
         
         # Resumen
-        ws['A4'] = '📊 RESUMEN'
+        ws['A4'] = _('📊 RESUMEN')
         ws['A4'].font = Font(name='Arial', size=12, bold=True, color='23b387')
         
-        ws['A5'] = 'Total de Recetas:'
+        ws['A5'] = _('Total de Recetas:')
         ws['B5'] = len(recipes)
-        ws['A6'] = 'Recetas con Reseñas:'
+        ws['A6'] = _('Recetas con Reseñas:')
         ws['B6'] = sum(1 for r in recipes if r.review_count > 0)
-        ws['A7'] = 'Promedio de Rating:'
+        ws['A7'] = _('Promedio de Rating:')
         avg_rating = sum(r.avg_rating or 0 for r in recipes) / len(recipes) if recipes else 0
         ws['B7'] = f"{avg_rating:.1f} ⭐"
         
@@ -74,7 +74,7 @@ class ExcelReportGenerator(IReportGenerator):
             ws[f'B{row}'].font = Font(name='Arial', size=10)
         
         # Encabezados de la tabla (fila 9)
-        headers = ['#', 'Título', 'Usuario', 'Categoría', 'Valor Nutricional', 'Porciones', 'Reseñas', 'Rating']
+        headers = [_('#'), _('Título'), _('Usuario'), _('Categoría'), _('Valor Nutricional'), _('Porciones'), _('Reseñas'), 'Rating']
         ws.append([])  # Espacio
         header_row = 9
         
@@ -131,8 +131,8 @@ class ExcelReportGenerator(IReportGenerator):
         ws.row_dimensions[header_row].height = 20
         
         # Crear hoja de estadísticas adicionales
-        stats_ws = wb.create_sheet("Estadísticas")
-        stats_ws['A1'] = '📈 Estadísticas Detalladas'
+        stats_ws = wb.create_sheet(_("Estadísticas"))
+        stats_ws['A1'] = _('📈 Estadísticas Detalladas')
         stats_ws['A1'].font = title_font
         stats_ws.merge_cells('A1:B1')
         
@@ -140,7 +140,7 @@ class ExcelReportGenerator(IReportGenerator):
         from collections import Counter
         categories = Counter([r.get_category_display() for r in recipes])
         
-        stats_ws['A3'] = 'Categorías Más Populares:'
+        stats_ws['A3'] = _('Categorías Más Populares:')
         stats_ws['A3'].font = Font(name='Arial', size=12, bold=True)
         
         row = 4
@@ -153,7 +153,7 @@ class ExcelReportGenerator(IReportGenerator):
         from collections import Counter
         users = Counter([r.user.username for r in recipes])
         
-        stats_ws[f'A{row+1}'] = 'Top Usuarios con Más Recetas:'
+        stats_ws[f'A{row+1}'] = _('Top Usuarios con Más Recetas:')
         stats_ws[f'A{row+1}'].font = Font(name='Arial', size=12, bold=True)
         
         row += 2

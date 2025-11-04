@@ -10,7 +10,7 @@
     <h2 class="mb-0">{% trans "Gestión de Usuarios" %}</h2>
     <div class="text-end">
       <small class="text-muted">
-        👥 Total: <strong>{{ page_obj.paginator.count }}</strong> usuarios
+        👥 {% trans "Total:" %} <strong>{{ page_obj.paginator.count }}</strong> {% trans "usuarios" %}
       </small>
     </div>
   </div>
@@ -96,7 +96,7 @@
                   </div>
                   <div>
                     <div class="fw-semibold">{{ user.username }}</div>
-                    <small class="text-muted">ID: {{ user.id }}</small>
+                    <small class="text-muted">{% trans "ID:" %} {{ user.id }}</small>
                   </div>
                 </div>
               </td>
@@ -138,7 +138,7 @@
                   <a href="{% url 'admin_user_delete' user.pk %}" 
                     class="btn btn-outline-danger" 
                     title="{% trans 'Eliminar' %}"
-                    onclick="return confirm('¿Seguro que quieres eliminar este usuario?')">
+                    onclick="return confirm('{% trans "¿Seguro que quieres eliminar este usuario?"|escapejs %}')">
                     🗑️
                   </a>
 
