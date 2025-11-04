@@ -11,6 +11,7 @@ from django.core.exceptions import PermissionDenied
 from django.contrib.contenttypes.models import ContentType
 from core.mixins import CommonUserRequiredMixin
 
+
 class HomeView(CommonUserRequiredMixin, ListView):
     model = Recipe
     template_name = "yum_users/home.html"

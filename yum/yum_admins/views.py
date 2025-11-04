@@ -14,6 +14,8 @@ from core.forms import RecipeForm, MultimediaForm, IngredientTypeForm, Instructi
 from core.models import Multimedia
 from core.mixins import AdminRequiredMixin
 from django.contrib.contenttypes.models import ContentType
+from django.views import View
+from .services.reports import ReportFactory
 
 
 User = get_user_model()
@@ -33,10 +35,13 @@ class AdminDashboardView(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
         context["total_users"] = User.objects.count()
         context["total_recipes"] = Recipe.objects.count()
         context["total_reviews"] = Review.objects.count()
+        context["total_ingredient_types"] = IngredientType.objects.count()
 
         context["top_recipes"] = (
-            Recipe.objects.annotate(avg_score=Avg("reviews__score"))
-            .order_by("-avg_score")[:5]
+            Recipe.objects.annotate(
+                avg_rating=Avg("reviews__score"),
+                review_count=Count("reviews")
+            ).order_by("-avg_rating")[:5]
         )
 
         context["top_users"] = (
@@ -370,3 +375,65 @@ class AdminReviewDeleteView(AdminRequiredMixin, DeleteView):
 
     def get_success_url(self):
         return reverse_lazy("admin_recipe_detail", kwargs={"pk": self.object.recipe.id})
+
+class AdminRecipeReportView(AdminRequiredMixin, View):
+    """
+    Vista para generar reportes de recetas.
+    Implementa el principio de Inversión de Dependencias (DIP).
+    
+    Esta vista depende de la abstracción IReportGenerator,
+    no de implementaciones concretas (PDF, Excel).
+    """
+    
+    def get(self, request, *args, **kwargs):
+        # Obtener el formato del reporte desde los parámetros
+        report_format = request.GET.get('format', 'pdf').lower()
+        
+        # Obtener recetas con filtros aplicados (reutilizamos la lógica de AdminRecipeListView)
+        queryset = Recipe.objects.all().select_related("user").prefetch_related("ingredients").annotate(
+            review_count=Count("reviews"),
+            avg_rating=Avg("reviews__score")
+        )
+        
+        # Aplicar filtros si existen
+        form = RecipeFilterForm(request.GET)
+        if form.is_valid():
+            name = form.cleaned_data.get("name")
+            ingredient_type = form.cleaned_data.get("ingredient_type")
+            min_value = form.cleaned_data.get("min_value")
+            max_value = form.cleaned_data.get("max_value")
+            
+            if name:
+                queryset = queryset.filter(title__icontains=name)
+            if ingredient_type:
+                queryset = queryset.filter(ingredients__ingredient_type=ingredient_type)
+            if min_value is not None:
+                queryset = queryset.filter(nutritional_value__gte=min_value)
+            if max_value is not None:
+                queryset = queryset.filter(nutritional_value__lte=max_value)
+        
+        user_filter = request.GET.get("user")
+        if user_filter:
+            queryset = queryset.filter(user__username__icontains=user_filter)
+        
+        recipes = queryset.distinct().order_by("-creation_date")
+        
+        # Usar el Factory para crear el generador apropiado
+        generator = ReportFactory.create_generator(report_format)
+        
+        if not generator:
+            messages.error(
+                request, 
+                f"Formato de reporte '{report_format}' no válido. "
+                f"Formatos disponibles: {', '.join(ReportFactory.get_available_formats())}"
+            )
+            return redirect('admin_recipe_list')
+        
+        # Generar el nombre del archivo
+        from datetime import datetime
+        timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+        filename = f"reporte_recetas_{timestamp}"
+        
+        # Generar y retornar el reporte
+        # La vista no sabe si es PDF o Excel, solo usa la interfaz
+        return generator.generate(recipes, filename)

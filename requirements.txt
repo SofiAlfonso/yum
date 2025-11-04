@@ -1,3 +1,5 @@
 Django==5.2.6
 dotenv==0.9.9
 google-ai-generativelanguage==0.6.15
+reportlab==4.0.7
+openpyxl==3.1.2

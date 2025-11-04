@@ -6,100 +6,184 @@
 {% block title %}{% trans "Inicio - Recetario" %}{% endblock %}
 
 {% block content %}
-<div class="container mt-4">
-    <!-- Barra de filtros -->
-    <form method="get" class="row g-2 mb-4">
-        <div class="col-md-3">
-            {{ filter_form.name.label_tag }}
-            {{ filter_form.name }}
+<div class="container mt-5">
+    <!-- Título principal -->
+    <h1 class="text-center mb-4">{% trans "Recetario" %}</h1>
+    
+    <!-- Tarjeta de filtros mejorada -->
+    <div class="card shadow-sm mb-5 dashboard-section-card">
+        <div class="card-body p-4">
+            <h5 class="card-title mb-4">
+                🔍 {% trans "Filtrar Recetas" %}
+            </h5>
+            
+            <form method="get">
+                <div class="row g-3">
+                    <!-- Filtro por nombre -->
+                    <div class="col-lg-6">
+                        <label for="{{ filter_form.name.id_for_label }}" class="form-label fw-semibold">
+                            📝 {% trans "Nombre de la receta" %}
+                        </label>
+                        <input 
+                            type="text" 
+                            name="{{ filter_form.name.name }}" 
+                            id="{{ filter_form.name.id_for_label }}"
+                            class="form-control form-control-lg"
+                            placeholder="{% trans 'Ej: Pasta, Pizza, Ensalada...' %}"
+                            value="{{ filter_form.name.value|default:'' }}">
+                    </div>
+                    
+                    <!-- Filtro por tipo de ingrediente -->
+                    <div class="col-lg-6">
+                        <label for="{{ filter_form.ingredient_type.id_for_label }}" class="form-label fw-semibold">
+                            🥗 {% trans "Tipo de ingrediente" %}
+                        </label>
+                        {{ filter_form.ingredient_type }}
+                    </div>
+                    
+                    <!-- Rango de valor nutricional -->
+                    <div class="col-12">
+                        <label class="form-label fw-semibold">
+                            📊 {% trans "Valor nutricional" %}
+                        </label>
+                        <div class="row g-3">
+                            <div class="col-md-5">
+                                <div class="input-group">
+                                    <span class="input-group-text">
+                                        {% trans "Mínimo" %}
+                                    </span>
+                                    <input 
+                                        type="number" 
+                                        name="{{ filter_form.min_value.name }}"
+                                        id="{{ filter_form.min_value.id_for_label }}"
+                                        class="form-control"
+                                        placeholder="0"
+                                        value="{{ filter_form.min_value.value|default:'' }}">
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-2 text-center d-flex align-items-center justify-content-center">
+                                <span class="fw-bold filter-separator">—</span>
+                            </div>
+                            
+                            <div class="col-md-5">
+                                <div class="input-group">
+                                    <span class="input-group-text">
+                                        {% trans "Máximo" %}
+                                    </span>
+                                    <input 
+                                        type="number" 
+                                        name="{{ filter_form.max_value.name }}"
+                                        id="{{ filter_form.max_value.id_for_label }}"
+                                        class="form-control"
+                                        placeholder="1000"
+                                        value="{{ filter_form.max_value.value|default:'' }}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Botones de acción -->
+                    <div class="col-12">
+                        <div class="d-flex gap-2 justify-content-end mt-3">
+                            <a href="{% url 'user_home' %}" class="btn btn-outline-secondary">
+                                ↻ {% trans "Limpiar filtros" %}
+                            </a>
+                            <button type="submit" class="btn btn-brand btn-lg px-5">
+                                🔍 {% trans "Buscar recetas" %}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
         </div>
-        <div class="col-md-3">
-            {{ filter_form.ingredient_type.label_tag }}
-            {{ filter_form.ingredient_type }}
-        </div>
-        <div class="col-md-2">
-            {{ filter_form.min_value.label_tag }}
-            {{ filter_form.min_value }}
-        </div>
-        <div class="col-md-2">
-            {{ filter_form.max_value.label_tag }}
-            {{ filter_form.max_value }}
-        </div>
-        <div class="col-md-2 d-flex align-items-end">
-            <button type="submit" class="btn btn-brand w-100">{% trans "Filtra" %}r</button>
-        </div>
-    </form>
-    <h2 class="text-center mb-4">{% trans "Recetario" %}</h2>
+    </div>
 
+    <!-- Grid de recetas -->
     <div class="row g-4">
         {% for recipe in recipes %}
-        <div class="col-md-4">
-            <div class="card h-100 shadow-sm">
-
-                 <form method="post" action="{% url 'toggle_favorite' recipe.id %}" class="mt-auto">
-                    {% csrf_token %}
-                    {% if recipe in user.favorite_recipes.all %}
-                    <button type="submit" class="btn btn-danger btn-sm w-100">
-                        ❤️ 
-                    </button>
+        <div class="col-md-6 col-lg-4">
+            <div class="card h-100 shadow-sm recipe-card">
+                <!-- Botón de favorito superpuesto -->
+                <div class="recipe-img-container">
+                    {% if recipe.image %}
+                        <img src="{{ recipe.image }}" alt="{{ recipe.title }}" class="card-img-top recipe-img">
                     {% else %}
-                    <button type="submit" class="btn btn-outline-danger btn-sm w-100">
-                        🤍 
-                    </button>
+                        <img src="{% static 'yum_users/recipe_img/default.png' %}" class="card-img-top recipe-img" alt="Receta">
                     {% endif %}
-                </form>
-                <!-- Imagen de la receta -->
-                {% if recipe.image %}
-                    <img src="{{ recipe.image }}" alt="{{ recipe.title }}" class="card-img-top recipe-img">
-                
-                {% else %}
-
-                    <img src="{% static 'yum_users/recipe_img/default.png' %}" class="card-img-top recipe-img" alt="Receta">
                     
-                {% endif %}
+                    <!-- Favorito en esquina superior derecha -->
+                    <form method="post" action="{% url 'toggle_favorite' recipe.id %}" class="favorite-form">
+                        {% csrf_token %}
+                        {% if recipe in user.favorite_recipes.all %}
+                        <button type="submit" class="btn btn-danger btn-sm favorite-btn">
+                            ❤️
+                        </button>
+                        {% else %}
+                        <button type="submit" class="btn btn-light btn-sm favorite-btn">
+                            🤍
+                        </button>
+                        {% endif %}
+                    </form>
+                </div>
 
                 <!-- Info de la receta -->
                 <div class="card-body d-flex flex-column">
-                    <h5 class="card-title text-primary fw-bold">{{ recipe.name }}</h5>
+                    <h5 class="card-title fw-bold mb-2 recipe-title">{{ recipe.name }}</h5>
                     
-                    <p class="card-text mb-3">{{ recipe.title }}</p>
-                    <p class="text-muted small mb-2">{{ recipe.description }}</p>
+                    <p class="card-text text-muted small mb-3">{{ recipe.description|truncatewords:15 }}</p>
 
-                    <!-- Detalles de receta -->
-                    <ul class="list-unstyled mb-3">
-                        <li>
-                            <strong>{% trans "Duración:" %}</strong> {{ recipe.preparation_time }}
-                        </li>
-                        <li>
-                            <strong>{% trans "Porciones:" %}</strong> {{ recipe.portions }}
-                        </li>
-                        <li>
-                            <strong>{% trans "Valor nutricional:" %}</strong> {{ recipe.nutritional_value }}
-                        </li>
-                    </ul>
+                    <!-- Detalles de receta con iconos -->
+                    <div class="mb-3">
+                        <div class="d-flex align-items-center mb-2">
+                            <span class="me-2">⏱️</span>
+                            <small><strong>{% trans "Duración:" %}</strong> {{ recipe.preparation_time }}</small>
+                        </div>
+                        <div class="d-flex align-items-center mb-2">
+                            <span class="me-2">👥</span>
+                            <small><strong>{% trans "Porciones:" %}</strong> {{ recipe.portions }}</small>
+                        </div>
+                        <div class="d-flex align-items-center mb-2">
+                            <span class="me-2">💪</span>
+                            <small><strong>{% trans "Valor nutricional:" %}</strong> {{ recipe.nutritional_value }}</small>
+                        </div>
+                    </div>
 
                     <!-- Calificación promedio -->
-                    <p class="mt-auto text-warning">
-                        ⭐ {{recipe.media_score|default:"Sin calificar" }}
+                    <p class="text-warning mb-3">
+                        ⭐ <strong>{{recipe.media_score|default:"Sin calificar" }}</strong>
                     </p>
 
-                    <!-- Botón editar -->
-                    {% if recipe.user == request.user %}
-                        <a href="{% url 'recipe_edit' recipe.pk %}" class="btn btn-secondary mb-2">
-                            ✏️ {% trans "Editar receta" %}
+                    <!-- Botones de acción -->
+                    <div class="mt-auto">
+                        {% if recipe.user == request.user %}
+                            <div class="d-flex gap-2 mb-2">
+                                <a href="{% url 'recipe_edit' recipe.pk %}" class="btn btn-outline-secondary btn-sm flex-fill">
+                                    ✏️ {% trans "Editar" %}
+                                </a>
+                                <a href="{% url 'recipe_delete' recipe.pk %}" class="btn btn-outline-danger btn-sm flex-fill">
+                                    🗑️ {% trans "Eliminar" %}
+                                </a>
+                            </div>
+                        {% endif %}
+                        <a href="{% url 'recipe_detail' recipe.pk %}" class="btn btn-brand w-100">
+                            {% trans "Ver receta completa" %} →
                         </a>
-                        <a href="{% url 'recipe_delete' recipe.pk %}" class="btn btn-secondary mb-2">
-                            🗑️ {% trans "Eliminar receta" %}
-                        </a>
-                    {% endif %}
-                     <a href="{% url 'recipe_detail' recipe.pk %}" class="btn btn-sm btn-brand">
-                            {% trans "Ver receta" %}
-                        </a>
+                    </div>
                 </div>
             </div>
         </div>
         {% empty %}
-        <p class="text-center">{% trans "No hay recetas disponibles aún." %}</p>
+        <div class="col-12">
+            <div class="text-center py-5">
+                <p class="text-muted empty-message">
+                    😕 {% trans "No se encontraron recetas con estos filtros." %}
+                </p>
+                <a href="{% url 'user_home' %}" class="btn btn-brand mt-3">
+                    {% trans "Ver todas las recetas" %}
+                </a>
+            </div>
+        </div>
         {% endfor %}
     </div>
 </div>

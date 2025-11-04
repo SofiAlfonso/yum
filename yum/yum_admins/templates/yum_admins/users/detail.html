@@ -1,52 +1,167 @@
 <!-- Autor: Jhon Freddy Alzate -->
+<!-- Mejorado por: Ana Sofia Alfonso -->
 
 {% extends "core/base_admin.html" %}
 {% load i18n %}
 
 {% block content %}
 <div class="container mt-4">
-  <h2>Detalle de Usuario</h2>
+  <!-- Header con botón volver -->
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="mb-0">{% trans "Detalle de Usuario" %}</h2>
+    <a href="{% url 'admin_user_list' %}" class="btn btn-outline-secondary">
+      ← {% trans "Volver" %}
+    </a>
+  </div>
 
-  <div class="card mb-3">
-    <div class="card-body">
-      <h4>{{ user_detail.username }}</h4>
-      <p><strong>{% trans "Email:" %}</strong> {{ user_detail.email }}</p>
-      <p><strong>{% trans "Rol:" %}</strong> {{ user_detail.role }}</p>
-      <p><strong>{% trans "Fecha de registro:" %}</strong> {{ user_detail.date_joined|date:"d/m/Y H:i" }}</p>
-      <p><strong>{% trans "Total Recetas:" %}</strong> {{ recipe_count }}</p>
-      <p><strong>{% trans "Total Reseñas:" %}</strong> {{ review_count }}</p>
+  <!-- Información principal del usuario -->
+  <div class="card shadow-sm mb-4 dashboard-section-card">
+    <div class="card-body p-4">
+      <div class="row">
+        <div class="col-md-2 text-center mb-3 mb-md-0">
+          <div class="user-avatar-large mx-auto">
+            {{ user_detail.username|slice:":1"|upper }}
+          </div>
+        </div>
+        <div class="col-md-10">
+          <h3 class="mb-3">{{ user_detail.username }}</h3>
+          
+          <div class="row g-3">
+            <div class="col-md-6">
+              <div class="info-item">
+                <span class="info-label">📧 {% trans "Email" %}</span>
+                <span class="info-value">{{ user_detail.email }}</span>
+              </div>
+            </div>
+            
+            <div class="col-md-6">
+              <div class="info-item">
+                <span class="info-label">👤 {% trans "Rol" %}</span>
+                {% if user_detail.role == "admin" %}
+                  <span class="badge bg-danger fs-6">🛡️ {% trans "Administrador" %}</span>
+                {% else %}
+                  <span class="badge bg-primary fs-6">👤 {% trans "Usuario Común" %}</span>
+                {% endif %}
+              </div>
+            </div>
+            
+            <div class="col-md-6">
+              <div class="info-item">
+                <span class="info-label">📅 {% trans "Fecha de registro" %}</span>
+                <span class="info-value">{{ user_detail.date_joined|date:"d/m/Y H:i" }}</span>
+              </div>
+            </div>
+            
+            <div class="col-md-6">
+              <div class="info-item">
+                <span class="info-label">🆔 {% trans "ID de Usuario" %}</span>
+                <span class="info-value">{{ user_detail.id }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
-  <h5>{% trans "Recetas de" %} {{ user_detail.username }}</h5>
-  <ul class="list-group mb-3">
-    {% for recipe in user_recipes %}
-      <li class="list-group-item">
-        {{ recipe.title }} ({{ recipe.creation_date|date:"d/m/Y" }})
-      </li>
-    {% empty %}
-      <li class="list-group-item">{% trans "No tiene recetas" %}.</li>
-    {% endfor %}
-  </ul>
+  <!-- Estadísticas -->
+  <div class="row g-4 mb-4">
+    <div class="col-md-6">
+      <div class="card shadow-sm stat-card stat-card-recipes">
+        <div class="card-body text-center p-4">
+          <div class="stat-icon">📝</div>
+          <h3 class="stat-number">{{ recipe_count }}</h3>
+          <p class="stat-label mb-0">{% trans "Recetas Publicadas" %}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card shadow-sm stat-card stat-card-reviews">
+        <div class="card-body text-center p-4">
+          <div class="stat-icon">💬</div>
+          <h3 class="stat-number">{{ review_count }}</h3>
+          <p class="stat-label mb-0">{% trans "Reseñas Escritas" %}</p>
+        </div>
+      </div>
+    </div>
+  </div>
 
-  <h5>{% trans "Reseñas de" %} {{ user_detail.username }}</h5>
-  <ul class="list-group">
-    {% for review in user_reviews %}
-      <li class="list-group-item">
-        {{ review.recipe.title }} → {{ review.comment }}
-      </li>
-    {% empty %}
-      <li class="list-group-item">{% trans "No tiene reseñas." %}</li>
-    {% endfor %}
-  </ul>
+  <!-- Recetas del usuario -->
+  <div class="card shadow-sm mb-4 dashboard-section-card">
+    <div class="card-header bg-white py-3">
+      <h5 class="mb-0">📝 {% trans "Recetas de" %} {{ user_detail.username }}</h5>
+    </div>
+    <div class="card-body p-0">
+      {% if user_recipes %}
+        <div class="list-group list-group-flush">
+          {% for recipe in user_recipes %}
+            <div class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+              <div>
+                <h6 class="mb-1">{{ recipe.title }}</h6>
+                <small class="text-muted">
+                  📅 {{ recipe.creation_date|date:"d/m/Y" }} • 
+                  💪 Valor nutricional: {{ recipe.nutritional_value }}
+                </small>
+              </div>
+              <a href="{% url 'admin_recipe_detail' recipe.pk %}" class="btn btn-sm btn-outline-info">
+                👁️ {% trans "Ver" %}
+              </a>
+            </div>
+          {% endfor %}
+        </div>
+      {% else %}
+        <div class="text-center py-5 text-muted">
+          <div class="empty-state-icon">📝</div>
+          <p class="mb-0">{% trans "Este usuario no ha publicado recetas todavía." %}</p>
+        </div>
+      {% endif %}
+    </div>
+  </div>
 
-  <a href="{% url 'admin_user_list' %}" class="btn btn-brand mt-3">{% trans "Volver" %}</a>
-  <form action="{% url 'admin_user_delete' user_detail.pk %}" method="post" class="d-inline">
-  {% csrf_token %}
-  <button type="submit" class="btn btn-danger mt-3"
+  <!-- Reseñas del usuario -->
+  <div class="card shadow-sm mb-4 dashboard-section-card">
+    <div class="card-header bg-white py-3">
+      <h5 class="mb-0">💬 {% trans "Reseñas de" %} {{ user_detail.username }}</h5>
+    </div>
+    <div class="card-body p-0">
+      {% if user_reviews %}
+        <div class="list-group list-group-flush">
+          {% for review in user_reviews %}
+            <div class="list-group-item">
+              <div class="d-flex justify-content-between align-items-start mb-2">
+                <div>
+                  <h6 class="mb-1">{{ review.recipe.title }}</h6>
+                  <div class="text-warning mb-1">
+                    ⭐ <strong>{{ review.rating }}/5</strong>
+                  </div>
+                </div>
+                <small class="text-muted">{{ review.creation_date|date:"d/m/Y" }}</small>
+              </div>
+              <p class="mb-0 text-muted">{{ review.comment }}</p>
+            </div>
+          {% endfor %}
+        </div>
+      {% else %}
+        <div class="text-center py-5 text-muted">
+          <div class="empty-state-icon">💬</div>
+          <p class="mb-0">{% trans "Este usuario no ha escrito reseñas todavía." %}</p>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+
+  <!-- Botones de acción -->
+  <div class="d-flex gap-2 justify-content-end mb-4">
+    <a href="{% url 'admin_user_list' %}" class="btn btn-outline-secondary btn-lg">
+      ← {% trans "Volver a la lista" %}
+    </a>
+    <form action="{% url 'admin_user_delete' user_detail.pk %}" method="post" class="d-inline">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-danger mt-3"
           onclick="return confirm('¿Seguro que quieres eliminar este usuario?')">
     {% trans "Eliminar" %}
-  </button>
-</form>
+      </button>
+    </form>
+  </div>
 </div>
 {% endblock %}

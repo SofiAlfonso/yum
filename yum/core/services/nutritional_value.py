@@ -44,3 +44,5 @@ def calculate_nutritional_value(recipe):
     except Exception as e:
         print(f"Error al calcular valor nutricional: {e}")
         return 50
+    
+

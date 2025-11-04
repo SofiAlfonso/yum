@@ -1,138 +1,296 @@
-/* Autor: Jhon Freddy Alzate y Ana Sofía Alfonso */
+/* ============================================
+   YUM - RECETARIO
+   Autores: Jhon Freddy Alzate y Ana Sofía Alfonso
+   ============================================ */
+
+/* ============================================
+   1. VARIABLES GLOBALES
+   ============================================ */
 :root {
     --brand-green: #23b387;
+    --brand-green-hover: #1d9470;
+    --brand-green-light: rgba(35, 179, 135, 0.05);
+    --brand-green-shadow: rgba(35, 179, 135, 0.25);
     --brand-white: #ffffff;
     --brand-black: #000000;
+    --text-muted: #6c757d;
+    --text-dark: #212529;
+    --border-color: #ccc;
+    --border-light: #e0e0e0;
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 4px 10px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 8px 20px rgba(0, 0, 0, 0.15);
+    --shadow-xl: 0 10px 25px rgba(0, 0, 0, 0.15);
+    --border-radius: 12px;
+    --transition-base: 0.3s ease;
 }
 
+/* ============================================
+   2. ESTILOS GLOBALES
+   ============================================ */
 body {
     font-family: 'Poppins', sans-serif;
     background-color: var(--brand-white);
     color: var(--brand-black);
-    line-height: 1.6; /* mejor legibilidad */
+    line-height: 1.6;
+    padding-top: 70px;
 }
 
-/* Navbar */
+h1, h2, h3, .auth-title {
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    color: var(--brand-green);
+}
+
+/* ============================================
+   3. NAVBAR
+   ============================================ */
 .navbar {
     background-color: var(--brand-green);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1030;
+    transition: all var(--transition-base);
 }
 
-.navbar-brand, 
+.navbar.scrolled {
+    background-color: rgba(35, 179, 135, 0.95);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.15);
+    padding-top: 0.3rem;
+    padding-bottom: 0.3rem;
+}
+
+.navbar-brand {
+    color: var(--brand-white) !important;
+    font-weight: 700;
+    font-size: 1.4rem;
+    letter-spacing: 1px;
+    transition: font-size var(--transition-base);
+}
+
+.navbar.scrolled .navbar-brand {
+    font-size: 1.2rem;
+}
+
 .navbar-nav .nav-link {
     color: var(--brand-white) !important;
+    background: none;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+    padding: 0;
+    margin: 0 15px;
+    text-decoration: none;
+    transition: color var(--transition-base);
 }
 
 .navbar-nav .nav-link:hover {
     color: var(--brand-black) !important;
-}
-
-.nav-link {
-    background: none;
-    border: none;
-    color: white;
-    font-size: 1rem;
-    cursor: pointer;
-    padding: 0;
-    margin: 0 15px; /* igual que los otros enlaces */
-    text-decoration: none;
-}
-
-.nav-link:hover {
     text-decoration: underline;
 }
 
-/* Buttons */
+/* ============================================
+   4. BOTONES
+   ============================================ */
 .btn-brand {
     background-color: var(--brand-green) !important;
     color: var(--brand-white) !important;
     border: none !important;
-    border-radius: 12px !important;
-
+    border-radius: var(--border-radius) !important;
+    transition: background-color var(--transition-base);
 }
 
 .btn-brand:hover {
-    background-color: #1d9470 !important;
+    background-color: var(--brand-green-hover) !important;
     color: var(--brand-white) !important;
 }
 
-/* Forms */
+.btn-group-sm > .btn {
+    padding: 0.25rem 0.75rem;
+}
 
-/* Authentication Card */
+/* ============================================
+   5. FORMULARIOS Y CONTROLES
+   ============================================ */
+.form-control,
+.form-select {
+    border-radius: 10px !important;
+    border: 1px solid var(--border-color);
+    transition: border-color var(--transition-base), box-shadow var(--transition-base);
+}
+
+select.form-control, 
+select.form-select {
+    padding: 10px 15px;
+    font-size: 1rem;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--brand-green);
+    box-shadow: 0 0 0 0.2rem var(--brand-green-shadow);
+}
+
+.form-label {
+    font-weight: 500;
+    margin-bottom: 6px;
+}
+
+.form-text {
+    font-size: 0.8rem;
+    color: #666;
+}
+
+/* Separador de filtros */
+.filter-separator {
+    font-size: 1.5rem;
+    color: var(--text-muted);
+}
+
+/* ============================================
+   6. CARDS GENERALES
+   ============================================ */
+.card {
+    border-radius: var(--border-radius);
+    transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15) !important;
+}
+
+.card-body {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+.dashboard-section-card {
+    border-radius: 15px;
+    border: none;
+}
+
+/* ============================================
+   7. AUTENTICACIÓN
+   ============================================ */
 .auth-card {
-  max-width: 400px;
-  margin: 40px auto;
-  padding: 30px;
-  border: 1px solid #e0e0e0;
-  border-radius: 12px;
-  background: #fff;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    max-width: 400px;
+    margin: 40px auto;
+    padding: 30px;
+    border: 1px solid var(--border-light);
+    border-radius: var(--border-radius);
+    background: var(--brand-white);
+    box-shadow: var(--shadow-md);
 }
 
 .auth-title {
-  text-align: center;
-  margin-bottom: 20px;
-  font-size: 1.6rem;
-  font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 1.6rem;
+    font-weight: bold;
 }
 
 .auth-form .form-group {
-  margin-bottom: 16px;
+    margin-bottom: 16px;
 }
 
 .auth-form label {
-  display: block;
-  font-weight: 500;
-  margin-bottom: 6px;
+    display: block;
+    font-weight: 500;
+    margin-bottom: 6px;
 }
 
 .auth-form input, 
 .auth-form select {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-}
-
-.form-text {
-  font-size: 0.8rem;
-  color: #666;
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
 }
 
 .auth-footer {
-  text-align: center;
-  margin-top: 15px;
-  font-size: 0.9rem;
+    text-align: center;
+    margin-top: 15px;
+    font-size: 0.9rem;
 }
 
-.form-control {
-        border-radius: 10px !important;
-    }
-
-/* Images */
+/* ============================================
+   8. IMÁGENES
+   ============================================ */
 .recipe-img {
-  width: 100%;
-  height: 220px;
-  object-fit: cover;
-  border-top-left-radius: 12px;
-  border-top-right-radius: 12px;
-  margin-bottom: 0;
-  display: block;
-}
-.recipe-img-detail {
-  width: 80%;
-  height: 500px;
-  object-fit: cover;
-  border-top-left-radius: 12px;
-  border-top-right-radius: 12px;
-  margin-bottom: 0;
-  display: block;
-}
-.card-body {
-  padding-top: 1rem;
-  padding-bottom: 1rem;
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-top-left-radius: var(--border-radius);
+    border-top-right-radius: var(--border-radius);
+    margin-bottom: 0;
+    display: block;
 }
 
-/* Footer */
+.recipe-img-detail {
+    width: 80%;
+    height: 500px;
+    object-fit: cover;
+    border-top-left-radius: var(--border-radius);
+    border-top-right-radius: var(--border-radius);
+    margin-bottom: 0;
+    display: block;
+}
+
+.recipe-thumbnail {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+}
+
+.recipe-thumbnail-placeholder {
+    width: 40px;
+    height: 40px;
+}
+
+/* ============================================
+   9. TABLAS
+   ============================================ */
+.table > :not(caption) > * > * {
+    padding: 1rem 0.75rem;
+}
+
+.table tbody tr {
+    transition: background-color 0.2s ease;
+}
+
+.table tbody tr:hover,
+.table-hover tbody tr:hover {
+    background-color: var(--brand-green-light);
+}
+
+/* ============================================
+   10. PAGINACIÓN
+   ============================================ */
+.page-link {
+    color: var(--brand-green);
+    border-radius: 8px;
+    margin: 0 3px;
+    transition: all var(--transition-base);
+}
+
+.page-link:hover {
+    background-color: var(--brand-green);
+    color: var(--brand-white);
+    border-color: var(--brand-green);
+}
+
+.page-item.active .page-link {
+    background-color: var(--brand-green);
+    border-color: var(--brand-green);
+}
+
+/* ============================================
+   11. FOOTER
+   ============================================ */
 footer {
     background-color: var(--brand-green);
     color: var(--brand-white);
@@ -141,15 +299,246 @@ footer {
     margin-top: 2rem;
 }
 
-h1, h2, h3, .auth-title {
-    font-weight: 700; /* negrita */
-    letter-spacing: 0.5px; /* un poco de espacio entre letras */
-    color: var(--brand-green); /* resalta con tu color principal */
+/* ============================================
+   12. DASHBOARD ADMIN - MÉTRICAS
+   ============================================ */
+.metric-card {
+    border-radius: 15px;
+    transition: transform var(--transition-base), box-shadow var(--transition-base);
 }
 
-/* Navbar brand (logo y nombre) */
-.navbar-brand {
-    font-weight: 700;
-    font-size: 1.4rem;
-    letter-spacing: 1px;
+.metric-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15) !important;
+}
+
+.metric-users {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.metric-recipes {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+
+.metric-ingredients {
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+}
+
+.metric-reviews {
+    background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+}
+
+.metric-icon {
+    font-size: 2.5rem;
+}
+
+/* ============================================
+   13. BADGES
+   ============================================ */
+.section-badge {
+    font-size: 1rem;
+    padding: 10px 15px;
+    border-radius: 10px;
+}
+
+.badge-users {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.badge-recipes {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+
+.badge-recent {
+    background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+}
+
+.ranking-badge {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--brand-white);
+    font-weight: bold;
+}
+
+.ranking-users {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.ranking-recipes {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+
+.count-badge {
+    background-color: var(--brand-green);
+    font-size: 0.9rem;
+    padding: 8px 15px;
+}
+
+/* ============================================
+   14. RECETAS DE USUARIO (HOME)
+   ============================================ */
+.recipe-card {
+    border-radius: var(--border-radius);
+    border: none;
+    overflow: hidden;
+}
+
+.recipe-img-container {
+    position: relative;
+}
+
+.favorite-form {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.favorite-btn {
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.2s ease;
+}
+
+.favorite-btn:hover {
+    transform: scale(1.1);
+}
+
+.recipe-title {
+    color: var(--brand-green);
+}
+
+/* ============================================
+   15. GESTIÓN DE USUARIOS (ADMIN)
+   ============================================ */
+.user-avatar-placeholder {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: var(--brand-white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+.user-avatar-large {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: var(--brand-white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 3rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.info-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.info-label {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    font-weight: 600;
+}
+
+.info-value {
+    font-size: 1rem;
+    color: var(--text-dark);
+}
+
+/* ============================================
+   16. ESTADÍSTICAS
+   ============================================ */
+.stat-card {
+    border: none;
+    transition: transform 0.2s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+}
+
+.stat-card-recipes {
+    border-left: 4px solid #28a745;
+}
+
+.stat-card-reviews {
+    border-left: 4px solid #17a2b8;
+}
+
+.stat-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.stat-number {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: var(--text-dark);
+    margin-bottom: 0.5rem;
+}
+
+.stat-label {
+    font-size: 1rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* ============================================
+   17. ESTADOS VACÍOS
+   ============================================ */
+.empty-message {
+    font-size: 1.2rem;
+}
+
+.empty-state-icon {
+    font-size: 3rem;
+}
+
+/* ============================================
+   18. UTILIDADES RESPONSIVE
+   ============================================ */
+@media (max-width: 768px) {
+    body {
+        padding-top: 60px;
+    }
+    
+    .navbar-brand {
+        font-size: 1.2rem;
+    }
+    
+    .recipe-img-detail {
+        width: 100%;
+        height: 300px;
+    }
+    
+    .user-avatar-large {
+        width: 80px;
+        height: 80px;
+        font-size: 2rem;
+    }
+    
+    .stat-number {
+        font-size: 2rem;
+    }
+    
+    .metric-icon,
+    .stat-icon {
+        font-size: 2rem;
+    }
 }

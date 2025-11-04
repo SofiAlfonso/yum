@@ -7,32 +7,73 @@
 <div class="container mt-4">
   <h2>{% trans "Gestión de Tipos de Ingredientes" %}</h2>
 
-  <!-- Filtros -->
-  <form method="get" class="row mb-3">
-    <div class="col-md-3">
-      <label for="name">{% trans "Nombre" %}</label>
-      <input type="text" name="name" class="form-control" value="{{ request.GET.name }}">
-    </div>
-    <div class="col-md-3">
-      <label for="category">{% trans "Categoría" %}</label>
-      <select name="category" class="form-control">
-        <option value="">{% trans "-- Todas --" %}</option>
-        {% for key, value in categories.items %}
-          <option value="{{ key }}" {% if request.GET.category == key %}selected{% endif %}>
-            {{ value }}
-          </option>
-        {% endfor %}
-      </select>
-    </div>
-    <div class="col-md-3">
-      <label for="user">{% trans "Usuario" %}</label>
-      <input type="text" name="user" class="form-control" value="{{ request.GET.user }}">
-    </div>
-    <div class="col-12 mt-2">
-      <button type="submit" class="btn btn-brand">Filtrar</button>
-      <a href="{% url 'admin_ingredienttype_list' %}" class="btn btn-secondary">{% trans "Limpiar" %}</a>
-    </div>
-  </form>
+<!-- Tarjeta de filtros mejorada -->
+<div class="card shadow-sm mb-4 dashboard-section-card">
+  <div class="card-body p-4">
+    <h5 class="card-title mb-4">
+      🔍 {% trans "Filtrar Tipos de Ingredientes" %}
+    </h5>
+    
+    <form method="get">
+      <div class="row g-3">
+        <!-- Filtro por nombre -->
+        <div class="col-lg-4">
+          <label for="name" class="form-label fw-semibold">
+            📝 {% trans "Nombre del tipo" %}
+          </label>
+          <input 
+            type="text" 
+            name="name" 
+            id="name"
+            class="form-control"
+            placeholder="{% trans 'Buscar por nombre...' %}"
+            value="{{ request.GET.name|default:'' }}">
+        </div>
+        
+        <!-- Filtro por categoría -->
+        <div class="col-lg-4">
+          <label for="category" class="form-label fw-semibold">
+            🏷️ {% trans "Categoría" %}
+          </label>
+          <select name="category" id="category" class="form-select">
+            <option value="">{% trans "Todas las categorías" %}</option>
+            {% for key, value in categories.items %}
+              <option value="{{ key }}" {% if request.GET.category == key %}selected{% endif %}>
+                {{ value }}
+              </option>
+            {% endfor %}
+          </select>
+        </div>
+        
+        <!-- Filtro por usuario -->
+        <div class="col-lg-4">
+          <label for="user" class="form-label fw-semibold">
+            👤 {% trans "Usuario" %}
+          </label>
+          <input 
+            type="text" 
+            name="user" 
+            id="user"
+            class="form-control"
+            placeholder="{% trans 'Buscar por usuario...' %}"
+            value="{{ request.GET.user|default:'' }}">
+        </div>
+        
+        <!-- Botones de acción -->
+        <div class="col-12">
+          <div class="d-flex gap-2 justify-content-end mt-3">
+            <a href="{% url 'admin_ingredienttype_list' %}" class="btn btn-outline-secondary">
+              ↻ {% trans "Limpiar filtros" %}
+            </a>
+            <button type="submit" class="btn btn-brand btn-lg px-5">
+              🔍 {% trans "Buscar tipos" %}
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
 
   <!-- Tabla -->
   <table class="table table-bordered table-hover">
