@@ -1,0 +1,170 @@
+<!-- Autor: Jhon Freddy Alzate -->
+
+{% extends "core/base_admin.html" %}
+{% load i18n %}
+
+{% block content %}
+<div class="container mt-4">
+  <h2>{% trans "Gestión de Recetas" %}</h2>
+
+   <!-- Tarjeta de filtros mejorada -->
+    <div class="card shadow-sm mb-5 dashboard-section-card">
+        <div class="card-body p-4">
+            <h5 class="card-title mb-4">
+                🔍 {% trans "Filtrar Recetas" %}
+            </h5>
+            
+            <form method="get">
+                <div class="row g-3">
+                    <!-- Filtro por nombre -->
+                    <div class="col-lg-6">
+                        <label for="{{ filter_form.name.id_for_label }}" class="form-label fw-semibold">
+                            📝 {% trans "Nombre de la receta" %}
+                        </label>
+                        <input 
+                            type="text" 
+                            name="{{ filter_form.name.name }}" 
+                            id="{{ filter_form.name.id_for_label }}"
+                            class="form-control form-control-lg"
+                            placeholder="{% trans 'Ej: Pasta, Pizza, Ensalada...' %}"
+                            value="{{ filter_form.name.value|default:'' }}">
+                    </div>
+                    
+                    <!-- Filtro por tipo de ingrediente -->
+                    <div class="col-lg-6">
+                        <label for="{{ filter_form.ingredient_type.id_for_label }}" class="form-label fw-semibold">
+                            🥗 {% trans "Tipo de ingrediente" %}
+                        </label>
+                        {{ filter_form.ingredient_type }}
+                    </div>
+                    
+                    <!-- Rango de valor nutricional -->
+                    <div class="col-12">
+                        <label class="form-label fw-semibold">
+                            📊 {% trans "Valor nutricional" %}
+                        </label>
+                        <div class="row g-3">
+                            <div class="col-md-5">
+                                <div class="input-group">
+                                    <span class="input-group-text">
+                                        {% trans "Mínimo" %}
+                                    </span>
+                                    <input 
+                                        type="number" 
+                                        name="{{ filter_form.min_value.name }}"
+                                        id="{{ filter_form.min_value.id_for_label }}"
+                                        class="form-control"
+                                        placeholder="0"
+                                        value="{{ filter_form.min_value.value|default:'' }}">
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-2 text-center d-flex align-items-center justify-content-center">
+                                <span class="fw-bold filter-separator">—</span>
+                            </div>
+                            
+                            <div class="col-md-5">
+                                <div class="input-group">
+                                    <span class="input-group-text">
+                                        {% trans "Máximo" %}
+                                    </span>
+                                    <input 
+                                        type="number" 
+                                        name="{{ filter_form.max_value.name }}"
+                                        id="{{ filter_form.max_value.id_for_label }}"
+                                        class="form-control"
+                                        placeholder="1000"
+                                        value="{{ filter_form.max_value.value|default:'' }}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Botones de acción -->
+                    <div class="col-12">
+                        <div class="d-flex gap-2 justify-content-end mt-3">
+                            <a href="{% url 'user_home' %}" class="btn btn-outline-secondary">
+                                ↻ {% trans "Limpiar filtros" %}
+                            </a>
+                            <button type="submit" class="btn btn-brand btn-lg px-5">
+                                🔍 {% trans "Buscar recetas" %}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+  <!-- Botones de descarga de reportes -->
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <div class="d-flex justify-content-between align-items-center">
+          <div>
+            <h5 class="mb-1">📥 Exportar Reportes</h5>
+            <small class="text-muted">
+              Descarga las recetas filtradas en el formato de tu preferencia
+            </small>
+          </div>
+          <div class="btn-group" role="group">
+            <a href="{% url 'admin_recipe_report' %}?{% for key, value in request.GET.items %}{% if key != 'format' %}{{ key }}={{ value }}&{% endif %}{% endfor %}format=pdf"
+              class="btn btn-danger">
+              📄 Descargar PDF
+            </a>
+            <a href="{% url 'admin_recipe_report' %}?{% for key, value in request.GET.items %}{% if key != 'format' %}{{ key }}={{ value }}&{% endif %}{% endfor %}format=excel"
+              class="btn btn-success">
+              📊 Descargar Excel
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  <!-- Tabla de recetas -->
+  <table class="table table-bordered table-hover">
+    <thead>
+      <tr>
+        <th>{% trans "Título" %}</th>
+        <th>{% trans "Usuario" %}</th>
+        <th>{% trans "Valor Nutricional" %}</th>
+        <th>{% trans "Reseñas" %}</th>
+        <th>{% trans "Rating Promedio" %}</th>
+        <th>{% trans "Acciones" %}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for recipe in recipes %}
+      <tr>
+        <td>{{ recipe.title }}</td>
+        <td>{{ recipe.user.username }}</td>
+        <td>{{ recipe.nutritional_value }}</td>
+        <td>{{ recipe.review_count }}</td>
+        <td>{{ recipe.avg_rating|floatformat:1 }}</td>
+        <td>
+          <a href="{% url 'admin_recipe_detail' recipe.pk %}" class="btn btn-sm btn-info">👁 {% trans "Ver" %}</a>
+          <a href="{% url 'admin_recipe_edit' recipe.pk %}" class="btn btn-sm btn-warning">✏️ {% trans "Editar" %}</a>
+          <a href="{% url 'admin_recipe_delete' recipe.pk %}" class="btn btn-sm btn-danger">🗑 {% trans "Eliminar" %}</a>
+        </td>
+      </tr>
+      {% empty %}
+      <tr>
+        <td colspan="6">{% trans "No hay recetas registradas." %}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <!-- Paginación -->
+  <div class="pagination">
+    {% if is_paginated %}
+      {% if page_obj.has_previous %}
+        <a href="?page={{ page_obj.previous_page_number }}" class="btn btn-sm btn-secondary">{% trans "Anterior" %}</a>
+      {% endif %}
+
+      <span>{% trans "Página " %}{{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</span>
+
+      {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}" class="btn btn-sm btn-secondary">{% trans "Siguiente" %}</a>
+      {% endif %}
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

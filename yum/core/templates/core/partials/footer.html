@@ -1,0 +1,10 @@
+<!-- Autor: Jhon Freddy Alzate y Ana Sofia Alfonso -->
+
+{% load i18n %}
+
+<footer class="bg-dark text-white py-3 mt-5">
+  <div class="container text-center">
+    <p class="mb-1">&copy; {{ year|default:"2025" }} <strong>{% trans "YUM" %}</strong> {% trans "- Todos los derechos reservados" %}</p>
+    <small class="text-secondary">{% trans "Creado con" %} ❤️ {% trans "usando Django" %}</small>
+  </div>
+</footer>

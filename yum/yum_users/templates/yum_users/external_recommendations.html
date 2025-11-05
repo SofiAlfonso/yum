@@ -1,0 +1,97 @@
+<!-- Autor: Ana Sofía Alfonso -->
+{% extends "core/base.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}{% trans "Recomendaciones rápidas" %}{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <!-- Título principal -->
+    <div class="text-center mb-4">
+        <h1 class="text-center mb-4">{% trans "Recomendaciones rápidas" %}</h1>
+        {% if total_count > 0 %}
+            <p class="text-muted">{% trans "Total:" %} <strong>{{ total_count }}</strong></p>
+        {% endif %}
+    </div>
+
+    <!-- Mensaje de error si existe -->
+    {% if error %}
+    <div class="alert alert-danger" role="alert">
+        <h4 class="alert-heading">{% trans "Error al cargar las recomendaciones" %}</h4>
+        <p>{% trans "No se pudieron cargar las recomendaciones. Por favor, intenta más tarde." %}</p>
+        <hr>
+        <p class="mb-0"><small>{{ error }}</small></p>
+    </div>
+    {% endif %}
+
+    <!-- Grid de recomendaciones -->
+    {% if recommendations %}
+    <div class="row g-4">
+        {% for recommendation in recommendations %}
+        <div class="col-md-6 col-lg-4">
+            <div class="card h-100 shadow-sm recipe-card">
+                <!-- Info de la recomendación -->
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title fw-bold mb-2 recipe-title">{% trans "Receta" %} #{{ recommendation.id }}</h5>
+                    
+                    <!-- Ingredientes -->
+                    <div class="mb-3">
+                        <strong>{% trans "Ingredientes:" %}</strong>
+                        <ul class="list-unstyled mt-2">
+                            {% for ingredient in recommendation.ingredients %}
+                            <li class="small">
+                                • {{ ingredient.name }} <span class="text-muted">({{ ingredient.category }})</span>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+
+                    <!-- Información nutricional -->
+                    <div class="mb-3">
+                        <div class="d-flex align-items-center mb-2">
+                            <span class="me-2">🔥</span>
+                            <small><strong>{% trans "Calorías:" %}</strong> {{ recommendation.total_calories|floatformat:0 }}</small>
+                        </div>
+                        <div class="d-flex align-items-center mb-2">
+                            <span class="me-2">💪</span>
+                            <small><strong>{% trans "Proteína:" %}</strong> {{ recommendation.total_protein|floatformat:1 }}g</small>
+                        </div>
+                        <div class="d-flex align-items-center mb-2">
+                            <span class="me-2">🍞</span>
+                            <small><strong>{% trans "Carbohidratos:" %}</strong> {{ recommendation.total_carbs|floatformat:1 }}g</small>
+                        </div>
+                        <div class="d-flex align-items-center mb-2">
+                            <span class="me-2">🥑</span>
+                            <small><strong>{% trans "Grasa:" %}</strong> {{ recommendation.total_fat|floatformat:1 }}g</small>
+                        </div>
+                        <div class="d-flex align-items-center mb-2">
+                            <span class="me-2">🌾</span>
+                            <small><strong>{% trans "Fibra:" %}</strong> {{ recommendation.total_fiber|floatformat:1 }}g</small>
+                        </div>
+                        <div class="d-flex align-items-center mb-2">
+                            <span class="me-2">🍭</span>
+                            <small><strong>{% trans "Azúcar:" %}</strong> {{ recommendation.total_sugar|floatformat:1 }}g</small>
+                        </div>
+                        <div class="d-flex align-items-center mb-2">
+                            <span class="me-2">🧂</span>
+                            <small><strong>{% trans "Sodio:" %}</strong> {{ recommendation.total_sodium|floatformat:1 }}mg</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% elif not error %}
+    <!-- Si no hay recomendaciones pero tampoco hay error -->
+    <div class="text-center py-5">
+        <div class="text-muted">
+            <div class="mb-3 empty-state-icon">😕</div>
+            <p class="mb-0">{% trans "No hay recomendaciones disponibles." %}</p>
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
+

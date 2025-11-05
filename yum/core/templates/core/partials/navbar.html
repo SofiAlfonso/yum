@@ -1,0 +1,42 @@
+<!-- Autor: Jhon Freddy Alzate y Ana Sofia Alfonso -->
+
+{% load static %}
+{% load i18n %}
+
+<nav class="navbar navbar-expand-lg navbar-dark shadow-sm">
+  <div class="container">
+    <!-- Logo -->
+    <a class="navbar-brand d-flex align-items-center" href="{% url 'user_home' %}">
+      <img src="{% static 'core/css/logoo.png' %}" alt="YUM Logo" height="40" class="me-2">
+    </a>
+
+    <!-- Botón responsive -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" 
+            data-bs-target="#navbarNav" aria-controls="navbarNav" 
+            aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Links -->
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <!-- Opciones -->
+        <li class="nav-item"><a class="nav-link" href="{% url 'ingredienttype_list' %}">{% trans "Tipos de ingrediente" %}</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'recipe_add' %}">{% trans "Crear receta" %}</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'favorites' %}">{% trans "Favoritas" %}</a></li>
+        {% if not user.is_admin %}
+        <li class="nav-item"><a class="nav-link" href="{% url 'external_recommendations' %}">{% trans "Recomendaciones rápidas" %}</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'news' %}">{% trans "Noticias" %}</a></li>
+        {% endif %}
+        
+        <!-- Logout -->
+        <li class="nav-item">
+          <form action="{% url 'logout' %}" method="post" class="d-inline">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-outline-light btn-sm ms-3">{% trans "Cerrar sesión" %}</button>
+          </form>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

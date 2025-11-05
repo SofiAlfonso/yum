@@ -1,0 +1,22 @@
+<!-- Autor: Jhon Freddy Alzate -->
+
+% extends "core/base_admin.html" %}
+{% load i18n %}
+
+{% block content %}
+<div class="container mt-4">
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <h2>{% trans "Eliminar Reseña" %}</h2>
+      <p>{% trans "¿Estás seguro de que deseas eliminar la reseña de" %} <strong>{{ review.user.username }}</strong>?</p>
+      <p><em>{{ review.comment }}</em></p>
+
+      <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">🗑 {% trans "Eliminar" %}</button>
+        <a href="{% url 'admin_recipe_detail' review.recipe.pk %}" class="btn btn-secondary">{% trans "Cancelar" %}</a>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

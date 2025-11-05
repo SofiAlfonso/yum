@@ -1,0 +1,16 @@
+# Virtual environment
+.venv/
+venv/
+.env/
+
+# Django migrations
+*/migrations/*
+!*/migrations/__init__.py
+
+# Variables de entorno
+.env
+
+# caches
+__pycache__/
+*.pyc
+*.pyo

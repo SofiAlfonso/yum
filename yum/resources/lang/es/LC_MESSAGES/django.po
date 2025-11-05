@@ -1,0 +1,1157 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-11-04 19:10+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? "
+"1 : 2;\n"
+
+#: accounts/forms.py:10 accounts/forms.py:28
+msgid "Nombre de usuario"
+msgstr "Nombre de usuario"
+
+#: accounts/forms.py:11
+msgid "Correo electrónico"
+msgstr "Correo electrónico"
+
+#: accounts/forms.py:12 accounts/forms.py:29
+msgid "Contraseña"
+msgstr "Contraseña"
+
+#: accounts/forms.py:13
+msgid "Confirmar contraseña"
+msgstr "Confirmar contraseña"
+
+#: accounts/forms.py:14 yum_admins/templates/yum_admins/users/detail.html:39
+#: yum_admins/templates/yum_admins/users/list.html:44
+#: yum_admins/templates/yum_admins/users/list.html:82
+msgid "Rol"
+msgstr "Rol"
+
+#: accounts/templates/accounts/login.html:7
+#: accounts/templates/accounts/login.html:13
+msgid "Iniciar sesión"
+msgstr "Iniciar sesión"
+
+#: accounts/templates/accounts/login.html:18
+msgid "Entrar"
+msgstr "Entrar"
+
+#: accounts/templates/accounts/login.html:22
+msgid "¿No tienes cuenta?"
+msgstr "¿No tienes cuenta?"
+
+#: accounts/templates/accounts/login.html:22
+msgid "Regístrate aquí"
+msgstr "Regístrate aquí"
+
+#: accounts/templates/accounts/register.html:8
+msgid "Crear cuenta"
+msgstr "Crear cuenta"
+
+#: accounts/templates/accounts/register.html:47
+msgid "Registrarme"
+msgstr "Registrarme"
+
+#: accounts/templates/accounts/register.html:51
+msgid "¿Ya tienes cuenta?"
+msgstr "¿Ya tienes cuenta?"
+
+#: accounts/templates/accounts/register.html:51
+msgid "Inicia sesión"
+msgstr "Inicia sesión"
+
+#: core/forms.py:23
+msgid "Ej: Vitamina A, Vitamina C"
+msgstr "Ej: Vitamina A, Vitamina C"
+
+#: core/forms.py:30
+msgid "Ej: Sodio, Azúcar"
+msgstr "Ej: Sodio, Azúcar"
+
+#: core/forms.py:42
+#: yum_admins/templates/yum_admins/ingredient_type/detail.html:11
+#: yum_admins/templates/yum_admins/ingredient_type/list.html:82
+msgid "Nombre"
+msgstr "Nombre"
+
+#: core/forms.py:43 core/forms.py:91
+#: yum_admins/templates/yum_admins/ingredient_type/detail.html:14
+#: yum_admins/templates/yum_admins/ingredient_type/list.html:36
+#: yum_admins/templates/yum_admins/ingredient_type/list.html:83
+msgid "Categoría"
+msgstr "Categoría"
+
+#: core/forms.py:44
+#: yum_admins/templates/yum_admins/ingredient_type/detail.html:20
+#: yum_admins/templates/yum_admins/ingredient_type/list.html:85
+msgid "Vitaminas"
+msgstr "Vitaminas"
+
+#: core/forms.py:45
+#: yum_admins/templates/yum_admins/ingredient_type/list.html:86
+msgid "Excesos"
+msgstr "Excesos"
+
+#: core/forms.py:56
+msgid "Ya existe un tipo de ingrediente con este nombre."
+msgstr "Ya existe un tipo de ingrediente con este nombre."
+
+#: core/forms.py:71 core/forms.py:135
+#: yum_admins/templates/yum_admins/recipe/list.html:36
+#: yum_users/templates/yum_users/home.html:39
+msgid "Tipo de ingrediente"
+msgstr "Tipo de ingrediente"
+
+#: core/forms.py:72
+msgid "Cantidad"
+msgstr "Cantidad"
+
+#: core/forms.py:73
+msgid "Unidad"
+msgstr "Unidad"
+
+#: core/forms.py:89 core/forms.py:107
+#: yum_admins/templates/yum_admins/dashboard.html:132
+#: yum_admins/templates/yum_admins/recipe/list.html:125
+msgid "Título"
+msgstr "Título"
+
+#: core/forms.py:90
+msgid "Descripción"
+msgstr "Descripción"
+
+#: core/forms.py:92
+msgid "Tiempo de preparación"
+msgstr "Tiempo de preparación"
+
+#: core/forms.py:93
+msgid "Porciones"
+msgstr "Porciones"
+
+#: core/forms.py:108 yum_users/templates/yum_users/ingredient/detail.html:7
+msgid "Detalles"
+msgstr "Detalles"
+
+#: core/forms.py:109
+msgid "Complejidad"
+msgstr "Complejidad"
+
+#: core/forms.py:110
+msgid "Número de paso"
+msgstr "Número de paso"
+
+#: core/forms.py:122
+msgid "Puntuación"
+msgstr "Puntuación"
+
+#: core/forms.py:123
+msgid "Comentario"
+msgstr "Comentario"
+
+#: core/forms.py:129 yum_admins/templates/yum_admins/recipe/list.html:22
+#: yum_users/templates/yum_users/home.html:25
+msgid "Nombre de la receta"
+msgstr "Nombre de la receta"
+
+#: core/forms.py:142
+msgid "Valor nutricional mínimo"
+msgstr "Valor nutricional mínimo"
+
+#: core/forms.py:149
+msgid "Valor nutricional máximo"
+msgstr "Valor nutricional máximo"
+
+#: core/forms.py:161
+msgid "Archivo multimedia"
+msgstr "Archivo multimedia"
+
+#: core/templates/core/base.html:10 core/templates/core/partials/footer.html:7
+msgid "YUM"
+msgstr "YUM"
+
+#: core/templates/core/base_admin.html:11
+msgid "Panel Admin - YUM"
+msgstr "Panel Admin - YUM"
+
+#: core/templates/core/base_admin.html:60
+msgid "YUM Admin"
+msgstr "YUM Admin"
+
+#: core/templates/core/base_admin.html:69
+msgid "Dashboard"
+msgstr "Dashboard"
+
+#: core/templates/core/base_admin.html:72
+#: yum_admins/templates/yum_admins/dashboard.html:18
+msgid "Usuarios"
+msgstr "Usuarios"
+
+#: core/templates/core/base_admin.html:75
+#: yum_admins/templates/yum_admins/dashboard.html:27
+#: yum_admins/templates/yum_admins/users/list.html:83
+msgid "Recetas"
+msgstr "Recetas"
+
+#: core/templates/core/base_admin.html:78
+#: yum_admins/templates/yum_admins/dashboard.html:36
+#: yum_admins/templates/yum_admins/recipe/detail.html:41
+#: yum_users/templates/yum_users/recipe/detail.html:37
+msgid "Ingredientes"
+msgstr "Ingredientes"
+
+#: core/templates/core/base_admin.html:83
+#: core/templates/core/partials/navbar.html:32
+msgid "Cerrar sesión"
+msgstr "Cerrar sesión"
+
+#: core/templates/core/base_admin.html:111
+msgid "YUM Admin - Panel de Control"
+msgstr "YUM Admin - Panel de Control"
+
+#: core/templates/core/partials/footer.html:7
+msgid "- Todos los derechos reservados"
+msgstr "- Todos los derechos reservados"
+
+#: core/templates/core/partials/footer.html:8
+msgid "Creado con"
+msgstr "Creado con"
+
+#: core/templates/core/partials/footer.html:8
+msgid "usando Django"
+msgstr "usando Django"
+
+#: core/templates/core/partials/navbar.html:24
+msgid "Tipos de ingrediente"
+msgstr "Tipos de ingrediente"
+
+#: core/templates/core/partials/navbar.html:25
+msgid "Crear receta"
+msgstr "Crear receta"
+
+#: core/templates/core/partials/navbar.html:26
+#: yum_users/templates/yum_users/favorites.html:7
+#: yum_users/templates/yum_users/favorites.html:11
+msgid "Favoritas"
+msgstr "Favoritas"
+
+#: yum_admins/templates/yum_admins/dashboard.html:6
+msgid "Dashboard Admin"
+msgstr "Dashboard Admin"
+
+#: yum_admins/templates/yum_admins/dashboard.html:10
+msgid "Panel de Administración"
+msgstr "Panel de Administración"
+
+#: yum_admins/templates/yum_admins/dashboard.html:45
+#: yum_admins/templates/yum_admins/recipe/list.html:128
+#: yum_admins/templates/yum_admins/users/list.html:84
+#: yum_users/templates/yum_users/recipe/detail.html:65
+msgid "Reseñas"
+msgstr "Reseñas"
+
+#: yum_admins/templates/yum_admins/dashboard.html:60
+msgid "Usuarios más activos"
+msgstr "Usuarios más activos"
+
+#: yum_admins/templates/yum_admins/dashboard.html:73
+msgid "recetas"
+msgstr "recetas"
+
+#: yum_admins/templates/yum_admins/dashboard.html:78
+msgid "No hay usuarios activos."
+msgstr "No hay usuarios activos."
+
+#: yum_admins/templates/yum_admins/dashboard.html:92
+msgid "Recetas destacadas"
+msgstr "Recetas destacadas"
+
+#: yum_admins/templates/yum_admins/dashboard.html:111
+msgid "No hay recetas destacadas."
+msgstr "No hay recetas destacadas."
+
+#: yum_admins/templates/yum_admins/dashboard.html:125
+msgid "Recetas recientes"
+msgstr "Recetas recientes"
+
+#: yum_admins/templates/yum_admins/dashboard.html:133
+msgid "Autor"
+msgstr "Autor"
+
+#: yum_admins/templates/yum_admins/dashboard.html:134
+msgid "Fecha"
+msgstr "Fecha"
+
+#: yum_admins/templates/yum_admins/dashboard.html:153
+msgid "No hay recetas recientes."
+msgstr "No hay recetas recientes."
+
+#: yum_admins/templates/yum_admins/ingredient_type/confirm_delete.html:8
+#: yum_users/templates/yum_users/ingredient_type/confirm_delete.html:9
+msgid "Eliminar Tipo de Ingrediente"
+msgstr "Eliminar Tipo de Ingrediente"
+
+#: yum_admins/templates/yum_admins/ingredient_type/confirm_delete.html:9
+msgid "¿Estás seguro de que deseas eliminar"
+msgstr "¿Estás seguro de que deseas eliminar"
+
+#: yum_admins/templates/yum_admins/ingredient_type/confirm_delete.html:13
+#: yum_admins/templates/yum_admins/ingredient_type/detail.html:40
+#: yum_admins/templates/yum_admins/instruction/confirm_delete.html:13
+#: yum_admins/templates/yum_admins/recipe/confirm_delete.html:13
+#: yum_admins/templates/yum_admins/recipe/detail.html:61
+#: yum_admins/templates/yum_admins/recipe/detail.html:84
+#: yum_admins/templates/yum_admins/recipe/detail.html:95
+#: yum_admins/templates/yum_admins/recipe/list.html:144
+#: yum_admins/templates/yum_admins/review/confirm_delete.html:16
+#: yum_admins/templates/yum_admins/users/confirm_delete.html:14
+#: yum_admins/templates/yum_admins/users/detail.html:162
+#: yum_admins/templates/yum_admins/users/list.html:140
+#: yum_users/templates/yum_users/home.html:165
+#: yum_users/templates/yum_users/ingredient/confirm_delete.html:17
+#: yum_users/templates/yum_users/ingredient_type/confirm_delete.html:14
+#: yum_users/templates/yum_users/ingredient_type/list.html:31
+#: yum_users/templates/yum_users/instruction/confirm_delete.html:17
+#: yum_users/templates/yum_users/recipe/add.html:49
+#: yum_users/templates/yum_users/recipe/add.html:67
+#: yum_users/templates/yum_users/recipe/confirm_delete.html:15
+msgid "Eliminar"
+msgstr "Eliminar"
+
+#: yum_admins/templates/yum_admins/ingredient_type/confirm_delete.html:14
+#: yum_admins/templates/yum_admins/ingredient_type/edit.html:15
+#: yum_admins/templates/yum_admins/instruction/add.html:33
+#: yum_admins/templates/yum_admins/instruction/confirm_delete.html:14
+#: yum_admins/templates/yum_admins/recipe/confirm_delete.html:14
+#: yum_admins/templates/yum_admins/recipe/edit.html:17
+#: yum_admins/templates/yum_admins/review/confirm_delete.html:17
+#: yum_admins/templates/yum_admins/users/confirm_delete.html:15
+#: yum_users/templates/yum_users/ingredient/add.html:30
+#: yum_users/templates/yum_users/ingredient/confirm_delete.html:18
+#: yum_users/templates/yum_users/ingredient_type/confirm_delete.html:15
+#: yum_users/templates/yum_users/instruction/add.html:30
+#: yum_users/templates/yum_users/instruction/confirm_delete.html:18
+#: yum_users/templates/yum_users/recipe/confirm_delete.html:16
+msgid "Cancelar"
+msgstr "Cancelar"
+
+#: yum_users/templates/yum_users/recipe/add.html
+msgid "Salir"
+msgstr "Salir"
+
+#: yum_admins/templates/yum_admins/ingredient_type/detail.html:8
+msgid "Detalle del Tipo de Ingrediente"
+msgstr "Detalle del Tipo de Ingrediente"
+
+#: yum_admins/templates/yum_admins/ingredient_type/detail.html:17
+#: yum_admins/templates/yum_admins/ingredient_type/list.html:51
+#: yum_admins/templates/yum_admins/ingredient_type/list.html:84
+#: yum_admins/templates/yum_admins/recipe/list.html:126
+#: yum_admins/templates/yum_admins/users/list.html:80
+#: yum_admins/templates/yum_admins/users/list.html:113
+msgid "Usuario"
+msgstr "Usuario"
+
+#: yum_admins/templates/yum_admins/ingredient_type/detail.html:39
+#: yum_admins/templates/yum_admins/recipe/detail.html:60
+#: yum_admins/templates/yum_admins/recipe/detail.html:94
+#: yum_admins/templates/yum_admins/recipe/list.html:143
+#: yum_users/templates/yum_users/home.html:162
+#: yum_users/templates/yum_users/ingredient_type/list.html:30
+#: yum_users/templates/yum_users/recipe/add.html:48
+#: yum_users/templates/yum_users/recipe/add.html:66
+msgid "Editar"
+msgstr "Editar"
+
+#: yum_admins/templates/yum_admins/ingredient_type/detail.html:41
+#: yum_admins/templates/yum_admins/users/detail.html:13
+#: yum_users/templates/yum_users/ingredient/detail.html:44
+#: yum_users/templates/yum_users/recipe/detail.html:82
+msgid "Volver"
+msgstr "Volver"
+
+#: yum_admins/templates/yum_admins/ingredient_type/edit.html:8
+msgid "Editar Tipo de Ingrediente"
+msgstr "Editar Tipo de Ingrediente"
+
+#: yum_admins/templates/yum_admins/ingredient_type/edit.html:14
+#: yum_admins/templates/yum_admins/instruction/add.html:31
+#: yum_admins/templates/yum_admins/recipe/edit.html:16
+msgid "Guardar cambios"
+msgstr "Guardar cambios"
+
+#: yum_admins/templates/yum_admins/ingredient_type/list.html:8
+msgid "Gestión de Tipos de Ingredientes"
+msgstr "Gestión de Tipos de Ingredientes"
+
+#: yum_admins/templates/yum_admins/ingredient_type/list.html:14
+#, fuzzy
+#| msgid "Editar Tipo de Ingrediente"
+msgid "Filtrar Tipos de Ingredientes"
+msgstr "Editar Tipo de Ingrediente"
+
+#: yum_admins/templates/yum_admins/ingredient_type/list.html:22
+#, fuzzy
+#| msgid "Nombre de usuario"
+msgid "Nombre del tipo"
+msgstr "Nombre de usuario"
+
+#: yum_admins/templates/yum_admins/ingredient_type/list.html:29
+msgid "Buscar por nombre..."
+msgstr "Buscar por nombre..."
+
+#: yum_admins/templates/yum_admins/ingredient_type/list.html:39
+msgid "Todas las categorías"
+msgstr "Todas las categorías"
+
+#: yum_admins/templates/yum_admins/ingredient_type/list.html:58
+msgid "Buscar por usuario..."
+msgstr "Buscar por usuario..."
+
+#: yum_admins/templates/yum_admins/ingredient_type/list.html:66
+#: yum_admins/templates/yum_admins/recipe/list.html:86
+#: yum_admins/templates/yum_admins/users/list.html:61
+#: yum_users/templates/yum_users/home.html:90
+#, fuzzy
+#| msgid "Limpiar"
+msgid "Limpiar filtros"
+msgstr "Limpiar"
+
+#: yum_admins/templates/yum_admins/ingredient_type/list.html:69
+msgid "Buscar tipos"
+msgstr "Buscar tipos"
+
+#: yum_admins/templates/yum_admins/ingredient_type/list.html:87
+#: yum_admins/templates/yum_admins/recipe/list.html:130
+#: yum_admins/templates/yum_admins/users/list.html:86
+msgid "Acciones"
+msgstr "Acciones"
+
+#: yum_admins/templates/yum_admins/ingredient_type/list.html:118
+#: yum_users/templates/yum_users/ingredient_type/list.html:37
+msgid "No hay tipos de ingredientes registrados."
+msgstr "No hay tipos de ingredientes registrados."
+
+#: yum_admins/templates/yum_admins/ingredient_type/list.html:128
+#: yum_admins/templates/yum_admins/recipe/list.html:159
+#: yum_admins/templates/yum_admins/users/list.html:180
+msgid "Anterior"
+msgstr "Anterior"
+
+#: yum_admins/templates/yum_admins/ingredient_type/list.html:131
+#: yum_admins/templates/yum_admins/users/list.html:187
+#: yum_users/templates/yum_users/recipe/add.html:46
+msgid "de"
+msgstr "de"
+
+#: yum_admins/templates/yum_admins/ingredient_type/list.html:134
+#: yum_admins/templates/yum_admins/recipe/list.html:165
+#: yum_admins/templates/yum_admins/users/list.html:194
+msgid "Siguiente"
+msgstr "Siguiente"
+
+#: yum_admins/templates/yum_admins/instruction/add.html:12
+#: yum_users/templates/yum_users/instruction/add.html:10
+msgid "Editar instrucción"
+msgstr "Editar instrucción"
+
+#: yum_admins/templates/yum_admins/instruction/add.html:12
+#: yum_admins/templates/yum_admins/instruction/add.html:31
+#: yum_admins/templates/yum_admins/recipe/detail.html:71
+#: yum_users/templates/yum_users/instruction/add.html:10
+#: yum_users/templates/yum_users/instruction/add.html:28
+#: yum_users/templates/yum_users/recipe/add.html:60
+msgid "Añadir instrucción"
+msgstr "Añadir instrucción"
+
+#: yum_admins/templates/yum_admins/instruction/confirm_delete.html:8
+msgid "Eliminar instrucción"
+msgstr "Eliminar instrucción"
+
+#: yum_admins/templates/yum_admins/instruction/confirm_delete.html:9
+msgid "¿Estás seguro de que deseas eliminar esta instrucción?"
+msgstr "¿Estás seguro de que deseas eliminar esta instrucción?"
+
+#: yum_admins/templates/yum_admins/recipe/confirm_delete.html:8
+#: yum_users/templates/yum_users/recipe/confirm_delete.html:10
+msgid "Eliminar Receta"
+msgstr "Eliminar Receta"
+
+#: yum_admins/templates/yum_admins/recipe/confirm_delete.html:9
+msgid "¿Estás seguro que deseas eliminar la receta"
+msgstr "¿Estás seguro que deseas eliminar la receta"
+
+#: yum_admins/templates/yum_admins/recipe/detail.html:14
+msgid "Autor:"
+msgstr "Autor:"
+
+#: yum_admins/templates/yum_admins/recipe/detail.html:15
+#: yum_users/templates/yum_users/ingredient/detail.html:15
+#: yum_users/templates/yum_users/recipe/detail.html:14
+msgid "Categoría:"
+msgstr "Categoría:"
+
+#: yum_admins/templates/yum_admins/recipe/detail.html:16
+#: yum_users/templates/yum_users/recipe/detail.html:15
+msgid "Tiempo de preparación:"
+msgstr "Tiempo de preparación:"
+
+#: yum_admins/templates/yum_admins/recipe/detail.html:17
+#: yum_users/templates/yum_users/favorites.html:53
+#: yum_users/templates/yum_users/home.html:144
+#: yum_users/templates/yum_users/recipe/detail.html:16
+msgid "Porciones:"
+msgstr "Porciones:"
+
+#: yum_admins/templates/yum_admins/recipe/detail.html:31
+#: yum_users/templates/yum_users/recipe/detail.html:33
+msgid "Valor nutricional (IA):"
+msgstr "Valor nutricional (IA):"
+
+#: yum_admins/templates/yum_admins/recipe/detail.html:32
+#: yum_users/templates/yum_users/recipe/detail.html:34
+msgid "Calificación promedio:"
+msgstr "Calificación promedio:"
+
+#: yum_admins/templates/yum_admins/recipe/detail.html:34
+msgid "reseñas"
+msgstr "reseñas"
+
+#: yum_admins/templates/yum_admins/recipe/detail.html:36
+msgid "Sin calificaciones aún"
+msgstr "Sin calificaciones aún"
+
+#: yum_admins/templates/yum_admins/recipe/detail.html:46
+#: yum_users/templates/yum_users/recipe/detail.html:46
+msgid "No se han agregado ingredientes."
+msgstr "No se han agregado ingredientes."
+
+#: yum_admins/templates/yum_admins/recipe/detail.html:51
+#: yum_users/templates/yum_users/recipe/add.html:58
+#: yum_users/templates/yum_users/recipe/detail.html:51
+msgid "Instrucciones"
+msgstr "Instrucciones"
+
+#: yum_admins/templates/yum_admins/recipe/detail.html:55
+msgid "Paso"
+msgstr "Paso"
+
+#: yum_admins/templates/yum_admins/recipe/detail.html:57
+msgid "Complejidad:"
+msgstr "Complejidad:"
+
+#: yum_admins/templates/yum_admins/recipe/detail.html:65
+#: yum_users/templates/yum_users/recipe/detail.html:60
+msgid "No se han agregado instrucciones."
+msgstr "No se han agregado instrucciones."
+
+#: yum_admins/templates/yum_admins/recipe/detail.html:81
+#: yum_users/templates/yum_users/recipe/detail.html:69
+msgid "calificó:"
+msgstr "calificó:"
+
+#: yum_admins/templates/yum_admins/recipe/detail.html:87
+#: yum_users/templates/yum_users/recipe/detail.html:74
+msgid "Aún no hay reseñas."
+msgstr "Aún no hay reseñas."
+
+#: yum_admins/templates/yum_admins/recipe/detail.html:96
+#: yum_admins/templates/yum_admins/users/detail.html:156
+msgid "Volver a la lista"
+msgstr "Volver a la lista"
+
+#: yum_admins/templates/yum_admins/recipe/edit.html:8
+msgid "Editar Receta"
+msgstr "Editar Receta"
+
+#: yum_admins/templates/yum_admins/recipe/list.html:8
+msgid "Gestión de Recetas"
+msgstr "Gestión de Recetas"
+
+#: yum_admins/templates/yum_admins/recipe/list.html:14
+#: yum_users/templates/yum_users/home.html:17
+#, fuzzy
+#| msgid "Editar Receta"
+msgid "Filtrar Recetas"
+msgstr "Editar Receta"
+
+#: yum_admins/templates/yum_admins/recipe/list.html:29
+#: yum_users/templates/yum_users/home.html:32
+msgid "Ej: Pasta, Pizza, Ensalada..."
+msgstr "Ej: Pasta, Pizza, Ensalada..."
+
+#: yum_admins/templates/yum_admins/recipe/list.html:44
+#: yum_users/templates/yum_users/home.html:47
+#, fuzzy
+#| msgid "Valor nutricional:"
+msgid "Valor nutricional"
+msgstr "Valor nutricional:"
+
+#: yum_admins/templates/yum_admins/recipe/list.html:50
+#: yum_users/templates/yum_users/home.html:53
+msgid "Mínimo"
+msgstr "Mínimo"
+
+#: yum_admins/templates/yum_admins/recipe/list.html:69
+#: yum_users/templates/yum_users/home.html:72
+msgid "Máximo"
+msgstr "Máximo"
+
+#: yum_admins/templates/yum_admins/recipe/list.html:89
+#: yum_users/templates/yum_users/home.html:93
+#, fuzzy
+#| msgid "Crear receta"
+msgid "Buscar recetas"
+msgstr "Crear receta"
+
+#: yum_admins/templates/yum_admins/recipe/list.html:127
+msgid "Valor Nutricional"
+msgstr "Valor Nutricional"
+
+#: yum_admins/templates/yum_admins/recipe/list.html:129
+msgid "Rating Promedio"
+msgstr "Rating Promedio"
+
+#: yum_admins/templates/yum_admins/recipe/list.html:142
+#: yum_admins/templates/yum_admins/users/detail.html:107
+msgid "Ver"
+msgstr "Ver"
+
+#: yum_admins/templates/yum_admins/recipe/list.html:149
+msgid "No hay recetas registradas."
+msgstr "No hay recetas registradas."
+
+#: yum_admins/templates/yum_admins/recipe/list.html:162
+msgid "Página "
+msgstr "Página "
+
+#: yum_admins/templates/yum_admins/review/confirm_delete.html:10
+msgid "Eliminar Reseña"
+msgstr "Eliminar Reseña"
+
+#: yum_admins/templates/yum_admins/review/confirm_delete.html:11
+msgid "¿Estás seguro de que deseas eliminar la reseña de"
+msgstr "¿Estás seguro de que deseas eliminar la reseña de"
+
+#: yum_admins/templates/yum_admins/users/confirm_delete.html:8
+msgid "Eliminar Usuario"
+msgstr "Eliminar Usuario"
+
+#: yum_admins/templates/yum_admins/users/confirm_delete.html:9
+msgid "¿Estás seguro de que deseas eliminar al usuario "
+msgstr "¿Estás seguro de que deseas eliminar al usuario "
+
+#: yum_admins/templates/yum_admins/users/detail.html:11
+#, fuzzy
+#| msgid "Nombre de usuario"
+msgid "Detalle de Usuario"
+msgstr "Nombre de usuario"
+
+#: yum_admins/templates/yum_admins/users/detail.html:32
+#: yum_admins/templates/yum_admins/users/list.html:81
+msgid "Email"
+msgstr "Email"
+
+#: yum_admins/templates/yum_admins/users/detail.html:41
+#: yum_admins/templates/yum_admins/users/list.html:52
+msgid "Administrador"
+msgstr "Administrador"
+
+#: yum_admins/templates/yum_admins/users/detail.html:43
+#: yum_admins/templates/yum_admins/users/list.html:49
+msgid "Usuario Común"
+msgstr "Usuario Común"
+
+#: yum_admins/templates/yum_admins/users/detail.html:50
+msgid "Fecha de registro"
+msgstr "Fecha de registro"
+
+#: yum_admins/templates/yum_admins/users/detail.html:57
+#, fuzzy
+#| msgid "Usuario"
+msgid "ID de Usuario"
+msgstr "Usuario"
+
+#: yum_admins/templates/yum_admins/users/detail.html:74
+#, fuzzy
+#| msgid "Recetas destacadas"
+msgid "Recetas Publicadas"
+msgstr "Recetas destacadas"
+
+#: yum_admins/templates/yum_admins/users/detail.html:83
+#, fuzzy
+#| msgid "Reseñas de"
+msgid "Reseñas Escritas"
+msgstr "Reseñas de"
+
+#: yum_admins/templates/yum_admins/users/detail.html:92
+msgid "Recetas de"
+msgstr "Recetas de"
+
+#: yum_admins/templates/yum_admins/users/detail.html:115
+msgid "Este usuario no ha publicado recetas todavía."
+msgstr "Este usuario no ha publicado recetas todavía."
+
+#: yum_admins/templates/yum_admins/users/detail.html:124
+msgid "Reseñas de"
+msgstr "Reseñas de"
+
+#: yum_admins/templates/yum_admins/users/detail.html:147
+msgid "Este usuario no ha escrito reseñas todavía."
+msgstr "Este usuario no ha escrito reseñas todavía."
+
+#: yum_admins/templates/yum_admins/users/list.html:10
+#, fuzzy
+#| msgid "Gestión de Recetas"
+msgid "Gestión de Usuarios"
+msgstr "Gestión de Recetas"
+
+#: yum_admins/templates/yum_admins/users/list.html:22
+#, fuzzy
+#| msgid "Eliminar Usuario"
+msgid "Filtrar Usuarios"
+msgstr "Eliminar Usuario"
+
+#: yum_admins/templates/yum_admins/users/list.html:30
+#, fuzzy
+#| msgid "Eliminar Usuario"
+msgid "Buscar usuario"
+msgstr "Eliminar Usuario"
+
+#: yum_admins/templates/yum_admins/users/list.html:38
+#, fuzzy
+#| msgid "Nombre de usuario"
+msgid "Nombre de usuario o email..."
+msgstr "Nombre de usuario"
+
+#: yum_admins/templates/yum_admins/users/list.html:47
+msgid "Todos los roles"
+msgstr "Todos los roles"
+
+#: yum_admins/templates/yum_admins/users/list.html:64
+#, fuzzy
+#| msgid "No se encontraron usuarios."
+msgid "Buscar usuarios"
+msgstr "No se encontraron usuarios."
+
+#: yum_admins/templates/yum_admins/users/list.html:85
+#: yum_users/templates/yum_users/external_recommendations.html
+msgid "Registro"
+msgstr "Registro"
+
+#: yum_admins/templates/yum_admins/users/list.html:109
+#, fuzzy
+#| msgid "YUM Admin"
+msgid "Admin"
+msgstr "YUM Admin"
+
+#: yum_admins/templates/yum_admins/users/list.html:134
+#, fuzzy
+#| msgid "Detalles"
+msgid "Ver detalles"
+msgstr "Detalles"
+
+#: yum_admins/templates/yum_admins/users/list.html:154
+#, fuzzy
+#| msgid "No se encontraron usuarios."
+msgid "No se encontraron usuarios con estos filtros."
+msgstr "No se encontraron usuarios."
+
+#: yum_admins/templates/yum_admins/users/list.html:156
+#, fuzzy
+#| msgid "Todos los roles"
+msgid "Ver todos los usuarios"
+msgstr "Todos los roles"
+
+#: yum_admins/templates/yum_admins/users/list.html:170
+msgid "Navegación de páginas"
+msgstr "Navegación de páginas"
+
+#: yum_admins/templates/yum_admins/users/list.html:175
+msgid "Primera"
+msgstr "Primera"
+
+#: yum_admins/templates/yum_admins/users/list.html:187
+#, fuzzy
+#| msgid "Página "
+msgid "Página"
+msgstr "Página "
+
+#: yum_admins/templates/yum_admins/users/list.html:199
+msgid "Última"
+msgstr "Última"
+
+#: yum_users/templates/yum_users/favorites.html:50
+#: yum_users/templates/yum_users/home.html:140
+msgid "Duración:"
+msgstr "Duración:"
+
+#: yum_users/templates/yum_users/favorites.html:56
+#: yum_users/templates/yum_users/home.html:148
+#: yum_admins/templates/yum_admins/users/detail.html:103
+msgid "Valor nutricional:"
+msgstr "Valor nutricional:"
+
+#: yum_users/templates/yum_users/favorites.html:62
+msgid "Sin calificar"
+msgstr "Sin calificar"
+
+#: yum_users/templates/yum_users/favorites.html:69
+#: yum_users/templates/yum_users/recipe/add.html:7
+#: yum_users/templates/yum_users/recipe/add.html:13
+msgid "Editar receta"
+msgstr "Editar receta"
+
+#: yum_users/templates/yum_users/favorites.html:72
+msgid "Eliminar receta"
+msgstr "Eliminar receta"
+
+#: yum_users/templates/yum_users/favorites.html:77
+msgid "Ver receta"
+msgstr "Ver receta"
+
+#: yum_users/templates/yum_users/favorites.html:83
+msgid "No hay recetas disponibles aún."
+msgstr "No hay recetas disponibles aún."
+
+#: yum_users/templates/yum_users/home.html:6
+msgid "Inicio - Recetario"
+msgstr "Inicio - Recetario"
+
+#: yum_users/templates/yum_users/home.html:11
+msgid "Recetario"
+msgstr "Recetario"
+
+#: yum_users/templates/yum_users/home.html:170
+msgid "Ver receta completa"
+msgstr "Ver receta completa"
+
+#: yum_users/templates/yum_users/home.html:180
+msgid "No se encontraron recetas con estos filtros."
+msgstr "No se encontraron recetas con estos filtros."
+
+#: yum_users/templates/yum_users/home.html:183
+msgid "Ver todas las recetas"
+msgstr "Ver todas las recetas"
+
+#: yum_users/templates/yum_users/ingredient/add.html:10
+msgid "Editar ingrediente"
+msgstr "Editar ingrediente"
+
+#: yum_users/templates/yum_users/ingredient/add.html:10
+#: yum_users/templates/yum_users/ingredient/add.html:28
+#: yum_users/templates/yum_users/recipe/add.html:42
+msgid "Añadir ingrediente"
+msgstr "Añadir ingrediente"
+
+#: yum_users/templates/yum_users/ingredient/add.html:28
+msgid "Guardar"
+msgstr "Guardar"
+
+#: yum_users/templates/yum_users/ingredient/confirm_delete.html:7
+#: yum_users/templates/yum_users/ingredient/confirm_delete.html:12
+msgid "Eliminar Ingrediente"
+msgstr "Eliminar Ingrediente"
+
+#: yum_users/templates/yum_users/ingredient/detail.html:18
+msgid "Cantidad en la receta:"
+msgstr "Cantidad en la receta:"
+
+#: yum_users/templates/yum_users/ingredient/detail.html:21
+#: yum_users/templates/yum_users/ingredient_type/list.html:22
+msgid "Vitaminas:"
+msgstr "Vitaminas:"
+
+#: yum_users/templates/yum_users/ingredient/detail.html:29
+msgid "No hay información de vitaminas."
+msgstr "No hay información de vitaminas."
+
+#: yum_users/templates/yum_users/ingredient/detail.html:32
+#: yum_users/templates/yum_users/ingredient_type/list.html:25
+msgid "Excesos:"
+msgstr "Excesos:"
+
+#: yum_users/templates/yum_users/ingredient/detail.html:40
+msgid "No se reportan excesos."
+msgstr "No se reportan excesos."
+
+#: yum_users/templates/yum_users/ingredient_type/add.html:9
+msgid "Crear tipo de ingrediente"
+msgstr "Crear tipo de ingrediente"
+
+#: yum_users/templates/yum_users/ingredient_type/add.html:35
+msgid "Formato, ejemplo: \"Vitamina A\", \"Vitamina C\""
+msgstr "Formato, ejemplo: \"Vitamina A\", \"Vitamina C\""
+
+#: yum_users/templates/yum_users/ingredient_type/add.html:42
+msgid "Formato, ejemplo: \"Sodio\", \"Azúcar\""
+msgstr "Formato, ejemplo: \"Sodio\", \"Azúcar\""
+
+#: yum_users/templates/yum_users/ingredient_type/add.html:46
+msgid "Guardar tipo de ingrediente"
+msgstr "Guardar tipo de ingrediente"
+
+#: yum_users/templates/yum_users/ingredient_type/confirm_delete.html:10
+msgid "¿Estás seguro que deseas eliminar"
+msgstr "¿Estás seguro que deseas eliminar"
+
+#: yum_users/templates/yum_users/ingredient_type/list.html:10
+msgid "Catálogo de Tipos de Ingrediente"
+msgstr "Catálogo de Tipos de Ingrediente"
+
+#: yum_users/templates/yum_users/instruction/confirm_delete.html:7
+#: yum_users/templates/yum_users/instruction/confirm_delete.html:12
+msgid "Eliminar Instrucción"
+msgstr "Eliminar Instrucción"
+
+#: yum_users/templates/yum_users/instruction/confirm_delete.html:13
+#: yum_users/templates/yum_users/recipe/confirm_delete.html:11
+msgid "¿Seguro que quieres eliminar"
+msgstr "¿Seguro que quieres eliminar"
+
+#: yum_users/templates/yum_users/recipe/add.html:7
+#: yum_users/templates/yum_users/recipe/add.html:13
+msgid "Nueva receta"
+msgstr "Nueva receta"
+
+#: yum_users/templates/yum_users/recipe/add.html:30
+msgid "Añadir ingredientes e instrucciones"
+msgstr "Añadir ingredientes e instrucciones"
+
+#: yum_users/templates/yum_users/recipe/add.html:33
+msgid "Guardar "
+msgstr "Guardar "
+
+#: yum_users/templates/yum_users/recipe/add.html:53
+#: yum_users/templates/yum_users/recipe/add.html:71
+msgid "No hay ingredientes agregados."
+msgstr "No hay ingredientes agregados."
+
+#: yum_users/templates/yum_users/recipe/detail.html:55
+msgid "Paso "
+msgstr "Paso "
+
+#: yum_users/templates/yum_users/recipe/detail.html:78
+msgid "Escribir una reseña"
+msgstr "Escribir una reseña"
+
+#: yum_users/templates/yum_users/review/add.html:9
+msgid "Dejar una reseña para"
+msgstr "Dejar una reseña para"
+
+#: yum_users/templates/yum_users/review/add.html:13
+msgid "Enviar reseña"
+msgstr "Enviar reseña"
+
+#: yum_admins/templates/yum_admins/users/list.html:13
+msgid "Total:"
+msgstr "Total:"
+
+#: yum_admins/templates/yum_admins/users/list.html:13
+msgid "usuarios"
+msgstr "usuarios"
+
+#: yum_admins/templates/yum_admins/users/list.html:99
+msgid "ID:"
+msgstr "ID:"
+
+#: yum_admins/templates/yum_admins/users/list.html:141
+#: yum_admins/templates/yum_admins/users/detail.html:161
+msgid "¿Seguro que quieres eliminar este usuario?"
+msgstr "¿Seguro que quieres eliminar este usuario?"
+
+#: yum_users/views.py:108
+#: yum_users/views.py:269
+msgid "No tienes permiso para añadir ingredientes a esta receta."
+msgstr "No tienes permiso para añadir ingredientes a esta receta."
+
+#: yum_admins/views.py:427
+msgid "Formato de reporte '%(format)s' no válido."
+msgstr "Formato de reporte '%(format)s' no válido."
+
+#: yum_admins/views.py:428
+msgid "Formatos disponibles:"
+msgstr "Formatos disponibles:"
+
+#: yum_admins/services/reports/pdf_report.py:60
+msgid "📊 Resumen del Reporte"
+msgstr "📊 Resumen del Reporte"
+
+#: yum_admins/services/reports/pdf_report.py:61
+msgid "Total de Recetas:"
+msgstr "Total de Recetas:"
+
+#: yum_admins/services/reports/pdf_report.py:62
+msgid "Recetas con Reseñas:"
+msgstr "Recetas con Reseñas:"
+
+#: yum_admins/services/reports/pdf_report.py:63
+msgid "Promedio de Rating:"
+msgstr "Promedio de Rating:"
+
+#: yum_admins/services/reports/pdf_report.py:85
+msgid "#"
+msgstr "#"
+
+#: yum_admins/services/reports/pdf_report.py:85
+msgid "Valor Nutr."
+msgstr "Valor Nutr."
+
+#: yum_admins/services/reports/pdf_report.py:131
+msgid "Generado por YUM - Sistema de Gestión de Recetas"
+msgstr "Generado por YUM - Sistema de Gestión de Recetas"
+
+#: yum_admins/services/reports/excel_report.py:60
+msgid "📊 RESUMEN"
+msgstr "📊 RESUMEN"
+
+#: yum_admins/services/reports/excel_report.py:134
+msgid "Estadísticas"
+msgstr "Estadísticas"
+
+#: yum_admins/services/reports/excel_report.py:135
+msgid "📈 Estadísticas Detalladas"
+msgstr "📈 Estadísticas Detalladas"
+
+#: yum_admins/services/reports/excel_report.py:143
+msgid "Categorías Más Populares:"
+msgstr "Categorías Más Populares:"
+
+#: yum_admins/services/reports/excel_report.py:156
+msgid "Top Usuarios con Más Recetas:"
+msgstr "Top Usuarios con Más Recetas:"
+
+#~ msgid "Tipos de Ingrediente"
+#~ msgstr "Tipos de Ingrediente"
+
+#~ msgid "-- Todas --"
+#~ msgstr "-- Todas --"
+
+#~ msgid "Email:"
+#~ msgstr "Email:"
+
+#~ msgid "Rol:"
+#~ msgstr "Rol:"
+
+#~ msgid "Fecha de registro:"
+#~ msgstr "Fecha de registro:"
+
+#~ msgid "Total Recetas:"
+#~ msgstr "Total Recetas:"
+
+#~ msgid "Total Reseñas:"
+#~ msgstr "Total Reseñas:"
+
+#~ msgid "No tiene recetas"
+#~ msgstr "No tiene recetas"
+
+#~ msgid "No tiene reseñas."
+#~ msgstr "No tiene reseñas."
+
+#: yum_users/views.py
+msgid "Recomendaciones rápidas"
+msgstr "Recomendaciones rápidas"
+
+#: yum_users/templates/yum_users/external_recommendations.html
+msgid "Error al cargar las recomendaciones"
+msgstr "Error al cargar las recomendaciones"
+
+#: yum_users/templates/yum_users/external_recommendations.html
+msgid "No se pudieron cargar las recomendaciones. Por favor, intenta más tarde."
+msgstr "No se pudieron cargar las recomendaciones. Por favor, intenta más tarde."
+
+#: yum_users/templates/yum_users/external_recommendations.html
+msgid "Ingredientes:"
+msgstr "Ingredientes:"
+
+#: yum_users/templates/yum_users/external_recommendations.html
+msgid "Calorías:"
+msgstr "Calorías:"
+
+#: yum_users/templates/yum_users/external_recommendations.html
+msgid "Proteína:"
+msgstr "Proteína:"
+
+#: yum_users/templates/yum_users/external_recommendations.html
+msgid "Carbohidratos:"
+msgstr "Carbohidratos:"
+
+#: yum_users/templates/yum_users/external_recommendations.html
+msgid "Grasa:"
+msgstr "Grasa:"
+
+#: yum_users/templates/yum_users/external_recommendations.html
+msgid "Fibra:"
+msgstr "Fibra:"
+
+#: yum_users/templates/yum_users/external_recommendations.html
+msgid "Azúcar:"
+msgstr "Azúcar:"
+
+#: yum_users/templates/yum_users/external_recommendations.html
+msgid "Sodio:"
+msgstr "Sodio:"
+
+#: yum_users/templates/yum_users/external_recommendations.html
+msgid "Receta"
+msgstr "Receta"
+
+#: yum_users/templates/yum_users/external_recommendations.html
+msgid "No hay recomendaciones disponibles."
+msgstr "No hay recomendaciones disponibles."
+
+#: yum_users/templates/yum_users/news.html
+#: yum/core/templates/core/partials/navbar.html
+msgid "Noticias"
+msgstr "Noticias de Salud"
+
+#: yum_users/templates/yum_users/news.html
+msgid "Noticias de Nutrición"
+msgstr "Noticias de Salud"
+
+#: yum_users/templates/yum_users/news.html
+msgid "noticias"
+msgstr "noticias"
+
+#: yum_users/templates/yum_users/news.html
+msgid "Error al cargar las noticias"
+msgstr "Error al cargar las noticias"
+
+#: yum_users/templates/yum_users/news.html
+msgid "No se pudieron cargar las noticias. Por favor, intenta más tarde."
+msgstr "No se pudieron cargar las noticias. Por favor, intenta más tarde."
+
+#: yum_users/templates/yum_users/news.html
+msgid "Fuente:"
+msgstr "Fuente:"
+
+#: yum_users/templates/yum_users/news.html
+msgid "Fecha:"
+msgstr "Fecha:"
+
+#: yum_users/templates/yum_users/news.html
+msgid "Leer noticia completa"
+msgstr "Leer noticia completa"
+
+#: yum_users/templates/yum_users/news.html
+msgid "No hay noticias disponibles."
+msgstr "No hay noticias disponibles."
+
+#~ msgid "Filtrar"
+#~ msgstr "Filtrar"
+
+#~ msgid "Filtra"
+#~ msgstr "Filtra"

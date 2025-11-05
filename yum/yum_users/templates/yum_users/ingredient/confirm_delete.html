@@ -1,0 +1,21 @@
+<!-- Autor: Ana Sofia Alfonso -->
+
+{% extends "core/base.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}{% trans "Eliminar Ingrediente" %}{% endblock %}
+
+{% block content %}
+
+<div class="container mt-4">
+  <h2>{% trans "Eliminar Ingrediente" %}</h2>
+  <p>{% trans "¿Seguro que quieres eliminar" %} <strong>{{ object }}</strong>?</p>
+
+  <form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-secondary">{% trans "Eliminar" %}</button>
+    <a href="{% url 'recipe_edit' object.recipe.id %}" class="btn btn-brand">{% trans "Cancelar" %}</a>
+  </form>
+</div>
+{% endblock %}

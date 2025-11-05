@@ -1,0 +1,49 @@
+<!-- Autor: Ana Sofia Alfonso -->
+
+{% extends "core/base.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}{{ ingredient.ingredient_type.nombre }}{% trans "Detalles" %} - {% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <h3 class="card-title">{{ ingredient.ingredient_type.nombre }}</h3>
+      <p class="text-muted">
+        {% trans "Categoría:" %} <strong>{{ ingredient.ingredient_type.category }}</strong>
+      </p>
+
+      <h5>{% trans "Cantidad en la receta:" %}</h5>
+      <p>{{ ingredient.quantity }} {{ ingredient.unit }}</p>
+
+      <h5>{% trans "Vitaminas:" %}</h5>
+      {% if ingredient.ingredient_type.vitamins %}
+        <ul>
+          {% for vit in ingredient.ingredient_type.vitamins %}
+            <li>{{ vit }}</li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <p>{% trans "No hay información de vitaminas." %}</p>
+      {% endif %}
+
+      <h5>{% trans "Excesos:" %}</h5>
+      {% if ingredient.ingredient_type.excesses %}
+        <ul>
+          {% for exc in ingredient.ingredient_type.excesses %}
+            <li>{{ exc }}</li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <p>{% trans "No se reportan excesos." %}</p>
+      {% endif %}
+
+      <div class="mt-4">
+        <a href="{% url 'recipe_detail' ingredient.recipe.id %}" class="btn btn-secondary">{% trans "Volver" %}</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,207 @@
+<!-- Autor: Jhon Freddy Alzate -->
+
+{% extends "core/base_admin.html" %}
+{% load i18n %}
+
+{% block content %}
+<div class="container mt-4">
+  <!-- Título con estadísticas -->
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="mb-0">{% trans "Gestión de Usuarios" %}</h2>
+    <div class="text-end">
+      <small class="text-muted">
+        👥 {% trans "Total:" %} <strong>{{ page_obj.paginator.count }}</strong> {% trans "usuarios" %}
+      </small>
+    </div>
+  </div>
+
+  <!-- Tarjeta de filtros mejorada -->
+  <div class="card shadow-sm mb-4 dashboard-section-card">
+    <div class="card-body p-4">
+      <h5 class="card-title mb-4">
+        🔍 {% trans "Filtrar Usuarios" %}
+      </h5>
+      
+      <form method="get">
+        <div class="row g-3">
+          <!-- Búsqueda por nombre/email -->
+          <div class="col-lg-8">
+            <label for="search" class="form-label fw-semibold">
+              🔎 {% trans "Buscar usuario" %}
+            </label>
+            <input 
+              type="text" 
+              name="search" 
+              id="search"
+              value="{{ request.GET.search|default:'' }}" 
+              class="form-control form-control-lg"
+              placeholder="{% trans 'Nombre de usuario o email...' %}">
+          </div>
+          
+          <!-- Filtro por rol -->
+          <div class="col-lg-4">
+            <label for="role" class="form-label fw-semibold">
+              👤 {% trans "Rol" %}
+            </label>
+            <select name="role" id="role" class="form-select form-select-lg">
+              <option value="">{% trans "Todos los roles" %}</option>
+              <option value="common" {% if request.GET.role == "common" %}selected{% endif %}>
+                {% trans "Usuario Común" %}
+              </option>
+              <option value="admin" {% if request.GET.role == "admin" %}selected{% endif %}>
+                {% trans "Administrador" %}
+              </option>
+            </select>
+          </div>
+          
+          <!-- Botones de acción -->
+          <div class="col-12">
+            <div class="d-flex gap-2 justify-content-end mt-3">
+              <a href="{% url 'admin_user_list' %}" class="btn btn-outline-secondary">
+                ↻ {% trans "Limpiar filtros" %}
+              </a>
+              <button type="submit" class="btn btn-brand btn-lg px-5">
+                🔍 {% trans "Buscar usuarios" %}
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Tabla de usuarios mejorada -->
+  <div class="card shadow-sm">
+    <div class="card-body p-0">
+      <div class="table-responsive">
+        <table class="table table-hover mb-0 align-middle">
+          <thead class="table-light">
+            <tr>
+              <th class="ps-4">{% trans "Usuario" %}</th>
+              <th>{% trans "Email" %}</th>
+              <th class="text-center">{% trans "Rol" %}</th>
+              <th class="text-center">{% trans "Recetas" %}</th>
+              <th class="text-center">{% trans "Reseñas" %}</th>
+              <th class="text-center">{% trans "Registro" %}</th>
+              <th class="text-center pe-4">{% trans "Acciones" %}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for user in users %}
+            <tr>
+              <td class="ps-4">
+                <div class="d-flex align-items-center">
+                  <div class="user-avatar-placeholder me-2">
+                    {{ user.username|slice:":1"|upper }}
+                  </div>
+                  <div>
+                    <div class="fw-semibold">{{ user.username }}</div>
+                    <small class="text-muted">{% trans "ID:" %} {{ user.id }}</small>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <small>{{ user.email }}</small>
+              </td>
+              <td class="text-center">
+                {% if user.role == "admin" %}
+                  <span class="badge bg-danger">
+                    🛡️ {% trans "Admin" %}
+                  </span>
+                {% else %}
+                  <span class="badge bg-primary">
+                    👤 {% trans "Usuario" %}
+                  </span>
+                {% endif %}
+              </td>
+              <td class="text-center">
+                <span class="badge bg-success">
+                  📝 {{ user.recipe_count }}
+                </span>
+              </td>
+              <td class="text-center">
+                <span class="badge bg-info text-dark">
+                  💬 {{ user.review_count }}
+                </span>
+              </td>
+              <td class="text-center">
+                <small class="text-muted">{{ user.date_joined|date:"d/m/Y" }}</small>
+              </td>
+              <td class="text-center pe-4">
+                <div class="btn-group btn-group-sm" role="group">
+                  <a href="{% url 'admin_user_detail' user.pk %}" 
+                     class="btn btn-outline-info" 
+                     title="{% trans 'Ver detalles' %}">
+                    👁️
+                  </a>
+                  </a>
+                  <a href="{% url 'admin_user_delete' user.pk %}" 
+                    class="btn btn-outline-danger" 
+                    title="{% trans 'Eliminar' %}"
+                    onclick="return confirm('{% trans "¿Seguro que quieres eliminar este usuario?"|escapejs %}')">
+                    🗑️
+                  </a>
+
+
+                </div>
+              </td>
+            </tr>
+            {% empty %}
+            <tr>
+              <td colspan="7" class="text-center py-5">
+                <div class="text-muted">
+                  <div class="mb-3 empty-state-icon">😕</div>
+                  <p class="mb-0">{% trans "No se encontraron usuarios con estos filtros." %}</p>
+                  <a href="{% url 'admin_user_list' %}" class="btn btn-brand btn-sm mt-3">
+                    {% trans "Ver todos los usuarios" %}
+                  </a>
+                </div>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Paginación mejorada -->
+  {% if is_paginated %}
+  <nav aria-label="{% trans 'Navegación de páginas' %}" class="mt-4">
+    <ul class="pagination justify-content-center">
+      {% if users.has_previous %}
+        <li class="page-item">
+          <a class="page-link" href="?page=1{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}{% if request.GET.role %}&role={{ request.GET.role }}{% endif %}">
+            ⏮️ {% trans "Primera" %}
+          </a>
+        </li>
+        <li class="page-item">
+          <a class="page-link" href="?page={{ users.previous_page_number }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}{% if request.GET.role %}&role={{ request.GET.role }}{% endif %}">
+            ◀️ {% trans "Anterior" %}
+          </a>
+        </li>
+      {% endif %}
+
+      <li class="page-item active">
+        <span class="page-link">
+          {% trans "Página" %} {{ users.number }} {% trans "de" %} {{ users.paginator.num_pages }}
+        </span>
+      </li>
+
+      {% if users.has_next %}
+        <li class="page-item">
+          <a class="page-link" href="?page={{ users.next_page_number }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}{% if request.GET.role %}&role={{ request.GET.role }}{% endif %}">
+            {% trans "Siguiente" %} ▶️
+          </a>
+        </li>
+        <li class="page-item">
+          <a class="page-link" href="?page={{ users.paginator.num_pages }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}{% if request.GET.role %}&role={{ request.GET.role }}{% endif %}">
+            {% trans "Última" %} ⏭️
+          </a>
+        </li>
+      {% endif %}
+    </ul>
+  </nav>
+  {% endif %}
+</div>
+{% endblock %}

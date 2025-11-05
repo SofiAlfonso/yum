@@ -1,0 +1,139 @@
+<!-- Autor: Jhon Freddy Alzate -->
+
+{% extends "core/base_admin.html" %}
+{% load i18n %}
+
+{% block content %}
+<div class="container mt-4">
+  <h2>{% trans "Gestión de Tipos de Ingredientes" %}</h2>
+
+<!-- Tarjeta de filtros mejorada -->
+<div class="card shadow-sm mb-4 dashboard-section-card">
+  <div class="card-body p-4">
+    <h5 class="card-title mb-4">
+      🔍 {% trans "Filtrar Tipos de Ingredientes" %}
+    </h5>
+    
+    <form method="get">
+      <div class="row g-3">
+        <!-- Filtro por nombre -->
+        <div class="col-lg-4">
+          <label for="name" class="form-label fw-semibold">
+            📝 {% trans "Nombre del tipo" %}
+          </label>
+          <input 
+            type="text" 
+            name="name" 
+            id="name"
+            class="form-control"
+            placeholder="{% trans 'Buscar por nombre...' %}"
+            value="{{ request.GET.name|default:'' }}">
+        </div>
+        
+        <!-- Filtro por categoría -->
+        <div class="col-lg-4">
+          <label for="category" class="form-label fw-semibold">
+            🏷️ {% trans "Categoría" %}
+          </label>
+          <select name="category" id="category" class="form-select">
+            <option value="">{% trans "Todas las categorías" %}</option>
+            {% for key, value in categories.items %}
+              <option value="{{ key }}" {% if request.GET.category == key %}selected{% endif %}>
+                {{ value }}
+              </option>
+            {% endfor %}
+          </select>
+        </div>
+        
+        <!-- Filtro por usuario -->
+        <div class="col-lg-4">
+          <label for="user" class="form-label fw-semibold">
+            👤 {% trans "Usuario" %}
+          </label>
+          <input 
+            type="text" 
+            name="user" 
+            id="user"
+            class="form-control"
+            placeholder="{% trans 'Buscar por usuario...' %}"
+            value="{{ request.GET.user|default:'' }}">
+        </div>
+        
+        <!-- Botones de acción -->
+        <div class="col-12">
+          <div class="d-flex gap-2 justify-content-end mt-3">
+            <a href="{% url 'admin_ingredienttype_list' %}" class="btn btn-outline-secondary">
+              ↻ {% trans "Limpiar filtros" %}
+            </a>
+            <button type="submit" class="btn btn-brand btn-lg px-5">
+              🔍 {% trans "Buscar tipos" %}
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+  <!-- Tabla -->
+  <table class="table table-bordered table-hover">
+    <thead>
+      <tr>
+        <th>{% trans "Nombre" %}</th>
+        <th>{% trans "Categoría" %}</th>
+        <th>{% trans "Usuario" %}</th>
+        <th>{% trans "Vitaminas" %}</th>
+        <th>{% trans "Excesos" %}</th>
+        <th>{% trans "Acciones" %}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for ingredient_type in ingredient_types %}
+      <tr>
+        <td>{{ ingredient_type.nombre }}</td>
+        <td>{{ ingredient_type.get_category_display }}</td>
+        <td>{{ ingredient_type.user.username }}</td>
+        <td>
+          {% if ingredient_type.vitamins %}
+            {{ ingredient_type.vitamins|join:", " }}
+          {% else %}
+            -
+          {% endif %}
+        </td>
+        <td>
+          {% if ingredient_type.excesses %}
+            {{ ingredient_type.excesses|join:", " }}
+          {% else %}
+            -
+          {% endif %}
+        </td>
+        <td>
+          <a href="{% url 'admin_ingredienttype_detail' ingredient_type.pk %}" class="btn btn-sm btn-info">👁 Ver</a>
+          <a href="{% url 'admin_ingredienttype_edit' ingredient_type.pk %}" class="btn btn-sm btn-warning">✏️ Editar</a>
+          <a href="{% url 'admin_ingredienttype_delete' ingredient_type.pk %}" class="btn btn-sm btn-danger">🗑 Eliminar</a>
+        </td>
+      </tr>
+      {% empty %}
+      <tr>
+        <td colspan="6">{% trans "No hay tipos de ingredientes registrados." %}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <!-- Paginación -->
+  <div class="pagination">
+    {% if is_paginated %}
+      {% if page_obj.has_previous %}
+        <a href="?page={{ page_obj.previous_page_number }}" class="btn btn-sm btn-secondary">{% trans "Anterior" %}</a>
+      {% endif %}
+
+      <span>Página {{ page_obj.number }}{% trans "de" %}{{ page_obj.paginator.num_pages }}</span>
+
+      {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}" class="btn btn-sm btn-secondary">{% trans "Siguiente" %}</a>
+      {% endif %}
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

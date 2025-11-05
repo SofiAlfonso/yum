@@ -14,9 +14,20 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+# Autor: Ana Sofía Alfonso
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
+from core.api_views import recipes_api
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', include('accounts.urls')),  # Rutas para registro e inicio de sesión
+    path('admin_dash/', include('yum_admins.urls')),  # Rutas para yum_admins
+    path('user_dash/', include('yum_users.urls')),    # Rutas para yum_users
+    path('api/recipes/', recipes_api, name='recipes_api'),  # API pública de recetas
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
