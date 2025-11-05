@@ -4,7 +4,8 @@ from .views import (HomeView, IngredientTypeCreateView, IngredientTypeListView, 
                     IngredientTypeUpdateView, IngredientTypeDeleteView, IngredientCreateView,
                     IngredientUpdateView, IngredientDeleteView, RecipeCreateView, RecipeUpdateView,
                     RecipeDetailView, InstructionCreateView, InstructionUpdateView, InstructionDeleteView,
-                    ReviewCreateView, FavoriteListView, ToggleFavoriteView, RecipeDeleteView)
+                    ReviewCreateView, FavoriteListView, ToggleFavoriteView, RecipeDeleteView,
+                    ExternalRecommendationsView)
 
 
 urlpatterns = [
@@ -39,5 +40,8 @@ urlpatterns = [
   # Favorites
   path("favorites/", FavoriteListView.as_view(), name="favorites"),
   path("favorite/<int:recipe_id>/toggle/", ToggleFavoriteView.as_view(), name="toggle_favorite"),
+
+  # External Recommendations
+  path("recommendations/", ExternalRecommendationsView.as_view(), name="external_recommendations"),
 
 ]

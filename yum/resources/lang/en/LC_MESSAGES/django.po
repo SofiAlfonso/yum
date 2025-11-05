@@ -724,10 +724,9 @@ msgid "Buscar usuarios"
 msgstr "Search users"
 
 #: yum_admins/templates/yum_admins/users/list.html:85
-#, fuzzy
-#| msgid "Registrarme"
+#: yum_users/templates/yum_users/external_recommendations.html
 msgid "Registro"
-msgstr "Register"
+msgstr "Record"
 
 #: yum_admins/templates/yum_admins/users/list.html:109
 #, fuzzy
@@ -1037,6 +1036,54 @@ msgstr "Top Users with Most Recipes:"
 
 #~ msgid "No tiene reseñas."
 #~ msgstr "No reviews."
+
+#: yum_users/views.py
+msgid "Recomendaciones rápidas"
+msgstr "Quick Recommendations"
+
+#: yum_users/templates/yum_users/external_recommendations.html
+msgid "Error al cargar las recomendaciones"
+msgstr "Error loading recommendations"
+
+#: yum_users/templates/yum_users/external_recommendations.html
+msgid "No se pudieron cargar las recomendaciones. Por favor, intenta más tarde."
+msgstr "Could not load recommendations. Please try again later."
+
+#: yum_users/templates/yum_users/external_recommendations.html
+msgid "Ingredientes:"
+msgstr "Ingredients:"
+
+#: yum_users/templates/yum_users/external_recommendations.html
+msgid "Calorías:"
+msgstr "Calories:"
+
+#: yum_users/templates/yum_users/external_recommendations.html
+msgid "Proteína:"
+msgstr "Protein:"
+
+#: yum_users/templates/yum_users/external_recommendations.html
+msgid "Carbohidratos:"
+msgstr "Carbohydrates:"
+
+#: yum_users/templates/yum_users/external_recommendations.html
+msgid "Grasa:"
+msgstr "Fat:"
+
+#: yum_users/templates/yum_users/external_recommendations.html
+msgid "Fibra:"
+msgstr "Fiber:"
+
+#: yum_users/templates/yum_users/external_recommendations.html
+msgid "Azúcar:"
+msgstr "Sugar:"
+
+#: yum_users/templates/yum_users/external_recommendations.html
+msgid "Sodio:"
+msgstr "Sodium:"
+
+#: yum_users/templates/yum_users/external_recommendations.html
+msgid "No hay recomendaciones disponibles."
+msgstr "No recommendations available."
 
 #~ msgid "Filtrar"
 #~ msgstr "Filter"
