@@ -35,7 +35,12 @@ SECRET_KEY = 'django-insecure-c+skl5vhnn_7n*g6bn$jlo#9ua=j8eumer-)+33q#1-k!z^x7l
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['98.89.217.213', 'yumrecipes.store', 'www.yumrecipes.store']
+ALLOWED_HOSTS = [
+    '98.89.217.213',
+    'yumrecipes.store',
+    'www.yumrecipes.store',
+    '.yumrecipes.store',   # <- Acepta cualquier subdominio del dominio principal
+]
 
 
 # Application definition
