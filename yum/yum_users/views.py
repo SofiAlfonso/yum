@@ -1,6 +1,6 @@
 # Autor: Ana Sofía Alfonso
 
-from django.shortcuts import redirect, get_object_or_404
+from django.shortcuts import redirect, get_object_or_404, render
 from django.views.generic import ListView, DetailView
 from django.views import View
 from core.models import Recipe, IngredientType, Ingredient, Instruction, Review, Multimedia
@@ -10,6 +10,7 @@ from core.forms import IngredientTypeForm, IngredientForm, RecipeForm, Instructi
 from django.core.exceptions import PermissionDenied
 from django.contrib.contenttypes.models import ContentType
 from core.mixins import CommonUserRequiredMixin
+from django.utils.translation import gettext as _
 
 
 class HomeView(CommonUserRequiredMixin, ListView):
@@ -105,7 +106,7 @@ class IngredientCreateView(CommonUserRequiredMixin, CreateView):
     def dispatch(self, request, *args, **kwargs):
         self.recipe = get_object_or_404(Recipe, pk=kwargs["recipe_id"])
         if self.recipe.user != request.user:
-            raise PermissionDenied("No tienes permiso para añadir ingredientes a esta receta.")
+            raise PermissionDenied(_("No tienes permiso para añadir ingredientes a esta receta."))
         return super().dispatch(request, *args, **kwargs)
 
     def form_valid(self, form):
@@ -266,7 +267,7 @@ class InstructionCreateView(CommonUserRequiredMixin, CreateView):
     def dispatch(self, request, *args, **kwargs):
         self.recipe = get_object_or_404(Recipe, pk=kwargs["recipe_id"])
         if self.recipe.user != request.user:
-            raise PermissionDenied("No tienes permiso para añadir ingredientes a esta receta.")
+            raise PermissionDenied(_("No tienes permiso para añadir ingredientes a esta receta."))
         return super().dispatch(request, *args, **kwargs)
 
     def form_valid(self, form):
@@ -360,3 +361,81 @@ class FavoriteListView(CommonUserRequiredMixin, ListView):
 
     def get_queryset(self):
         return self.request.user.favorite_recipes.all()
+
+
+class ExternalRecommendationsView(CommonUserRequiredMixin, View):
+    """
+    Vista para mostrar recomendaciones de la API externa.
+    Solo accesible para usuarios comunes (no admins).
+    """
+    template_name = "yum_users/external_recommendations.html"
+    
+    def dispatch(self, request, *args, **kwargs):
+        # Verificar que el usuario sea común (no admin)
+        if request.user.is_admin():
+            raise PermissionDenied(_("Esta página solo está disponible para usuarios comunes."))
+        return super().dispatch(request, *args, **kwargs)
+    
+    def get(self, request):
+        from core.services.external_api import get_food_registers
+        from django.contrib import messages
+        
+        try:
+            # Consumir la API externa
+            data = get_food_registers()
+            
+            context = {
+                'recommendations': data.get('results', []),
+                'total_count': data.get('count', 0),
+                'error': None
+            }
+            
+        except Exception as e:
+            # En caso de error, mostrar mensaje y contexto vacío
+            messages.error(request, _("Error al cargar las recomendaciones"))
+            context = {
+                'recommendations': [],
+                'total_count': 0,
+                'error': str(e)
+            }
+        
+        return render(request, self.template_name, context)
+
+
+class NewsView(CommonUserRequiredMixin, View):
+    """
+    Vista para mostrar noticias de nutrición y alimentación desde NewsAPI.org.
+    Solo accesible para usuarios comunes (no admins).
+    """
+    template_name = "yum_users/news.html"
+    
+    def dispatch(self, request, *args, **kwargs):
+        # Verificar que el usuario sea común (no admin)
+        if request.user.is_admin():
+            raise PermissionDenied(_("Esta página solo está disponible para usuarios comunes."))
+        return super().dispatch(request, *args, **kwargs)
+    
+    def get(self, request):
+        from core.services.news_api import get_nutrition_news
+        from django.contrib import messages
+        
+        try:
+            # Consumir la API de noticias
+            data = get_nutrition_news()
+            
+            context = {
+                'articles': data.get('articles', []),
+                'total': data.get('total', 0),
+                'error': None
+            }
+            
+        except Exception as e:
+            # En caso de error, mostrar mensaje y contexto vacío
+            messages.error(request, _("Error al cargar las noticias"))
+            context = {
+                'articles': [],
+                'total': 0,
+                'error': str(e)
+            }
+        
+        return render(request, self.template_name, context)

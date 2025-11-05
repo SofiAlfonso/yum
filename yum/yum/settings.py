@@ -19,6 +19,9 @@ load_dotenv()
 # Cargar la clave de la API de Gemini desde las variables de entorno
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 
+# API Key de NewsAPI.org
+NEWS_API_KEY = os.getenv("NEWS_API_KEY")
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -137,7 +140,7 @@ AUTH_USER_MODEL = "core.User"
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
-LANGUAGE_CODE = 'es'  # Idioma por defecto
+LANGUAGE_CODE = 'en'  # Idioma por defecto
 
 LANGUAGES = [
     ('es', 'Spanish'),

@@ -100,7 +100,7 @@
                 <h6 class="mb-1">{{ recipe.title }}</h6>
                 <small class="text-muted">
                   📅 {{ recipe.creation_date|date:"d/m/Y" }} • 
-                  💪 Valor nutricional: {{ recipe.nutritional_value }}
+                  💪 {% trans "Valor nutricional:" %} {{ recipe.nutritional_value }}
                 </small>
               </div>
               <a href="{% url 'admin_recipe_detail' recipe.pk %}" class="btn btn-sm btn-outline-info">
@@ -158,7 +158,7 @@
     <form action="{% url 'admin_user_delete' user_detail.pk %}" method="post" class="d-inline">
       {% csrf_token %}
       <button type="submit" class="btn btn-danger mt-3"
-          onclick="return confirm('¿Seguro que quieres eliminar este usuario?')">
+          onclick="return confirm('{% trans "¿Seguro que quieres eliminar este usuario?"|escapejs %}')">
     {% trans "Eliminar" %}
       </button>
     </form>
