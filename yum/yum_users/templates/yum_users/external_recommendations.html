@@ -31,18 +31,9 @@
         {% for recommendation in recommendations %}
         <div class="col-md-6 col-lg-4">
             <div class="card h-100 shadow-sm recipe-card">
-                <!-- Imagen -->
-                <div class="recipe-img-container">
-                    {% if recommendation.image_url %}
-                        <img src="{{ recommendation.image_url }}" alt="Recomendación {{ recommendation.id }}" class="card-img-top recipe-img">
-                    {% else %}
-                        <img src="{% static 'yum_users/recipe_img/default.png' %}" class="card-img-top recipe-img" alt="Recomendación">
-                    {% endif %}
-                </div>
-
                 <!-- Info de la recomendación -->
                 <div class="card-body d-flex flex-column">
-                    <h5 class="card-title fw-bold mb-2 recipe-title">{% trans "Registro" %} #{{ recommendation.id }}</h5>
+                    <h5 class="card-title fw-bold mb-2 recipe-title">{% trans "Receta" %} #{{ recommendation.id }}</h5>
                     
                     <!-- Ingredientes -->
                     <div class="mb-3">

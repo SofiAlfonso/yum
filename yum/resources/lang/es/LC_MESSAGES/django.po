@@ -1101,6 +1101,10 @@ msgid "Sodio:"
 msgstr "Sodio:"
 
 #: yum_users/templates/yum_users/external_recommendations.html
+msgid "Receta"
+msgstr "Receta"
+
+#: yum_users/templates/yum_users/external_recommendations.html
 msgid "No hay recomendaciones disponibles."
 msgstr "No hay recomendaciones disponibles."
 
