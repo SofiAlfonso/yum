@@ -339,6 +339,7 @@ msgstr "Eliminar"
 #: yum_admins/templates/yum_admins/recipe/edit.html:17
 #: yum_admins/templates/yum_admins/review/confirm_delete.html:17
 #: yum_admins/templates/yum_admins/users/confirm_delete.html:15
+#: yum_users/templates/yum_users/ingredient/add.html:30
 #: yum_users/templates/yum_users/ingredient/confirm_delete.html:18
 #: yum_users/templates/yum_users/ingredient_type/confirm_delete.html:15
 #: yum_users/templates/yum_users/instruction/add.html:30
@@ -346,6 +347,10 @@ msgstr "Eliminar"
 #: yum_users/templates/yum_users/recipe/confirm_delete.html:16
 msgid "Cancelar"
 msgstr "Cancelar"
+
+#: yum_users/templates/yum_users/recipe/add.html
+msgid "Salir"
+msgstr "Salir"
 
 #: yum_admins/templates/yum_admins/ingredient_type/detail.html:8
 msgid "Detalle del Tipo de Ingrediente"

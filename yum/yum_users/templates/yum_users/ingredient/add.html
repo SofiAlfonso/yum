@@ -27,7 +27,7 @@
                 <button type="submit" class="btn btn-brand">
                     {% if object %}{% trans "Guardar" %}{% else %}{% trans "Añadir ingrediente" %}{% endif %}
                 </button>
-                <a href="{% url 'recipe_edit' recipe.id %}" class="btn btn-secondary">Cancelar</a>
+                <a href="{% url 'recipe_edit' recipe.id %}" class="btn btn-secondary">{% trans "Cancelar" %}</a>
             </div>
         </form>
     </div>
