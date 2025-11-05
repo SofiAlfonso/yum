@@ -400,3 +400,42 @@ class ExternalRecommendationsView(CommonUserRequiredMixin, View):
             }
         
         return render(request, self.template_name, context)
+
+
+class NewsView(CommonUserRequiredMixin, View):
+    """
+    Vista para mostrar noticias de nutrición y alimentación desde NewsAPI.org.
+    Solo accesible para usuarios comunes (no admins).
+    """
+    template_name = "yum_users/news.html"
+    
+    def dispatch(self, request, *args, **kwargs):
+        # Verificar que el usuario sea común (no admin)
+        if request.user.is_admin():
+            raise PermissionDenied(_("Esta página solo está disponible para usuarios comunes."))
+        return super().dispatch(request, *args, **kwargs)
+    
+    def get(self, request):
+        from core.services.news_api import get_nutrition_news
+        from django.contrib import messages
+        
+        try:
+            # Consumir la API de noticias
+            data = get_nutrition_news()
+            
+            context = {
+                'articles': data.get('articles', []),
+                'total': data.get('total', 0),
+                'error': None
+            }
+            
+        except Exception as e:
+            # En caso de error, mostrar mensaje y contexto vacío
+            messages.error(request, _("Error al cargar las noticias"))
+            context = {
+                'articles': [],
+                'total': 0,
+                'error': str(e)
+            }
+        
+        return render(request, self.template_name, context)

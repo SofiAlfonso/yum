@@ -1094,6 +1094,43 @@ msgstr "Recipe"
 msgid "No hay recomendaciones disponibles."
 msgstr "No recommendations available."
 
+#: yum_users/templates/yum_users/news.html
+#: yum/core/templates/core/partials/navbar.html
+msgid "Noticias"
+msgstr "Health News"
+
+#: yum_users/templates/yum_users/news.html
+msgid "Noticias de Nutrición"
+msgstr "Health News"
+
+#: yum_users/templates/yum_users/news.html
+msgid "noticias"
+msgstr "news"
+
+#: yum_users/templates/yum_users/news.html
+msgid "Error al cargar las noticias"
+msgstr "Error loading news"
+
+#: yum_users/templates/yum_users/news.html
+msgid "No se pudieron cargar las noticias. Por favor, intenta más tarde."
+msgstr "Could not load news. Please try again later."
+
+#: yum_users/templates/yum_users/news.html
+msgid "Fuente:"
+msgstr "Source:"
+
+#: yum_users/templates/yum_users/news.html
+msgid "Fecha:"
+msgstr "Date:"
+
+#: yum_users/templates/yum_users/news.html
+msgid "Leer noticia completa"
+msgstr "Read full article"
+
+#: yum_users/templates/yum_users/news.html
+msgid "No hay noticias disponibles."
+msgstr "No news available."
+
 #~ msgid "Filtrar"
 #~ msgstr "Filter"
 

@@ -26,6 +26,7 @@
         <li class="nav-item"><a class="nav-link" href="{% url 'favorites' %}">{% trans "Favoritas" %}</a></li>
         {% if not user.is_admin %}
         <li class="nav-item"><a class="nav-link" href="{% url 'external_recommendations' %}">{% trans "Recomendaciones rápidas" %}</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'news' %}">{% trans "Noticias" %}</a></li>
         {% endif %}
         
         <!-- Logout -->

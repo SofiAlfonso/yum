@@ -5,7 +5,7 @@ from .views import (HomeView, IngredientTypeCreateView, IngredientTypeListView, 
                     IngredientUpdateView, IngredientDeleteView, RecipeCreateView, RecipeUpdateView,
                     RecipeDetailView, InstructionCreateView, InstructionUpdateView, InstructionDeleteView,
                     ReviewCreateView, FavoriteListView, ToggleFavoriteView, RecipeDeleteView,
-                    ExternalRecommendationsView)
+                    ExternalRecommendationsView, NewsView)
 
 
 urlpatterns = [
@@ -43,5 +43,8 @@ urlpatterns = [
 
   # External Recommendations
   path("recommendations/", ExternalRecommendationsView.as_view(), name="external_recommendations"),
+
+  # News
+  path("news/", NewsView.as_view(), name="news"),
 
 ]
