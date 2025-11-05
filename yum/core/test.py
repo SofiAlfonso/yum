@@ -1,6 +1,6 @@
 from django.test import TestCase
 from django.urls import reverse
-from core.models import User, Recipe, IngredientType
+from .models import User, Recipe, IngredientType
 from datetime import timedelta
 from unittest.mock import patch
 
